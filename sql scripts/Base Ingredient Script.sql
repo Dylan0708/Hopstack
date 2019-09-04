@@ -394,6 +394,295 @@ INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tol
     9.50,
     'A good top cropper thought to be from a famous Manchester bitter maker, British V’s lingering haze and residual sweetness pairs popularly with the signature look and huge, fruity hop profile of the New England IPAs (NEIPA).'
 );
+-- Hefeweizen Ale
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Hefeweizen Ale',
+    21,
+    'OYL-021',
+    'Omega',
+    'Ale',
+    10,
+    'L',
+    73,
+    77,
+    17,
+    24,
+    9.50,
+    'The most popular German wheat beer strain used worldwide. Produces a balance of banana esters and clove phenolics that can be skewed depending on various conditions – e.g., increased ester production through increasing the fermentation temperature, increasing the wort density, and decreasing the pitch rate or over pitching to reduce or nearly eliminate banana character. Decreasing the ester level will allows higher clove character to be perceived. Sulfur is commonly produced, but will dissipate with conditioning. This strain is very powdery and will remain in suspension for an extended amount of time following attenuation. This is true top cropping yeast and requires fermenter headspace of 33%.'
+);
+-- Belgian Ale A
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Belgian Ale A',
+    21,
+    'OYL-024',
+    'Omega',
+    'Ale',
+    12,
+    'H',
+    72,
+    85,
+    18,
+    25,
+    9.50,
+    'OYL-Versatile strain for the production of classic Belgian style ales. This strain produces a beautiful balance of delicate fruit esters and subtle spicy notes, with neither one dominating. Unlike many other Belgian style strains, this strain is highly flocculent and results in bright beers.'
+);
+-- Belgian Ale W
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Belgian Ale W',
+    21,
+    'OYL-028',
+    'Omega',
+    'Ale',
+    12,
+    'M',
+    74,
+    78,
+    18,
+    25,
+    9.50,
+    'Classic strain for brewing Belgian dubbel or Belgian tripel. This strain produces a nice balance of complex fruity esters and phenolics, making it desirable for use in other Belgian style ales as well. A flocculent, true top cropping yeast (additional headspace is recommended), that will work over a broad temperature range. Makes a great Belgian style “house” strain.'
+);
+-- Belgian Saison II
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Belgian Saison II',
+    21,
+    'OYL-042',
+    'Omega',
+    'Ale',
+    12,
+    'M',
+    74,
+    79,
+    21,
+    29,
+    9.50,
+    'Thought to originate from a small but sophisticated Belgian brewer’s spelt saison. It is earthy, spicy, peppery, tart and dry with tropical fruit and citrus at warm fermentation temperatures. A perfect strain for farmhouse ales and saisons. It favors pitching in the upper 60s or low 70s and being allowed to free rise from there.'
+);
+-- Kolsch II
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Kolsch II',
+    21,
+    'OYL-044',
+    'Omega',
+    'Ale',
+    10,
+    'M',
+    72,
+    78,
+    18,
+    21,
+    9.50,
+    'The Kolsch II strain is warmer fermenting than Kolsch I, flocculates much better and clears more quickly. Though a little easier to manage, they are similar in that they are both lager-like ale strains that are lightly fruity, crisp and clean, accentuating of hop flavors, and with a hint of sulfur that disappears with age.'
+);
+-- Hot Head Ale
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Hot Head Ale',
+    21,
+    'OYL-057',
+    'Omega',
+    'Kvk',
+    11,
+    'M',
+    75,
+    85,
+    16,
+    37,
+    9.50,
+    'An ale strain of Norwegian origin that has an astoundingly wide temperature range (62F-98F) with little difference in flavor profile across the whole range. Temperature control is unnecessary with this strain. It has a unique fruitiness that makes it complementary to modern hop varieties.'
+);
+-- American Ale
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'American Ale',
+    21,
+    NULL,
+    'Escarpment',
+    'Ale',
+    8,
+    'M',
+    72,
+    76,
+    16,
+    22,
+    10.95,
+    'American Ale has excellent performance with somewhat lower attenuation than Cali Ale. It is suitable for nearly any clean style. Much like Cali Ale, exhibits clean fermentation at a wide temperature range, and accentuates hop character.'
+);
+-- Belgian Sour Blend
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Belgian Sour Blend',
+    21,
+    NULL,
+    'Escarpment',
+    'Mix',
+    12,
+    'M',
+    85,
+    90,
+    20,
+    30,
+    10.95,
+    'A blend of 4 Brettanomyces strains isolated from Belgian Lambic beers, alongside 4 strains of Lactobacillus and 2 strains of Pediococcus, for the production of mixed fermentation sour ales. For best results, we recommend using this blend in beer with less than 7 IBUs initially. Subsequent generations can use increasing IBUs. This is supplied at secondary fermentation pitch rates, and is intended to be used in secondary or as a copitch, alongside a primary fermentation strain of your choice.'
+);
+-- Berliner Brett
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Berliner Brett',
+    21,
+    NULL,
+    'Escarpment',
+    'Brt',
+    12,
+    'L',
+	NULL,
+    NULL,
+    18,
+    24,
+    10.95,
+    'We pulled this Brett strain out of a ~40 year old bottle of Hochschule Berliner Weisse. It''s a survivor! This strain of Brettanomyces anomalus works well in traditional style Berliners, and anywhere subtle, refined Brett character is desired. It shows restrained funk, and the fruit profile tends toward citrus and white wine. This strain is sold in secondary pitch rates only.'
+);
+-- Bock Lager
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Bock Lager',
+    21,
+    NULL,
+    'Escarpment',
+    'Lag',
+    11,
+    'M',
+	70,
+    78,
+    10,
+    15,
+    10.95,
+    'Bock lager is a well-balanced lager yeast perfect for Bock and Oktoberfest style beers, but also useful in Helles and American Pils.'
+);
+-- Brett D
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Brett D',
+    21,
+    NULL,
+    'Escarpment',
+    'Brt',
+    12,
+    'L',
+	80,
+    93,
+    22,
+    25,
+    10.95,
+    'This strain of Brettanomyces bruxellensis is noted for very prominent pineapple esters alongside a good dose of funk. It is suitable for primary fermentation of 100% Brett beers or secondary fermentation where some extra fruit and funk is desired. Works great with hops when co-pitched with clean ale strains as well, for faster turnaround of Brett IPAs.'
+);
+-- Cali Ale
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Cali Ale',
+    21,
+    NULL,
+    'Escarpment',
+    'Ale',
+    10,
+    'L',
+	72,
+    80,
+    19,
+    23,
+    10.95,
+    'An exceptionally versatile ale yeast, suitable for nearly any style. Clean fermentation at a wide temperature range, and accentuates hop character.'
+);
+-- Classic Wit Ale
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Classic Wit Ale',
+    21,
+    NULL,
+    'Escarpment',
+    'Ale',
+    8,
+    'L',
+	72,
+    78,
+    19,
+    24,
+    10.95,
+    'A genre-defining Witbier strain, famous for balanced phenol and ester character with slight tartness that emphasizes wheat flavour.'
+);
+-- Czech Lager
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Czech Lager',
+    21,
+    NULL,
+    'Escarpment',
+    'Lag',
+    8,
+    'M',
+	70,
+    78,
+    9,
+    13,
+    10.95,
+    'This traditional Czech Pilsner yeast rewards patience with a clean, crisp profile and accentuates subtleties in selected malt and hops. We recommend cold fermentation and sufficient lagering when using this strain to deliver an authentic flavour.'
+);
+-- Dry Belgian
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Dry Belgian',
+    21,
+    NULL,
+    'Escarpment',
+    'Dia',
+    12,
+    'L',
+	85,
+    95,
+    22,
+    26,
+    10.95,
+    'This strain exhibits classic dry Belgian flavours, and displays an aggressive primary fermentation. We especially like this strain for Strong Golden, Tripel, and other Belgian-style beers.'
+);
+-- Foggy London Ale
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Foggy London Ale',
+    21,
+    NULL,
+    'Escarpment',
+    'Ale',
+    9,
+    'M',
+	71,
+    78,
+    18,
+    23,
+    10.95,
+    'This yeast strain was originally isolated from a brewery in London. It displays a balanced fruity flavour profile, and accentuates malt and hop flavours. It is especially suited to production of fruity hop-forward Northeast style IPAs.'
+);
+-- Fruity Wit Ale
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'Fruity Wit Ale',
+    21,
+    NULL,
+    'Escarpment',
+    'Ale',
+    12,
+    'L',
+	70,
+    75,
+    17,
+    24,
+    10.95,
+    'A Witbier strain which produces lots of complex fruity esters while still prominently displaying classic Witbier character.'
+);
 
 -- Fermentables ---------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES

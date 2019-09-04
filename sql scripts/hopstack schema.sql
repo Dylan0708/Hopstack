@@ -21,7 +21,7 @@ CREATE TABLE yeast
     age_rate INT DEFAULT 21, -- % viability lost every month
     product_id VARCHAR(10), -- Lab provided product id
     lab VARCHAR(20), -- Lab of origin
-    yeast_type VARCHAR(3), -- Ale, Lag, Brt, Dia, Ped, Lac
+    yeast_type VARCHAR(3), -- Ale, Lag, Brt, Dia, Ped, Lac, Kvk, Mix
     alcohol_tolerance INT, -- Alcohol tolerance in %
     flocculation VARCHAR(1), -- L = Low, M = Medium, H = High
     min_attenuation INT, -- Minimum attenuation in &
