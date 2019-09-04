@@ -377,6 +377,23 @@ INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tol
     9.50,
     'OLY-006 allows malt and hop character to dominate the profile. Highly flocculant and highly attenuative. Ferments well down to 64°F.'
 );
+-- British Ale V
+INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_notes) VALUES
+(
+	'British Ale V',
+    21,
+    'OYL-011',
+    'Omega',
+    'Ale',
+    10,
+    'H',
+    71,
+    75,
+    18,
+    23,
+    9.50,
+    'A good top cropper thought to be from a famous Manchester bitter maker, British V’s lingering haze and residual sweetness pairs popularly with the signature look and huge, fruity hop profile of the New England IPAs (NEIPA).'
+);
 
 -- Fermentables ---------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
