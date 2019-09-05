@@ -41,7 +41,7 @@ CREATE TABLE fermentables
 	ferm_origin VARCHAR(20), -- Country of origin
 	ferm_type VARCHAR(1), -- B = Base, S = Specialty, L = Liquid Extract, D = Dry Extract, U = Sugar, Y = Syrup, J = Juice, F = Fruit, O = Other
 	potential_gravity DECIMAL(4, 3), -- Base gravity potential for ferm_type B, S / Specific gravity for ferm_type L, D, U, Y, J, F, O
-	colour DECIMAL(4, 2), -- Colour contribution in SRM
+	colour DECIMAL(5, 2), -- Colour contribution in Lovibond
 	diastatic_power DECIMAL(4, 1), -- Measure of enzyme content in Litner for ferm_type B, S
 	protein_content DECIMAL(3, 1), -- Measure of protein content in % for ferm_type B, S
 	ferm_price DECIMAL(4, 2) DEFAULT 0,
