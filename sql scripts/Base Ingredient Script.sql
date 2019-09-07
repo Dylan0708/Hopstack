@@ -1158,6 +1158,136 @@ INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, c
     1.92,
     'Weyermann® Melanoidin is a kilned specialty malt with an intense malt aroma and unique brewing characteristics. It has a high degree of modification of both proteins and starches, excellent friability, low β-glucan values, and high acidity. These attributes help promote flavor stability, add body, and produce a smooth mouthfeel. Weyermann® Melanoidin malt adds a deep amber to red-brown color to finished beer. The rich malt flavor has notes of honey and biscuit. Melanoidin malt is best used in dark or red-colored beers such as amber ales, Scottish ales, Irish red ales, bocks, and Kellerbier.'
 );
+-- Premium Canadian Wheat
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Premium Canadian Wheat',
+    'Canada',
+    'B',
+    1.038,
+    2,
+    74,
+	11.7,
+    1.28,
+    'This malt is well modified, clean tasting, and moderate in total protein. It will provide you consistent brewhouse performance for all beer styles. Great for improving head retention and mouth feel in your beer.'
+);
+-- Special B
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Special B',
+    'Belgium',
+    'S',
+    1.030,
+    110,
+    0,
+	0,
+    1.92,
+    'This very special Belgian dark malt, is obtained through specific double roasting process. This malt can be used to produce a deep red to dark brown-black colour and full body in your homebrew. With unique flavour and aroma Special B adds colour and imparts a rich malty taste with hints of nut, plum and raisin-like flavour. A great substitute for Chocolate and Black malt if bitterness is not desired. Subtle in abbey ales, dubbels, porters, brown ales, and doppelbocks.'
+);
+-- Weyermann Pale Wheat
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Weyermann Pale Wheat',
+    'Germany',
+    'B',
+    1.038,
+    2,
+    74,
+	11.7,
+    1.76,
+    'Produced from high quality German wheat.'
+);
+-- Flaked Barley
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Flaked Barley',
+    'Canada',
+    'A',
+    1.032,
+    1.3,
+    0,
+	13.5,
+    1.12,
+    'Mash Ready Barley Flakes will lend a rich, grainy taste and will increase head retention, creaminess, and body. Can be used in amounts of up to 40% of grist total. This is a pre-gelatinized flaked grain and does not require milling.'
+);
+-- Flaked Oats
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Flaked Oats',
+    'Canada',
+    'A',
+    1.037,
+    1,
+    0,
+	9,
+    1.28,
+    'Mash ready oat flakes will add a distinct full- bodied flavour and creamy texture. This is a pre-gelatinized flaked grain that does not require milling. Considered a cereal grain, brewers can add oats primarily to impart a creamy mouthfeel, with increased body and grainy notes.'
+);
+-- Flaked Rye
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Flaked Rye',
+    'Canada',
+    'A',
+    1.036,
+    2,
+    0,
+	13,
+    1.12,
+    'Flaked Rye gives a dry, crisp, strong rye flavor to light colored ales. Used in Roggen beers can also be used in RPA.'
+);
+-- Flaked Wheat
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Flaked Wheat',
+    'Canada',
+    'A',
+    1.035,
+    0.5,
+    0,
+	16,
+    1.12,
+    'Wheat flakes will greatly increase body and head retention of your beer.'
+);
+-- Rice Hulls
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Rice Hulls',
+    'U.S.',
+    'A',
+    1.000,
+    0,
+    0,
+	0,
+    2.00,
+    'Rice hulls are used in brewing to help create a filter bed while mashing. If your malt bill contains a high percentage of flaked adjuncts, rye or wheat malt the addition of rice hulls will help prevent a stuck mash.'
+);
+-- Simplicity Candi Syrup
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Simplicity Candi Syrup',
+    'U.S.',
+    'Y',
+    1.032,
+    1,
+    NULL,
+	NULL,
+    8.50,
+    'A unique transparent Belgian candi syrup unlike anything else available on the market today. Excellent for Saison and Golden Ales or as an addition to any higher gravity ale. It is readily fermentable and creates a refreshing subtle flavor that is always on the periphery of your palate somewhere between citrus and honey but much lighter. Simplicity is to be preferred over using common table sugar due to its balance of readily fermentable sugars and subtle flavor.'
+);
+-- Golden Candi Syrup
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Golden Candi Syrup',
+    'U.S.',
+    'Y',
+    1.032,
+    5,
+    NULL,
+	NULL,
+    8.50,
+    'Golden Candi Syrup is a premium rich golden syrup that has no market competitor. Golden is a rich translucent 24 karat gold and adds a pronounced caramel and light fruit palate to award winning authentic Belgian Tripels, Saisons, Golden Ales, and Bier de Garde.'
+);
 
 -- Water --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
