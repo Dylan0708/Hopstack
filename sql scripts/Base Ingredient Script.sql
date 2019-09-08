@@ -1288,6 +1288,357 @@ INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, c
     8.50,
     'Golden Candi Syrup is a premium rich golden syrup that has no market competitor. Golden is a rich translucent 24 karat gold and adds a pronounced caramel and light fruit palate to award winning authentic Belgian Tripels, Saisons, Golden Ales, and Bier de Garde.'
 );
+-- D45 Candi Syrup
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'D45 Candi Syrup',
+    'U.S.',
+    'Y',
+    1.032,
+    45,
+    NULL,
+	NULL,
+    8.50,
+    'A dark-amber translucent Belgian candi syrup. Hints of caramel, vanilla, and lightly toasted bread. Exceedingly good in all Ale recipes that call for a caramel aromatic. Not limited to Belgian Ales.'
+);
+-- D90 Candi Syrup
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'D90 Candi Syrup',
+    'U.S.',
+    'Y',
+    1.032,
+    90,
+    NULL,
+	NULL,
+    8.50,
+    'The most versatile dark Belgian candi syrup with a mild palate of dark chocolate, dark stone fruit, slight hint of coffee, toffee, and medium-toasted bread notes. Excellent for all Belgian Ales.'
+);
+-- D180 Candi Syrup
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'D180 Candi Syrup',
+    'U.S.',
+    'Y',
+    1.032,
+    180,
+    NULL,
+	NULL,
+    8.50,
+    'The darkest and richest Belgian candi syrup with an SRM of 180, it has no competitors for flavor, color or smooth fermentability. Notes of fresh ground coffee, wild cherry, dark stone fruit, caramel, with a hint of dark-toasted bread. An exceedingly superior syrup for dark, high gravity Belgian Ales, especially Westvleteren and Rochefort clones.'
+);
+-- D240 Candi Syrup
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'D240 Candi Syrup',
+    'U.S.',
+    'Y',
+    1.032,
+    240,
+    NULL,
+	NULL,
+    8.50,
+    'The darkest and richest Belgian candi syrup with an SRM of 240, it has no competitors for flavor, color or smooth fermentability. Notes of fresh ground coffee, wild cherry, dark stone fruit, caramel, with a hint of dark-toasted bread. An exceedingly superior syrup for dark, high gravity Belgian Ales, especially Westvleteren and Rochefort clones.'
+);
+-- Dark Candi Sugar
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Dark Candi Sugar',
+    'Belgium',
+    'U',
+    1.036,
+    275,
+    NULL,
+	NULL,
+    6.99,
+    'Used by professional brewers to produce some of the unique beers of Belgium.'
+);
+-- Light Candi Sugar
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Light Candi Sugar',
+    'Belgium',
+    'U',
+    1.036,
+    0,
+    NULL,
+	NULL,
+    6.99,
+    'Used by professional brewers to produce some of the unique beers of Belgium.'
+);
+-- Dark B Soft Candi
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Dark B Soft Candi',
+    'Belgium',
+    'U',
+    1.036,
+    36,
+    NULL,
+	NULL,
+    6.99,
+    'Used by professional brewers to produce some of the unique beers of Belgium.'
+);
+-- Light B Soft Candi
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Light B Soft Candi',
+    'Belgium',
+    'U',
+    1.036,
+    22,
+    NULL,
+	NULL,
+    6.99,
+    'Used by professional brewers to produce some of the unique beers of Belgium.'
+);
+-- White Soft Candi
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'White Soft Candi',
+    'Belgium',
+    'U',
+    1.036,
+    0,
+    NULL,
+	NULL,
+    6.99,
+    'Used by professional brewers to produce some of the unique beers of Belgium.'
+);
+-- Lactose
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Lactose',
+    'Canada',
+    'U',
+    1.000,
+    0,
+    NULL,
+	NULL,
+    3.95,
+    'Lactose is non-fermentable milk sugar and adds sweetness to drier beers.'
+);
+-- Dextrose
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Dextrose',
+    'Canada',
+    'U',
+    1.037,
+    0,
+    NULL,
+	NULL,
+    2.49,
+    'Dextrose (Corn Sugar) is used for priming bottles for carbonation and can also be used to increase the alcohol content in beers.'
+);
+-- Maltodextrin
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Maltodextrin',
+    'Canada',
+    'U',
+    1.000,
+    0,
+    NULL,
+	NULL,
+    4.95,
+    'Maltodextrin is less than 5% fermentable. Use up to 8 oz in 5 gallons to increase body and mouthfeel.'
+);
+-- Pilsen Light DME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Pilsen Light DME',
+    'U.S.',
+    'D',
+    1.045,
+    2,
+    NULL,
+	NULL,
+    6.95,
+    'Briess CBW® Pilsner is the lightest extract available on the market. The butterscotch color is perfect for beer styles requiring a light, delicate base. Imparts a slight malty flavour.'
+);
+-- Golden Light DME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Golden Light DME',
+    'U.S.',
+    'D',
+    1.045,
+    4,
+    NULL,
+	NULL,
+    6.95,
+    'Briess CBW® Golden Light DME (dry malt extract) is a 100% pure malted barley extract made from a blend of 100% malts and water. Imparts a nuetral flavour in beer.'
+);
+-- Bavarian Wheat DME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Bavarian Wheat DME',
+    'U.S.',
+    'D',
+    1.045,
+    3,
+    NULL,
+	NULL,
+    6.95,
+    'Briess CBW® Bavarian Wheat DME (dry malt extract) is a 100% pure malted barley extract made from a blend of 100% malts and water. Imparts a nuetral malty flavour in beer.'
+);
+-- Sparkling Amber DME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Sparkling Amber DME',
+    'U.S.',
+    'D',
+    1.045,
+    10,
+    NULL,
+	NULL,
+    6.95,
+    'Briess CBW® Sparkling Amber DME (dry malt extract) is a 100% pure malted barley extract made from a blend of 100% malts and water. Imparts a sweet, malty caramel flavour in beer.'
+);
+-- Traditional Dark DME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Traditional Dark DME',
+    'U.S.',
+    'D',
+    1.045,
+    30,
+    NULL,
+	NULL,
+    6.95,
+    'Briess CBW® Traditional Dark DME (dry malt extract) is a 100% pure malted barley extract made from a blend of 100% malts and water. Imparts a sweet and intense malty flavour in beer.'
+);
+-- Pale Ale DME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Pale Ale DME',
+    'U.S.',
+    'D',
+    1.045,
+    6,
+    NULL,
+	NULL,
+    6.95,
+    'Briess CBW® Pale Ale DME (dry malt extract) is a 100% pure malted barley extract made from a blend of 100% malts and water. Use up to 100% for all-extract ales. Its rich malty flavor provides a strong malty backbone that supports inclusions of even the most demanding specialty malts. Use with other base malt extracts for additional flavor, especially developing warm, malty and toasty flavors.'
+);
+-- Pilsen Light LME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Pilsen Light LME',
+    'U.S.',
+    'L',
+    1.038,
+    2,
+    NULL,
+	NULL,
+    16,
+    'Briess CBW® Pilsen is the Lightest liquid extract available on the market. The butterscotch color is perfect for beer styles requiring a light, delicate base. Imparts a slight malty flavour.'
+);
+-- Golden Light LME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Golden Light LME',
+    'U.S.',
+    'L',
+    1.038,
+    4,
+    NULL,
+	NULL,
+    16,
+    'Briess CBW® Basic extract for all light-colored, lightly flavored lagers and ales. Imparts a malty flavour in beer.'
+);
+-- Pale Ale LME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Pale Ale LME',
+    'U.S.',
+    'L',
+    1.038,
+    6,
+    NULL,
+	NULL,
+    16,
+    'Briess CBW® Basic extract for all light-colored, lightly flavored lagers and ales. Imparts a malty flavour in beer.'
+);
+-- Munich LME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Munich LME',
+    'U.S.',
+    'L',
+    1.038,
+    8,
+    NULL,
+	NULL,
+    16,
+    'Briess CBW® Munich can be used in the production of rich, malty beer styles such as Marzen or Bock beers or blended with other extracts to add increased color and malty character to any recipe. Imparts a rich malty, biscuity flavour to beer.'
+);
+-- Bavarian Wheat LME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Bavarian Wheat LME',
+    'U.S.',
+    'L',
+    1.038,
+    3,
+    NULL,
+	NULL,
+    16,
+    'Briess CBW® Bavarian Wheat is 5% Malted Wheat. Basic extract for light flavored beers. Use as a base for fruit flavored beers. Imparts a slightly malty flavour to beer but quite neutral.'
+);
+-- Rye LME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Rye LME',
+    'U.S.',
+    'L',
+    1.038,
+    9,
+    NULL,
+	NULL,
+    16,
+    'CBW® Rye extract is 100% pure malt extract made from 100% malt and water. Imparts a sweet, malty, caramel, and subtle spicy rye flavour.'
+);
+-- Traditional Dark LME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Traditional Dark LME',
+    'U.S.',
+    'L',
+    1.038,
+    9,
+    NULL,
+	NULL,
+    16,
+    'Briess CBW® Special Dark helps boost gravity while adding color and flavor to your Stouts and Porters. Imparts a sweet and intense malt flavour into your beer.'
+);
+-- Sorghum Syrup LME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Sorghum Syrup LME',
+    'U.S.',
+    'L',
+    1.038,
+    3,
+    NULL,
+	NULL,
+    16,
+    'Briess CBW® Sorghum is a great way to create your own gluten free beers. It can be used for 100% extract brewing to produce sorghum beer or use it with concentrated worts to product almost any beer style. Sorghum imparts a nuetral flavour to beer.'
+);
+-- Sparkling Amber LME
+INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_notes) VALUES
+(
+	'Sparkling Amber LME',
+    'U.S.',
+    'L',
+    1.038,
+    9,
+    NULL,
+	NULL,
+    16,
+    'Use for Pale Ales, Red and Amber Ales, Munich Style Beers, Bock and Oktoberfest Beers, Scottish Ales, and darker beers including Stouts and Porters.'
+);
 
 -- Water --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
