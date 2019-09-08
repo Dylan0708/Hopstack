@@ -1641,6 +1641,7 @@ INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, c
 );
 
 -- Water --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Kitchener
 INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
 (
 	'Kitchener',
@@ -1656,6 +1657,142 @@ INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkal
     300,
     0,
     'Kitchener, Ontario water profile. Good for malt foreward styles. Required additives to bring out more hop character. Not recommended for styles with muted malt character.'
+);
+-- Distilled
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'Distilled',
+    7.00,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    'Neutral water, may be used as a base for creating desired water profile.'
+);
+-- Pilsen
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'Pilsen',
+    8.00,
+    12,
+    6,
+    6,
+    7,
+    2,
+    2,
+    5,
+    5,
+    15,
+    0,
+    'Very soft water aids pale color and clean bitterness of Pilsner style.'
+);
+-- Yellow Dry
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'Yellow Dry',
+    8.00,
+    0,
+    42,
+    -42,
+    50,
+    10,
+    5,
+    105,
+    45,
+    0,
+    0,
+    'Under 6 SRM'
+);
+-- Yellow Balanced
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'Yellow Balanced',
+    8.00,
+    0,
+    40,
+    -40,
+    50,
+    7,
+    5,
+    75,
+    60,
+    0,
+    0,
+    'Under 6 SRM'
+);
+-- Yellow Full
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'Yellow Full',
+    8.00,
+    0,
+    39,
+    -39,
+    50,
+    5,
+    5,
+    55,
+    70,
+    0,
+    0,
+    'Under 6 SRM'
+);
+-- Amber Dry
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'Amber Dry',
+    8.00,
+    37,
+    45,
+    -8,
+    50,
+    15,
+    15,
+    110,
+    50,
+    45,
+    0,
+    '7-17 SRM'
+);
+-- Amber Balanced
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'Amber Balanced',
+    8.00,
+    33,
+    42,
+    -9,
+    50,
+    10,
+    15,
+    75,
+    63,
+    40,
+    0,
+    '7-17 SRM'
+);
+-- Amber Full
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'Amber Full',
+    8.00,
+    29,
+    39,
+    -10,
+    50,
+    5,
+    15,
+    55,
+    65,
+    35,
+    0,
+    '7-17 SRM'
 );
 
 -- Misc --------------------------------------------------------------------------
