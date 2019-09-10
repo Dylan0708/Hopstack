@@ -1794,6 +1794,125 @@ INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkal
     0,
     '7-17 SRM'
 );
+-- Brown Dry
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'Brown Dry',
+    8.00,
+    78,
+    45,
+    33,
+    50,
+    15,
+    27,
+    99,
+    45,
+    95,
+    0,
+    '18-30 SRM'
+);
+-- Brown Balanced
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'Brown Balanced',
+    8.00,
+    74,
+    42,
+    32,
+    50,
+    10,
+    27,
+    70,
+    55,
+    90,
+    0,
+    '18-30 SRM'
+);
+-- Brown Full
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'Brown Full',
+    8.00,
+    70,
+    39,
+    31,
+    50,
+    5,
+    27,
+    50,
+    60,
+    85,
+    0,
+    '18-30 SRM'
+);
+-- Black Dry
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'Black Dry',
+    8.00,
+    119,
+    45,
+    74,
+    50,
+    15,
+    33,
+    84,
+    39,
+    145,
+    0,
+    'Over 31 SRM'
+);
+-- Black Balanced
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'Black Balanced',
+    8.00,
+    116,
+    42,
+    75,
+    50,
+    10,
+    33,
+    57,
+    44,
+    142,
+    0,
+    'Over 31 SRM'
+);
+-- Black Full
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'Black Full',
+    8.00,
+    115,
+    39,
+    76,
+    50,
+    5,
+    33,
+    35,
+    45,
+    140,
+    0,
+    'Over 31 SRM'
+);
+-- NEIPA
+INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkalinity, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_notes) VALUES
+(
+	'NEIPA',
+    8.00,
+    0,
+    34,
+    -34,
+    40,
+    10,
+    55,
+    100,
+    200,
+    30,
+    0,
+    'For hazy style ipas with a ''silky'' mouthfeel'
+);
 
 -- Misc --------------------------------------------------------------------------
 INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
