@@ -1915,11 +1915,309 @@ INSERT INTO water(water_name, ph, alkalinity, effective_hardness, residual_alkal
 );
 
 -- Misc --------------------------------------------------------------------------
+-- Clarity Ferm 10mL
 INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
 (
-	'Whirlfloc Tablet',
+	'Clarity Ferm 10mL',
     'U',
     'Fi',
-    0.30,
+    4.50,
+    '1 White Labs WLN4000 Clarity-Ferm 10 ml Vial -- A highly specific "endo-protease" to prevent chill haze in your homebrew.'
+);
+-- Tannin 2oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Tannin 2oz',
+    'U',
+    'Ot',
+    3.25,
+    'Liquid Tannin 2oz can be added to wine or beer. Usage Rate: Add 1/2 to 1 tsp per gallon of wort or wine.'
+);
+-- Yeast Nutrient 2oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Yeast Nutrient 2oz',
+    'U',
+    'Yn',
+    2.15,
+    'Yeast nutrient blend contains a mix of trace elements and important molecules including inorganic nitrogen, organic nitrogen, zinc, phosphates and some other stuff that helps yeast grow and complete fermentation. Generally an addition of 1/2 tsp at the time of pitching yeast is standard. Ld Carlson calls for 1 teaspoon per gallon.'
+);
+-- Yeast Energizer 15g
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Yeast Energizer 15g',
+    'U',
+    'Yn',
+    2.25,
+    'A balanced formula of vitamins and yeast food for faster and more complete fermentation. Can help restarts stuck fermentation. Usage Rate: Add 1/2 tsp per gallon of wort.'
+);
+-- 5 Star Defoamer 2oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'5 Star Defoamer 2oz',
+    'U',
+    'Ot',
+    5.99,
+    'Quick acting Five Star Defoamer 105 is a 10% silicone food-grade emulsion designed to control foam in most aqueous systems, including kettles and fermenters. Defoamer 105 disperses easily and is effective against a wide range of food products. All emulsifiers used in Defoamer 105 are nonionic.'
+);
+-- Amylase Enzyme
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Amylase Enzyme',
+    'w',
+    'En',
+    1.95,
+    'Amylase Enzyme is typically used by all-grain brewers to add to a high adjunct mash that may be low in enzymes to aid in converting starches into sugar. This enzyme can also prevent startch haze in beer. Use 1 teaspoon per 5 gallon batch.'
+);
+-- Ascorbic Acid
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Ascorbic Acid',
+    'w',
+    'Ot',
+    3.99,
+    'Ascorbic Acid is used in beer and wine making to help prevent oxidation. Use 1 teaspoon per 5 gallons at boiling.'
+);
+-- U.S. Light Oak Chips 4oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'U.S. Light Oak Chips 4oz',
+    'U',
+    'Fl',
+    3.25,
+    'Lightly toasted. Allows you to mimic aging a beer in American oak barrels without the cost.'
+);
+-- Bitter Orange Peel
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Bitter Orange Peel',
+    'w',
+    'Fl',
+    3.49,
+    'Aurantium amarae pericarpium also called "Curaçau orange peel", these green-gray peels are one of the most popular specialty herbs on the market. They are used commercially by domestic brewers to duplicate the beer styles that put Belgium on the brewing map. While not very bitter, they are a key ingredient in Belgian style white beers.'
+);
+-- Black Peppercorn
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Black Peppercorn',
+    'w',
+    'Fl',
+    0.99,
+    'Peppercorn is a suitable addition in Belgian Saisons, but as with all things homebrew it is a choose your on adventure.  Add 1/2 oz in the last 5-15 min of boil for a 5 gallon batch. Black pepper can be used in secondary as well.'
+);
+-- Calcium Carbonate 2oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Calcium Carbonate 2oz',
+    'U',
+    'Wa',
+    2.50,
+    'Calcium Carbonate (chalk) is used to increase pH. Often used when making darker beers with soft water. Add 1/2 tsp/ gallon to mash.'
+);
+-- Calcium Chloride 2oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Calcium Chloride 2oz',
+    'U',
+    'Wa',
+    1.75,
+    'Calcium Chloride is used by brewers to lower the pH, and add water hardness to the beer. It is ideal for RO and soft-medium waters. It will also lower the pH level of your wort.'
+);
+-- Campden Tablets 10
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Campden Tablets 10',
+    'U',
+    'Ot',
+    0.99,
+    'Campden tablets will remove chlorine and chrloramines that are found in tap water. Tablets will help prevent wild yeast, bacteria growth, and oxidation in your beer or wine.'
+);
+-- Coriander Seeds
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Coriander Seeds',
+    'W',
+    'Fl',
+    3.99,
+    'The Chinese once believed the herb conferred immortality and in the Middle Ages it was put into love potions as an aphrodisiac. Coriander is now widely used in specialty and Belgian style beers.'
+);
+-- Epsom Salts 3.5oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Epsom Salts 3.5oz',
+    'U',
+    'Wa',
+    2.25,
+    'Epsom  can be used to add sulfate and magnesium ions to brewing water. It is often used at half the levels of Gypsum.'
+);
+-- French Oak Chips 4oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'French Oak Chips 4oz',
+    'U',
+    'Fl',
+    4.95,
+    'Medium toast, roasted between 350 and 375 degrees F. Allows you to mimic aging a beer in French oak barrels without the cost.'
+);
+-- Gelatin
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Gelatin',
+    'w',
+    'Fi',
+    1.99,
+    'Gelatin Finings are used to clear your beer after brew day. This product is a coagulant that works best when used in conjunction with crash cooling your beer. Use 1/2 teaspoon per 5 gallons for beer.'
+);
+-- Gin Barrel Chips 4oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Gin Barrel Chips 4oz',
+    'U',
+    'Fl',
+    6.50,
+    'Brewer''s Best® Barrel Chips are sanitized by nitrogen purge and ready to use. Add 2 oz. of barrel chips per 5 gallons during secondary fermentation. After 5 days of secondary fermentation sample your beer. If a more intense flavor is desired allow an additional 5 days of aging. Store any leftover barrel chips in an airtight container for future use. If stored chips dry out, re-sanitize by soaking in a similar spirit at a ratio of 1 oz. of chips to 1 oz. of spirits for 48 hours.'
+);
+-- Gypsum 2oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Gypsum 2oz',
+    'U',
+    'Wa',
+    2.95,
+    'Gypsum lowers pH and adds permanent hardness (calcium ions) to soft brewing water. Homebrewers that use distilled, or RO, water like to add some gypsum back into the water to give it some hardness. Use 1 teaspoon per 5 gallons.'
+);
+-- Irish Moss
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Irish Moss',
+    'w',
+    'Fi',
+    1.95,
+    'Irish Moss is seaweed based fining agents that brewers can use to help clear beer and avoid chill haze. When added to the boil with 15 minutes remaining Irish moss acts as an accelerated protein coagulant. Add 1 tsp per 5 gallon to the boil.'
+);
+-- 88% Lactic Acid 5oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'88% Lactic Acid 5oz',
+    'U',
+    'Wa',
+    5.95,
+    'Lactic acid can be used to lower pH in mash.'
+);
+-- Cocoa Nibs 4oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Cocoa Nibs 4oz',
+    'U',
+    'Fl',
+    8.50,
+    '100% pure, partially fermented organic cacao. This products comes from Brazil.'
+);
+-- Pectic Enzyme 20g
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Pectic Enzyme 20g',
+    'U',
+    'En',
+    2.95,
+    'Pectic Enzyme physically destroys pectins, which constitute the "fleshy" part of most fruits such as grapes, and apples. We brought this in for those cider makers out there It is also used frequently used by wine makers if you are so inclined.'
+);
+-- Peppermint Leaves
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Peppermint Leaves',
+    'w',
+    'Fl',
+    3.25,
+    'The world’s most familiar “mint scent” is the aroma of peppermint. Peppermint contains an essential oil that is unique among mints for its quality and flavor.'
+);
+-- 10% Phosphoric Acid 8oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'10% Phosphoric Acid 8oz',
+    'U',
+    'Wa',
+    7.95,
+    'This is a 10% concentration. Phosphoric acid is said to be tasteless while lactic in large quantities can potentially leave flavor. With the low concentration than the Lactic, it is slower to change the pH of your water and therefore more forgiving to use.'
+);
+-- Potassium Metabisulphite 2oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Potassium Metabisulphite 2oz',
+    'U',
+    'Ot',
+    2.50,
+    'Potassium Metabisulfite, also known as "SO2",is most commonly used in winemaking. At the crush, sulfites are generally used to help control the spoilage bacteria and indigenous yeast that may already be present both on the fruit and in the winery (i.e. on the picking bins, processing equipment, tanks, tubing, etc).'
+);
+-- Potassium Sorbate
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Potassium Sorbate',
+    'w',
+    'Ot',
+    2.25,
+    'Potassium sorbate can be used as a preservative. Commonly used to inhibit yeast growth when back-sweetening fermented beverages such as cider.'
+);
+-- Sodium Metabisulphite 2oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Sodium Metabisulphite 2oz',
+    'U',
+    'Ot',
+    2.99,
+    'Sodium Metabisulfite will help kill wild yeast and removes chlorine and chrloramines that are found in tap water. Add powder to your brewing water. Antioxidant and bactericide - use 1/4 teaspoon to 6 gallons. Dissolve in warm water before adding.'
+);
+-- Spearmint Leaves
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Spearmint Leaves',
+    'w',
+    'Fl',
+    3.25,
+    'Want to add a minty note in a beer, Rob recommends a minty saision (it was really good). 1 oz per a 5G(19L) batch will add in a nice mint flavour and aroma.'
+);
+-- Sweet Orange Peel
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Sweet Orange Peel',
+    'w',
+    'Fl',
+    3.49,
+    'This sweet variety of orange peel will not give your beer a metallic taste like the domestic version. If you''re familiar with the taste of Cointreau or Grand Marnier, then you will be thrilled with the flavor that sweet orange peel can add to your Belgian style strong ales and special holiday brews.'
+);
+-- Star Anise
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Star Anise',
+    'w',
+    'Fl',
+    3.50,
+    'Illicium verum is the fancy name for Star Anise! In times past, fresh star anise was chewed after each meal to aid digestion and to sweeten the breath. Used in specialty Belgian and holiday style beers, star anise has a flavor similar to licorice, yet is dramatically different when tasted side by side.'
+);
+-- Tequila Barrel Chips 4oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Tequila Barrel Chips 4oz',
+    'U',
+    'Fl',
+    6.50,
+    'Brewer''s Best® Barrel Chips are sanitized by nitrogen purge and ready to use. Add 2 oz. of barrel chips per 5 gallons during secondary fermentation. After 5 days of secondary fermentation sample your beer. If a more intense flavor is desired allow an additional 5 days of aging. Store any leftover barrel chips in an airtight container for future use. If stored chips dry out, re-sanitize by soaking in a similar spirit at a ratio of 1 oz. of chips to 1 oz. of spirits for 48 hours.'
+);
+-- Whirlfloc Tablets 10
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Whirlfloc Tablets 10',
+    'U',
+    'Fi',
+    2.99,
     'A clarifying agent used in brewing during the boil. It is a concentrated tablet derived from Irish Moss and carrageenan that aids in the coagulation and settling of haze-producing proteins and beta glucans.. Add 1/2 tablet per 5 gallon batch within 5 minutes of boil time remaining to promote clarity.'
+);
+-- Whiskey Barrel Chips 4oz
+INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_notes) VALUES
+(
+	'Whiskey Barrel Chips 4oz',
+    'U',
+    'Fl',
+    6.50,
+    'Brewer''s Best® Barrel Chips are sanitized by nitrogen purge and ready to use. Add 2 oz. of barrel chips per 5 gallons during secondary fermentation. After 5 days of secondary fermentation sample your beer. If a more intense flavor is desired allow an additional 5 days of aging. Store any leftover barrel chips in an airtight container for future use. If stored chips dry out, re-sanitize by soaking in a similar spirit at a ratio of 1 oz. of chips to 1 oz. of spirits for 48 hours.'
 );

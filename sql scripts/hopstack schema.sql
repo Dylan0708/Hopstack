@@ -2,7 +2,7 @@
 CREATE TABLE hops 
 (
     hop_id INT AUTO_INCREMENT, 
-    hop_name VARCHAR(20) NOT NULL, 
+    hop_name VARCHAR(50) NOT NULL, 
     hop_origin VARCHAR(20), -- Country of origin
     hop_type VARCHAR(1), -- A = Aroma, B = Bittering, O = Both
     alpha DECIMAL(4, 2), -- Alpha acid content in %
@@ -16,7 +16,7 @@ CREATE TABLE hops
 CREATE TABLE yeast 
 (
     yeast_id INT AUTO_INCREMENT,
-    yeast_name VARCHAR(20) NOT NULL, 
+    yeast_name VARCHAR(50) NOT NULL, 
     production_date DATE DEFAULT (CURRENT_DATE()), 
     age_rate INT DEFAULT 21, -- % viability lost every month
     product_id VARCHAR(10), -- Lab provided product id
@@ -37,7 +37,7 @@ CREATE TABLE yeast
 CREATE TABLE fermentables
 (
 	ferm_id INT AUTO_INCREMENT,
-	ferm_name VARCHAR(20) NOT NULL,
+	ferm_name VARCHAR(50) NOT NULL,
 	ferm_origin VARCHAR(20), -- Country of origin
 	ferm_type VARCHAR(1), -- B = Base, S = Specialty, L = Liquid Extract, D = Dry Extract, U = Sugar, Y = Syrup, J = Juice, F = Fruit, A = Adjunct, O = Other
 	potential_gravity DECIMAL(4, 3), -- Base gravity potential for ferm_type B, S, A / Specific gravity for ferm_type L, D, U, Y, J, F, O
@@ -53,7 +53,7 @@ CREATE TABLE fermentables
 CREATE TABLE water
 (
 	water_id INT AUTO_INCREMENT,
-	water_name VARCHAR(20) NOT NULL,
+	water_name VARCHAR(50) NOT NULL,
 	ph DECIMAL(3, 2),
 	alkalinity INT, -- ppm as CaCO3
 	effective_hardness INT, -- ppm as CaCO3
@@ -73,8 +73,8 @@ CREATE TABLE water
 CREATE TABLE misc
 (
 	misc_id INT AUTO_INCREMENT,
-	misc_name VARCHAR(20) NOT NULL,
-	measurement VARCHAR(1), -- V = Volume, W = Weight, U = Unit
+	misc_name VARCHAR(50) NOT NULL,
+	measurement VARCHAR(1), -- V = Large Volume(L/gal), v = Small Volume(mL/oz), W = Large Weight(kg/lb), w = Small Weight(g/oz) U = Unit
 	misc_type VARCHAR(2), -- Fl = Flavour, Wa = Water Agent, Yn = Yeast Nutrient, En = Enzyme, Fi = Fining, Ot = Other
 	misc_price DECIMAL(4, 2) DEFAULT 0,
 	misc_qty DECIMAL(5, 2) DEFAULT 0,
@@ -85,7 +85,7 @@ CREATE TABLE misc
 CREATE TABLE inventory 
 (
 	inv_id INT AUTO_INCREMENT, 
-    name VARCHAR(20), 
+    name VARCHAR(50), 
     type VARCHAR(1), 
     qty DECIMAL(5, 2), 
     price DECIMAL(4, 2),
@@ -104,7 +104,7 @@ CREATE TABLE inventory
 
 CREATE TABLE recipe
 (
-	recipe_name VARCHAR(50),
+	recipe_name VARCHAR(100),
     iteration INT DEFAULT 1,
 	recipe_ingredients JSON,
 	recipe_total DECIMAL(6, 2),
@@ -116,7 +116,7 @@ CREATE TABLE recipe
 
 CREATE TABLE iteration_notes
 (
-	recipe_name VARCHAR(50),
+	recipe_name VARCHAR(100),
     iteration INT DEFAULT 1,
     change_log JSON,
     PRIMARY KEY(recipe_name, iteration),
@@ -126,7 +126,7 @@ CREATE TABLE iteration_notes
 CREATE TABLE list
 (
 	list_id INT AUTO_INCREMENT,
-	list_name VARCHAR(50),
+	list_name VARCHAR(100),
 	timestamp DATETIME DEFAULT(NOW()),
 	list_ingredients JSON,
 	list_total DECIMAL(7, 2),
