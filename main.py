@@ -1,4 +1,5 @@
 import mysql.connector
+import getpass
 from mysql.connector import Error
 
 #Log In Variables
@@ -6,7 +7,7 @@ from mysql.connector import Error
 #password
 
 username = input("Enter Username: ")
-password = input("Enter Password: ")
+password = getpass.getpass("Enter Password: ")
 
 #connect to db, set cursor
 try:
