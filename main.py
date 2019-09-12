@@ -15,6 +15,6 @@ try:
         print('Connected to hopstack') 
 except Error as e:
     print(e)
-finally:
-    if db_con is not None and db_con.is_connected():
-        db_con.close()
+
+if db_con is not None and db_con.is_connected():
+    db_con.close()
