@@ -16,8 +16,7 @@ CREATE TABLE hops
 CREATE TABLE yeast 
 (
     yeast_id INT AUTO_INCREMENT,
-    yeast_name VARCHAR(50) NOT NULL, 
-    production_date DATE DEFAULT (CURRENT_DATE()), 
+    yeast_name VARCHAR(50) NOT NULL,
     age_rate INT DEFAULT 21, -- % viability lost every month
     product_id VARCHAR(10), -- Lab provided product id
     lab VARCHAR(20), -- Lab of origin
@@ -86,7 +85,9 @@ CREATE TABLE inventory
 (
 	inv_id INT AUTO_INCREMENT, 
     name VARCHAR(50), 
-    type VARCHAR(1), 
+    type VARCHAR(1),  
+    production_date DATE DEFAULT (CURRENT_DATE()),
+    expiry_date DATE,
     qty DECIMAL(5, 2), 
     price DECIMAL(4, 2),
     hop_id INT DEFAULT NULL,
