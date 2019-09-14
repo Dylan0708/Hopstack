@@ -1,6 +1,7 @@
 import main_func
 
 #log in
+main_func.cls()
 connect = main_func.login()
 
 #main menu
