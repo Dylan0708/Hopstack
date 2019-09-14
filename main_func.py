@@ -25,7 +25,7 @@ def dot_echo():
     key_stroke = readchar.readkey()
     while key_stroke != readchar.key.ENTER:
         pass_list.append(key_stroke)
-        sys.stdout.write('.')
+        print('.', end = '', flush = True)
         key_stroke = readchar.readkey()
     secret = ''.join(pass_list)
     return secret
