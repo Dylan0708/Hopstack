@@ -10,9 +10,9 @@ def hstack_connect(u_name, p_word):
     try:
         db_con = mysql.connector.connect(host = 'localhost', database = 'hopstack', user = u_name, password = p_word) #attempt db connection
     except Error as e:
+        cls()
         print(e) #if connection fails, print error
         sys.exit("Couldn't Connect") #exit
-    
     return db_con #if connected, return connection
 
 #Clear screen function

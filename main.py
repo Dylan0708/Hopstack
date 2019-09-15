@@ -16,6 +16,7 @@ while menu_select != '6':
         connect = main_func.login()
         menu_select = main_menu()
 
+main_func.cls()
 if connect is not None and connect.is_connected():
     connect.close()
  
