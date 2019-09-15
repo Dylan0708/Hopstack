@@ -1,4 +1,4 @@
-import main_func
+import main_func, ingredients
 
 menu_select = '5' 
 

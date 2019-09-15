@@ -1,8 +1,4 @@
-import os
-import sys
-import mysql.connector
-import getpass
-import readchar
+import os, sys, readchar, mysql.connector
 from mysql.connector import Error
 
 #Connect to db
