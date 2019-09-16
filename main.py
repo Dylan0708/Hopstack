@@ -1,23 +1,26 @@
 import main_func, ingredients
 
-menu_select = '5' 
+def login():
+    main_func.cls()
+    username = input("Enter Username: ")
+    password = main_func.echo_char("Enter Password: ")
+    con = main_func.hstack_connect(username, password)
+    main_menu(con)
 
 #main menu
-def main_menu():
+def main_menu(connection):
     main_func.cls()
     print ("Hopstack Main Menu\n\n1. Inventory\n2. Recipes\n3. Shopping Lists\n4. Ingredients\n5. Log Out\n6. Exit")
     select = input("Select a Menu: ")
-    return select
 
-#log in
-while menu_select != '6':
-    if menu_select == '5':
+    if select == '5':
+        if connection != None and connection.is_connected():
+            connection.close()
         main_func.cls()
-        connect = main_func.login()
-        menu_select = main_menu()
-
-main_func.cls()
-if connect is not None and connect.is_connected():
-    connect.close()
- 
-
+        login()
+    elif select == '6':
+        if connection != None and connection.is_connected():
+            connection.close()
+        main_func.cls()
+        raise SystemExit
+login()

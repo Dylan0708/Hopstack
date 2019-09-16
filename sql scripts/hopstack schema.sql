@@ -54,9 +54,6 @@ CREATE TABLE water
 	water_id INT AUTO_INCREMENT,
 	water_name VARCHAR(50) NOT NULL,
 	ph DECIMAL(3, 2),
-	alkalinity INT, -- ppm as CaCO3
-	effective_hardness INT, -- ppm as CaCO3
-	residual_alkalinity INT, -- ppm as CaCO3
 	calcium DECIMAL(5, 2), -- ppm
 	magnesium DECIMAL(5, 2), -- ppm
 	sodium DECIMAL(5, 2), -- ppm

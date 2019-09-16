@@ -7,8 +7,7 @@ def hstack_connect(u_name, p_word):
         db_con = mysql.connector.connect(host = 'localhost', database = 'hopstack', user = u_name, password = p_word) #attempt db connection
     except Error as e:
         cls()
-        print(e) #if connection fails, print error
-        sys.exit("Couldn't Connect") #exit
+        sys.exit("Unable to Connect: {}".format(e)) #exit
     return db_con #if connected, return connection
 
 #Clear screen function
@@ -37,8 +36,6 @@ def echo_char(prompt = None, echo_char = '.'):
     secret = ''.join(pass_list)#convert pass_list to a string to return
     return secret
 
-def login():
-    username = input("Enter Username: ")
-    password = echo_char("Enter Password: ")
-    con = hstack_connect(username, password)
-    return con
+
+
+
