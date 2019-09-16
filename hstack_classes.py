@@ -10,6 +10,12 @@ class Hop:
         self.qty = qty
         self.notes = notes
 
+class MiniHop:
+    def __init__(self, db_id, name, list_id):
+        self.db_id = db_id
+        self.name = name
+        self.list_id = list_id
+
 class Yeast:
     def __init__(self, db_id, name, age_rate, prod_id, lab, y_type, alc_tol, flocc, min_atten, max_atten, min_temp, max_temp, price, qty, notes):
         self.db_id = db_id
