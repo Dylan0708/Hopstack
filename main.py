@@ -10,7 +10,7 @@ def login():
 #main menu
 def main_menu(connection):
     loop = True
-    
+
     while loop == True:
         main_func.cls()
         print ("Hopstack Main Menu\n\n1. Inventory\n2. Recipes\n3. Shopping Lists\n4. Ingredients\n5. Log Out\n6. Exit")

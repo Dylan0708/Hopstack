@@ -35,7 +35,3 @@ def echo_char(prompt = None, echo_char = '.'):
         key_stroke = readchar.readkey()
     secret = ''.join(pass_list)#convert pass_list to a string to return
     return secret
-
-
-
-
