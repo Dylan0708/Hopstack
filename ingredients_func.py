@@ -42,6 +42,8 @@ def hop_search(search_cursor):
     print(str(x + 1) + ". Hop List")
     hop_select = input("Select Hop: ")
 
-    if hop_select == str(x + 1):
+    if hop_select <= x:
+        db_num = h_list[(x-1)].db_id
+    elif hop_select == str(x + 1):
         main_func.cls()
         hop_list(search_cursor)

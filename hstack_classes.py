@@ -14,6 +14,7 @@ class MiniHop:
     def __init__(self, db_id, name):
         self.db_id = db_id
         self.name = name
+        self.type = 'h'
 
 class Yeast:
     def __init__(self, db_id, name, age_rate, prod_id, lab, y_type, alc_tol, flocc, min_atten, max_atten, min_temp, max_temp, price, qty, notes):
