@@ -3,6 +3,7 @@ def format_list(head, body, foot, prompt, type):
     grid_w = max(len(head), len(max(body, key = len)), len(max(foot, key = len)), len(prompt))
     head_w = len(head)
     head_space = []
+    top_list = [' ']
 
     if (grid_w % 2) != 0:
         temp_gwidth = grid_w + 1
@@ -19,8 +20,15 @@ def format_list(head, body, foot, prompt, type):
     for _ in range(h_pos):
         head_space.append(' ')
     empty = ''.join(head_space)
-    head_form = empty + head
-    
+    head_form = (empty + head + '\n').upper
+
+    #generate grid top
+    temp_gwidth = grid_w - 2
+    for _ in range(temp_gwidth):
+        top_list.append('_')
+    top_list.append('\n')
+    top_form = ''.join(top_list)
+
 
 
 
