@@ -1,4 +1,4 @@
-def format_body(messy_body):
+def format_body(messy_body, tb_width):
     temp_list = []
     new_list = []
     form_list = []
@@ -16,14 +16,14 @@ def format_body(messy_body):
         new_list.append(str_element)
         temp_list.clear()
 
-    form_width = len(max(new_list, key = len))
+    form_width = max(len(max(new_list, key = len)), tb_width)
 
     for k in range(len(new_list)):
         temp_list.append('|')
         temp_list.append(new_list[k])
         if len(new_list[k]) < form_width:
             loop_num = form_width - len(new_list[k])
-            for l in range(loop_num):
+            for _ in range(loop_num):
                 temp_list.append(' ')
         temp_list.append('|')
         temp_list.append('\n')
@@ -31,7 +31,5 @@ def format_body(messy_body):
         form_list.append(form_element)
         temp_list.clear()
 
-    str_form = ''.join(form_list)
-
-    print(str_form)
-    print(form_width)
+    return form_list
+    #str_form = ''.join(form_list)
