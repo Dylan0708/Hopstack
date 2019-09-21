@@ -10,7 +10,7 @@ def format_body(messy_body, tb_width):
                 temp_list.append(str(messy_body[j][i]))
                 if i != (len(messy_body[j]) - 1):
                     temp_list.append(', ')
-            elif messy_body[j][i] == None:
+            elif i > 0 and messy_body[j][i] == None:
                 del temp_list[-1]
         str_element = ''.join(temp_list)
         new_list.append(str_element)
@@ -32,4 +32,3 @@ def format_body(messy_body, tb_width):
         temp_list.clear()
 
     return form_list
-    #str_form = ''.join(form_list)
