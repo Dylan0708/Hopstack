@@ -1,4 +1,4 @@
-from modules import format_methods as form, misc_methods as misc
+from modules import format_methods as form, misc_methods as misc, draw_methods as draw
 import time, mysql.connector
 
 #take separate view components and format into a single string
@@ -46,16 +46,40 @@ def format_list(head, body, prompt):
 
     return screen_form
 
-def draw_list(screen, type):
+def draw_list(screen, raw_data, cur_screen, hs_db):
+    list_len = len(raw_data)
+    next_screen = None
+
     # prebuilt headers
     main_head = 'Main Menu'
     ing_head = 'Ingredients'
     hlist_head = 'Hop Select'
 
     # prebuilt bodies
-    main_body = [()]
+    main_body = [(None, 'Inventory'), (None, 'Recipes'), (None, 'Shopping Lists'), (None, 'Ingredients'), (None, 'Log Out'), (None, 'Exit')]
+    ing_body = [(None, 'Inventory'), (None, 'Recipes'), (None, 'Shopping Lists'), (None, 'Ingredients'), (None, 'Log Out'), (None, 'Exit')]
 
-"""test = format_list('test list', [(None, 'test1', None), (6, 'test2', 'bleh', None), (2, 'test3', 'babaa')], 'prompt: ')
+    # prebuilt prompts
+    main_prompt = 'Select Menu: '
+    ing_prompt = 'Filter Ingredients: '
+    hlist_prompt = 'Select Hop: '
+
+    # print formatted screen
+    while next_screen == None:
+        print(screen, end = '')
+        option = input()
+        next_screen = draw.get_next(cur_screen, option, list_len, raw_data)  # get the next screen from user input
+
+    # return the screen data if next screen doesn't require a db query
+    if next_screen == 'main':
+        return [next_screen, main_head, main_body, main_prompt]
+    elif next_screen == 'ing':
+        return [next_screen, ing_head, ing_body, ing_prompt]
+    elif next_screen == 'hop':
+    # get the list of query responses to format for the next screen
+        #hop_body = draw.get_body(next_screen, 'all', hs_db)
+
+"""test = format_list('test list', [(None, 'Inventory'), (None, 'Recipes'), (None, 'Shopping Lists'), (None, 'Ingredients'), (None, 'Log Out'), (None, 'Exit')], 'prompt: ')
 misc.cls()
 print(test, end = '')"""
 
