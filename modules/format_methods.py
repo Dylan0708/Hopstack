@@ -32,3 +32,25 @@ def format_body(messy_body, tb_width):
         temp_list.clear()
 
     return form_list
+
+def note_format(note):
+    note_list = []
+    space_listen = False
+    char_count = 0
+
+    for i in note:
+        char_count += 1
+        if char_count == 70:
+            space_listen = True
+        if space_listen == True:
+            if i == ' ':
+                note_list.append('\n')
+                space_listen = False
+                char_count = 0
+            else:
+                note_list.append(i)
+        else:
+            note_list.append(i)
+
+    note_formatted = ''.join(note_list)
+    return note_formatted
