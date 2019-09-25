@@ -47,8 +47,42 @@ def format_list(head, body, prompt):
     return screen_form
 
 # take separate details components and format into a single string
-def format_details(body, prompt):
-    det_head = body[1]
+def format_details(body, prompt, type):
+    # convert tuple to list to allow editing
+    body_list = []
+    for i in body:
+        body_list.append(i)
+    # extract title from the body
+    pre_head = body_list[1]
+    # delete the title and db id from the body
+    del body_list[0:2]
+    # extract ingredient comment. if none, delete
+    if body_list[-1] != None:
+        note = body_list.pop()
+        pre_notes = form.note_format(note)
+    else:
+        del body_list[-1]
+    # pass the rest of the body with the type to convert add titles and delete none
+    pre_body = form.detail_title(body_list)
+    # join body with note and attempt to use format_list
+    """head_space = []
+    form_width = max(len(pre_head), len(max(pre_body, key = len)), len(max(pre_notes, key = len)), len(prompt))
+    head_width = len(pre_head)
+
+    if (form_width % 2) != 0:
+        temp_width = form_width + 1
+    else:
+        temp_width = form_width
+
+    if (head_width % 2) != 0:
+        head_width += 1
+    
+    head_pos = int((temp_width / 2) - (head_width / 2))
+    # format spacing on head
+    for _ in range(head_pos):
+        head_space.append(' ')
+    spacing = ''.join(head_space)
+    form_head = (spacing + pre_head + '\n')"""
 
 # draw formatted list to the screen
 def draw_list(screen, raw_data, cur_screen, hs_db):

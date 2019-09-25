@@ -34,23 +34,72 @@ def format_body(messy_body, tb_width):
     return form_list
 
 def note_format(note):
-    note_list = []
-    space_listen = False
+    is_space = False
     char_count = 0
+    char_list = []
+    str_list = []
 
     for i in note:
         char_count += 1
-        if char_count == 70:
-            space_listen = True
-        if space_listen == True:
+        if char_count == 20:
+            is_space = True
+        if is_space == True:
             if i == ' ':
-                note_list.append('\n')
-                space_listen = False
+                cur_str = ''.join(char_list)
+                str_list.append(cur_str)
+                is_space = False
                 char_count = 0
+                char_list = []
             else:
-                note_list.append(i)
+                char_list.append(i)
         else:
-            note_list.append(i)
+            char_list.append(i)
 
-    note_formatted = ''.join(note_list)
-    return note_formatted
+    return str_list
+
+def detail_title(details):
+    titled_line = []
+    line_items = len(details)
+    del_index = []
+    counter = 0
+    if line_items == 6:  # hops
+        # format each line
+        if details[0] != None:
+            titled_line.append('Hop Origin: ' + details[0])
+        else:
+            titled_line.append(None)
+
+        if details[1] != None:
+            if details[1] == 'A':
+                titled_line.append('Hop Type: Aroma')
+            elif details[1] == 'B':
+                titled_line.append('Hop Type: Bittering')
+            else:
+                titled_line.append('Hop type: Bittering and/or Aroma')
+        else:
+            titled_line.append(None)
+        
+        if details[2] != None:
+            titled_line.append('Alpha Acid Content: ' + str(details[2]) + '%')
+        else:
+            titled_line.append(None)
+
+        if details[3] != None:
+            titled_line.append('Beta Acid Content: ' + str(details[3]) + '%')
+        else:
+            titled_line.append(None)
+
+        titled_line.append('Price: $' + str(details[4]) + ' per oz')
+        titled_line.append('Inventory Quantity: ' + str(details[5]) + 'oz')
+
+    # get items to delete
+    for i in titled_line:
+        if i == None:
+            del_index.append(counter)
+        counter += 1
+
+    # delete items
+    for j in reversed(del_index):
+        del titled_line[j]
+
+    return titled_line
