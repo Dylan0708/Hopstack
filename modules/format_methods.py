@@ -103,3 +103,26 @@ def detail_title(details):
         del titled_line[j]
 
     return titled_line
+
+def head_spacing(width, head):
+    head_space = []
+    head_w = len(head)
+    
+    if (width % 2) != 0:
+        temp_gwidth = width + 1
+    else:
+        temp_gwidth = width
+
+    if (head_w % 2) != 0:
+        head_w += 1
+
+    # find the relative position of the header based on the grid width and the header width
+    h_pos = int((temp_gwidth / 2) - (head_w / 2))
+
+    # generate header with formatted spacing
+    for _ in range(h_pos):
+        head_space.append(' ')
+    empty = ''.join(head_space)
+    spaced_head = (empty + head + '\n')
+
+    return spaced_head

@@ -3,8 +3,6 @@ import time, mysql.connector
 
 #take separate list components and format into a single string
 def format_list(head, body, prompt):
-    head_w = len(head)
-    head_space = []
     top_grid = [' ']
     bottom_grid = [' ']
 
@@ -14,22 +12,7 @@ def format_list(head, body, prompt):
     grid_w = max(len(head), len(max(body_list, key = len)), len(prompt))
     body_form = ''.join(body_list)
 
-    if (grid_w % 2) != 0:
-        temp_gwidth = grid_w + 1
-    else:
-        temp_gwidth = grid_w
-
-    if (head_w % 2) != 0:
-        head_w += 1
-
-    # find the relative position of the header based on the grid width and the header width
-    h_pos = int((temp_gwidth / 2) - (head_w / 2))
-
-    # generate header with formatted spacing
-    for _ in range(h_pos):
-        head_space.append(' ')
-    empty = ''.join(head_space)
-    head_form = (empty + head + '\n')
+    head_form = form.head_spacing(grid_w, head)
 
     # generate grid top
     temp_gwidth = grid_w - 3
@@ -47,42 +30,30 @@ def format_list(head, body, prompt):
     return screen_form
 
 # take separate details components and format into a single string
-def format_details(body, prompt, type):
+def format_details(head, body, prompt):
+    pre_notes = []
     # convert tuple to list to allow editing
     body_list = []
     for i in body:
         body_list.append(i)
-    # extract title from the body
-    pre_head = body_list[1]
+
     # delete the title and db id from the body
     del body_list[0:2]
+
     # extract ingredient comment. if none, delete
     if body_list[-1] != None:
         note = body_list.pop()
         pre_notes = form.note_format(note)
     else:
         del body_list[-1]
+
     # pass the rest of the body with the type to convert add titles and delete none
     pre_body = form.detail_title(body_list)
+
     # join body with note and attempt to use format_list
-    """head_space = []
-    form_width = max(len(pre_head), len(max(pre_body, key = len)), len(max(pre_notes, key = len)), len(prompt))
-    head_width = len(pre_head)
-
-    if (form_width % 2) != 0:
-        temp_width = form_width + 1
-    else:
-        temp_width = form_width
-
-    if (head_width % 2) != 0:
-        head_width += 1
-    
-    head_pos = int((temp_width / 2) - (head_width / 2))
-    # format spacing on head
-    for _ in range(head_pos):
-        head_space.append(' ')
-    spacing = ''.join(head_space)
-    form_head = (spacing + pre_head + '\n')"""
+    pre_body.extend(pre_notes)
+    det_str = format_list(head, pre_body, prompt)
+    return det_str
 
 # draw formatted list to the screen
 def draw_list(screen, raw_data, cur_screen, hs_db):
@@ -110,17 +81,21 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         next_screen = draw.get_next(cur_screen, option, list_len, raw_data)  # get the next screen from user input
 
     # return the screen data if next screen doesn't require a db query
-    if next_screen == 'main':
-        return [next_screen, main_head, main_body, main_prompt]
-    elif next_screen == 'ing':
-        return [next_screen, ing_head, ing_body, ing_prompt]
-    elif next_screen == 'exit' or next_screen == 'log':
-        return next_screen
+    if type(next_screen) == str:
+        if next_screen == 'main':
+            return [next_screen, main_head, main_body, main_prompt]
+        elif next_screen == 'ing':
+            return [next_screen, ing_head, ing_body, ing_prompt]
+        elif next_screen == 'exit' or next_screen == 'log':
+            return next_screen
+        elif next_screen == 'hop':
+            # get the list of query responses to format for the next screen
+            hop_body = draw.get_body(next_screen, 'all', hs_db)
+            return [next_screen, hlist_head, hop_body, hlist_prompt]
     else:
-    # get the list of query responses to format for the next screen
-        hop_body = draw.get_body(next_screen, 'all', hs_db)
-        return [next_screen, hlist_head, hop_body, hlist_prompt]
-
+        hop_det = draw.get_body(cur_screen, next_screen[0], hs_db)
+        det_head = hop_det[1]
+        return [next_screen, det_head, hop_det, 'Return Y/N: ']
 
 # main program
 db_con = None
@@ -149,7 +124,10 @@ while outer_loop == True:
     
     while inner_loop == True:
         misc.cls()
-        screen_now = format_list(cur_head, cur_body, cur_prompt)
+        if ('_det' in cur_screen) == True:
+            screen_now = format_details(cur_head, cur_body, cur_prompt)
+        else:
+            screen_now = format_list(cur_head, cur_body, cur_prompt)
         screen_next = draw_list(screen_now, cur_body, cur_screen, db_con)
         
         if screen_next == 'log':
@@ -158,7 +136,10 @@ while outer_loop == True:
             inner_loop = False
             outer_loop = False
         else:
-            cur_screen = screen_next[0]
+            if type(screen_next[0]) != str:
+                cur_screen = cur_screen + '_det'
+            else:
+                cur_screen = screen_next[0]
             cur_head = screen_next[1]
             cur_body = screen_next[2]
             cur_prompt = screen_next[3]
@@ -166,10 +147,3 @@ while outer_loop == True:
     if db_con != None and db_con.is_connected():
         db_con.close()
     misc.cls()
-    
-    
-    
-    
-    #call format list with initial params
-    #call draw list with initial params
-
