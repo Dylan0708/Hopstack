@@ -118,7 +118,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     else:
         next_det = draw.get_body(cur_screen, next_screen[0], hs_db)
         det_head = next_det[1]
-        return [next_screen, det_head, next_det, 'Return Y/N: ']
+        return [next_screen, det_head, next_det, '1. Return\n2. Add Inventory\n3. Delete\n\nSelect Option: ']
 
 # main program
 db_con = None

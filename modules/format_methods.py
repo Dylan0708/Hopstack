@@ -54,7 +54,8 @@ def note_format(note):
                 char_list.append(i)
         else:
             char_list.append(i)
-
+    cur_str = ''.join(char_list)
+    str_list.append(cur_str)
     return str_list
 
 def detail_title(details):
@@ -91,6 +92,7 @@ def detail_title(details):
 
         titled_line.append('Price: $' + str(details[4]) + ' per oz')
         titled_line.append('Inventory Quantity: ' + str(details[5]) + 'oz')
+        titled_line.append('')
 
     # get items to delete
     for i in titled_line:
