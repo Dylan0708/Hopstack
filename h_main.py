@@ -32,6 +32,8 @@ def format_list(head, body, prompt):
 # take separate details components and format into a single string
 def format_details(head, body, prompt):
     pre_notes = []
+    top = []
+    bottom = []
     # convert tuple to list to allow editing
     body_list = []
     for i in body:
@@ -46,13 +48,34 @@ def format_details(head, body, prompt):
         pre_notes = form.note_format(note)
     else:
         del body_list[-1]
+        pre_notes = []
 
     # pass the rest of the body with the type to convert add titles and delete none
     pre_body = form.detail_title(body_list)
 
-    # join body with note and attempt to use format_list
+    # join body with note
     pre_body.extend(pre_notes)
-    det_str = format_list(head, pre_body, prompt)
+
+    width = max(len(head), len(max(pre_body, key = len)), len(prompt))
+
+    #get formatted head
+    head_det = form.head_spacing(width, head)
+    
+    # generate grid top and bottom
+    top.append(' ')
+    bottom.append(' ')
+    for _ in range(width):
+        top.append('_')
+        bottom.append('¯')
+    top.append('\n')
+    bottom.append('\n')
+    top_det = ''.join(top)
+    bottom_det = ''.join(bottom)
+
+    #get formatted body
+    body_det = form.format_details(pre_body, width)
+
+    det_str = head_det + top_det + body_det + bottom_det + prompt
     return det_str
 
 # draw formatted list to the screen
@@ -93,9 +116,9 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             hop_body = draw.get_body(next_screen, 'all', hs_db)
             return [next_screen, hlist_head, hop_body, hlist_prompt]
     else:
-        hop_det = draw.get_body(cur_screen, next_screen[0], hs_db)
-        det_head = hop_det[1]
-        return [next_screen, det_head, hop_det, 'Return Y/N: ']
+        next_det = draw.get_body(cur_screen, next_screen[0], hs_db)
+        det_head = next_det[1]
+        return [next_screen, det_head, next_det, 'Return Y/N: ']
 
 # main program
 db_con = None

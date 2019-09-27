@@ -41,7 +41,7 @@ def note_format(note):
 
     for i in note:
         char_count += 1
-        if char_count == 20:
+        if char_count == 70:
             is_space = True
         if is_space == True:
             if i == ' ':
@@ -126,3 +126,21 @@ def head_spacing(width, head):
     spaced_head = (empty + head + '\n')
 
     return spaced_head
+
+def format_details(body, width):
+    line_format = []
+    body_form = []
+
+    for i in body:
+        line_format.append('|' + str(i))
+        if len(str(i)) < width:
+            for _ in range(width - len(str(i))):
+                line_format.append(' ')
+        line_format.append('|\n')
+        line = ''.join(line_format)
+        line_format = []
+        body_form.append(line)
+    
+    body_str = ''.join(body_form)
+
+    return body_str
