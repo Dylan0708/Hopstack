@@ -1,6 +1,6 @@
 from modules import misc_methods as misc
 
-def get_next(current, selection, list_lngth, raw):
+def get_next(current, selection, list_lngth, raw, cur_data):
     if current == 'main':
         if selection == '1':
             go_next = 'inv'
@@ -47,10 +47,29 @@ def get_next(current, selection, list_lngth, raw):
         else:
             misc.cls()
             go_next = None
+    elif current == 'srch':
+        if int(selection) <= (list_lngth - 3) and int(selection) > 0:
+            go_next = [raw[int(selection) - 1][0]]
+        elif int(selection) == list_lngth - 2:
+            go_next = 'ing'
+        elif int(selection) == list_lngth - 1:
+            go_next = 'main'
+        elif int(selection) == list_lngth:
+            if ('Hop Select' in cur_data) == True:
+                go_next = 'hop'
+        else:
+            misc.cls()
+            go_next = None
+    elif current == 'hop_det':
+        if selection == '1':
+            go_next = 'hop'
+        else:
+            misc.cls()
+            go_next = None
 
     return go_next
 
-def get_body(table, param, connection):
+def get_body(table, param, connection, current = None):
     next_body = []
 
     # put params in proper terms for the db query
@@ -65,13 +84,23 @@ def get_body(table, param, connection):
         table = 'fermentables'
     elif table == 'msc':
         table = 'misc'
+    elif table == 'srch':
+        if current == 'hop':
+            table = 'hops '
+            columns = 'hop_id, hop_name '
+            order = 'hop_name'
+            db_id = 'hop_id'
 
     # establish db cursor
     curs = connection.cursor(buffered = True)
 
-    if param == 'all':
-        next_foot = [(None, 'Ingredients'), (None, 'Main Menu'), (None, 'Search')]
-        curs.execute('SELECT ' + columns + 'FROM ' + table + 'ORDER BY ' + order)
+    if type(param) == str:
+        if param == 'all':
+            curs.execute('SELECT ' + columns + 'FROM ' + table + 'ORDER BY ' + order)
+            next_foot = [(None, 'Ingredients'), (None, 'Main Menu'), (None, 'Search')]
+        else:
+            curs.execute('SELECT ' + columns + 'FROM ' + table + 'WHERE (hop_notes LIKE "%' + param + '%" OR hop_name LIKE "%' + param + '%") ORDER BY ' + order)
+            next_foot = [(None, 'Ingredients'), (None, 'Main Menu'), (None, 'Back')]
     else:
         curs.execute('SELECT * FROM ' + table + 'WHERE ' + db_id + '= ' + str(param))
 
@@ -81,7 +110,7 @@ def get_body(table, param, connection):
         line = curs.fetchone()
     
     curs.close()
-    if param == 'all':
+    if type(param) == str:
         next_body.extend(next_foot)
         return next_body
     else:

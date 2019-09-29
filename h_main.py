@@ -101,7 +101,9 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     while next_screen == None:
         print(screen, end = '')
         option = input()
-        next_screen = draw.get_next(cur_screen, option, list_len, raw_data)  # get the next screen from user input
+
+        # get the next screen from user input
+        next_screen = draw.get_next(cur_screen, option, list_len, raw_data, screen)  
 
     # return the screen data if next screen doesn't require a db query
     if type(next_screen) == str:
@@ -115,8 +117,14 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             # get the list of query responses to format for the next screen
             hop_body = draw.get_body(next_screen, 'all', hs_db)
             return [next_screen, hlist_head, hop_body, hlist_prompt]
+        elif next_screen == 'srch':
+            query = input("Search Query: ")
+            search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
+            return [next_screen, hlist_head, search_body, hlist_prompt]
     else:
-        next_det = draw.get_body(cur_screen, next_screen[0], hs_db)
+        if 'Hop Select' in screen:
+            srch_table = 'hop'
+        next_det = draw.get_body(cur_screen, next_screen[0], hs_db, srch_table)
         det_head = next_det[1]
         return [next_screen, det_head, next_det, '1. Return\n2. Add Inventory\n3. Delete\n\nSelect Option: ']
 
@@ -160,7 +168,11 @@ while outer_loop == True:
             outer_loop = False
         else:
             if type(screen_next[0]) != str:
-                cur_screen = cur_screen + '_det'
+                if cur_screen == 'srch':
+                    if cur_head == 'Hop Select':
+                        cur_screen = 'hop_det'
+                else:
+                    cur_screen = cur_screen + '_det'
             else:
                 cur_screen = screen_next[0]
             cur_head = screen_next[1]
