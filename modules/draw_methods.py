@@ -29,19 +29,19 @@ def get_next(current, selection, list_lngth, raw, cur_data):
         elif selection == '5':
             go_next = 'msc'
         elif selection == '6':
-            go_next = 'all'
-        elif selection == '7':
             go_next = 'main'
         else:
             misc.cls()
             go_next = None
     elif current == 'hop':
-        if int(selection) <= (list_lngth - 3) and int(selection) > 0:
+        if int(selection) <= (list_lngth - 4) and int(selection) > 0:
             go_next = [raw[int(selection) - 1][0]]
-        elif int(selection) == list_lngth - 2:
+        elif int(selection) == list_lngth - 3:
             go_next = 'ing'
-        elif int(selection) == list_lngth - 1:
+        elif int(selection) == list_lngth - 2:
             go_next = 'main'
+        elif int(selection) == list_lngth - 1:
+            go_next = 'hop_add'
         elif int(selection) == list_lngth:
             go_next = 'srch'
         else:
@@ -62,6 +62,18 @@ def get_next(current, selection, list_lngth, raw, cur_data):
             go_next = None
     elif current == 'hop_det':
         if selection == '1':
+            go_next = 'hop'
+        else:
+            misc.cls()
+            go_next = None
+    elif current == 'hop_add':
+        if selection == '1':
+            go_next = 'hop_name'
+        elif selection == '2':
+            go_next = 'hop_origin'
+        elif selection == '3':
+            go_next = 'hop_type'
+        elif selection == '10':
             go_next = 'hop'
         else:
             misc.cls()
@@ -97,7 +109,8 @@ def get_body(table, param, connection, current = None):
     if type(param) == str:
         if param == 'all':
             curs.execute('SELECT ' + columns + 'FROM ' + table + 'ORDER BY ' + order)
-            next_foot = [(None, 'Ingredients'), (None, 'Main Menu'), (None, 'Search')]
+            if table == 'hops ':
+                next_foot = [(None, 'Ingredients'), (None, 'Main Menu'), (None, 'Add Hop'), (None, 'Search')]
         else:
             curs.execute('SELECT ' + columns + 'FROM ' + table + 'WHERE (hop_notes LIKE "%' + param + '%" OR hop_name LIKE "%' + param + '%") ORDER BY ' + order)
             next_foot = [(None, 'Ingredients'), (None, 'Main Menu'), (None, 'Back')]

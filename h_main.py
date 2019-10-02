@@ -82,28 +82,78 @@ def format_details(head, body, prompt):
 def draw_list(screen, raw_data, cur_screen, hs_db):
     list_len = len(raw_data)
     next_screen = None
+    # ingredient building variable initialization
+    create_loop = False
+
+    hop_name = None
+    hop_origin = None
+    hop_type = None
+    htype_display = None
+    hop_alpha = None
+    hop_beta = None
+    hop_price = 0
+    hop_qty = 0
+    hop_notes = None
 
     # prebuilt headers
     main_head = 'Main Menu'
     ing_head = 'Ingredients'
     hlist_head = 'Hop Select'
+    hadd_head = 'Create Hop'
 
     # prebuilt bodies
     main_body = [(None, 'Inventory'), (None, 'Recipes'), (None, 'Shopping Lists'), (None, 'Ingredients'), (None, 'Log Out'), (None, 'Exit')]
-    ing_body = [(None, 'Hops'), (None, 'Yeast'), (None, 'Fermentables & Adjuncts'), (None, 'Water'), (None, 'Miscellaneous'), (None, 'All'), (None, 'Main Menu')]
+    ing_body = [(None, 'Hops'), (None, 'Yeast'), (None, 'Fermentables & Adjuncts'), (None, 'Water'), (None, 'Miscellaneous'), (None, 'Main Menu')]
+    hadd_body = [(None, 'Hop Name'), (None, 'Hop Origin Country'), (None, 'Hop Type (Bittering, Aroma, or Both)'), (None, 'Alpha Acid Content (%)'), (None, 'Beta Acid Content (%)'), (None, 'Price'), (None, 'Quantity in Inventory'), (None, 'Notes'), (None, 'Save Hop'), (None, 'Exit Without Saving')]
 
     # prebuilt prompts
     main_prompt = 'Select Menu: '
     ing_prompt = 'Filter Ingredients: '
     hlist_prompt = 'Select Hop: '
+    hadd_prompt = 'Select Detail to Edit: '
 
     # print formatted screen
-    while next_screen == None:
+    while (next_screen == None) or (create_loop == True):
         print(screen, end = '')
         option = input()
 
         # get the next screen from user input
         next_screen = draw.get_next(cur_screen, option, list_len, raw_data, screen)  
+
+        # logic if the screen is creating something
+        if next_screen == 'hop_name':
+            create_loop = True
+            hop_name = input("Hop Name: ")
+            misc.cls()
+            hadd_body[0] = (None, ('Hop Name: ' + hop_name))
+            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+        elif next_screen == 'hop_origin':
+            create_loop = True
+            hop_origin = input("Hop Origin: ")
+            misc.cls()
+            hadd_body[1] = (None, ('Hop Origin Country: ' + hop_origin))
+            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+        elif next_screen == 'hop_type':
+            create_loop = True
+            hop_type = None
+            while hop_type == None:
+                hop_temp = input("Hop Type: ")
+                if (hop_temp.lower() == 'bittering') or (hop_temp.lower() == 'b'):
+                    hop_type = 'B'
+                    htype_display = 'Bittering'
+                elif (hop_temp.lower() == 'aroma') or (hop_temp.lower() == 'a'):
+                    hop_type = 'A'
+                    htype_display = 'Aroma'
+                elif (hop_temp.lower() == 'both') or (hop_temp.lower() == 'o'):
+                    hop_type = 'O'
+                    htype_display = 'Aroma and/or Bittering'
+                else:
+                    print("Please enter 'Bittering, Aroma, or Both'")
+            misc.cls()
+            hadd_body[2] = (None, ('Hop Type: ' + htype_display))
+            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+        else:
+            create_loop = False
 
     # return the screen data if next screen doesn't require a db query
     if type(next_screen) == str:
@@ -111,6 +161,8 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             return [next_screen, main_head, main_body, main_prompt]
         elif next_screen == 'ing':
             return [next_screen, ing_head, ing_body, ing_prompt]
+        elif next_screen == 'hop_add':
+            return [next_screen, hadd_head, hadd_body, hadd_prompt]
         elif next_screen == 'exit' or next_screen == 'log':
             return next_screen
         elif next_screen == 'hop':
