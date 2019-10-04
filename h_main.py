@@ -1,4 +1,6 @@
 from modules import format_methods as form, misc_methods as misc, draw_methods as draw
+import decimal
+from decimal import Decimal
 import time, mysql.connector
 
 #take separate list components and format into a single string
@@ -94,6 +96,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     hop_price = 0
     hop_qty = 0
     hop_notes = None
+    hnotes_display = None
 
     # prebuilt headers
     main_head = 'Main Menu'
@@ -151,6 +154,76 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
                     print("Please enter 'Bittering, Aroma, or Both'")
             misc.cls()
             hadd_body[2] = (None, ('Hop Type: ' + htype_display))
+            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+        elif next_screen == 'hop_alpha':
+            create_loop = True
+            hop_alpha = None
+            while hop_alpha == None:
+                hop_temp = input("Alpha %: ")
+                try:
+                    hop_alpha = Decimal(hop_temp)
+                except decimal.InvalidOperation:
+                    print("Alpha acid must be a numeric value.")
+            hop_alpha = round(hop_alpha, 2)
+            hop_temp = str(hop_alpha)
+            misc.cls()
+            hadd_body[3] = (None, ('Alpha Acid Content: ' + hop_temp + '%'))
+            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+        elif next_screen == 'hop_beta':
+            create_loop = True
+            hop_beta = None
+            while hop_beta == None:
+                hop_temp = input("Beta %: ")
+                try:
+                    hop_beta = Decimal(hop_temp)
+                except decimal.InvalidOperation:
+                    print("Beta acid must be a numeric value.")
+            hop_beta = round(hop_beta, 2)
+            hop_temp = str(hop_beta)
+            misc.cls()
+            hadd_body[4] = (None, ('Beta Acid Content: ' + hop_temp + '%'))
+            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+        elif next_screen == 'hop_price':
+            create_loop = True
+            hop_price = None
+            while hop_price == None:
+                hop_temp = input("Price: ")
+                try:
+                    hop_price = Decimal(hop_temp)
+                except decimal.InvalidOperation:
+                    print("Price must be a numeric value.")
+            hop_price = round(hop_price, 2)
+            hop_temp = str(hop_price)
+            misc.cls()
+            hadd_body[5] = (None, ('Price: $' + hop_temp))
+            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+        elif next_screen == 'hop_qty':
+            create_loop = True
+            hop_qty = None
+            while hop_qty == None:
+                hop_temp = input("Inventory Quantity: ")
+                try:
+                    hop_qty = Decimal(hop_temp)
+                except decimal.InvalidOperation:
+                    print("Quantity must be a numeric value.")
+            hop_qty = round(hop_qty, 2)
+            hop_temp = str(hop_qty)
+            misc.cls()
+            hadd_body[6] = (None, ('Inventory Quantity: ' + hop_temp + ' oz'))
+            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+        elif next_screen == 'hop_notes':
+            create_loop = True
+            hnotes_lst = []
+            hnotes_loop = 0
+            hop_notes = input("Notes: ")
+            for i in hop_notes:
+                hnotes_lst.append(i)
+                hnotes_loop += 1
+                if hnotes_loop == 25:
+                    break
+            hnotes_display = ''.join(hnotes_lst)
+            misc.cls()
+            hadd_body[7] = (None, (hnotes_display + '...'))
             screen = format_list(hadd_head, hadd_body, hadd_prompt)
         else:
             create_loop = False

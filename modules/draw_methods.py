@@ -73,6 +73,18 @@ def get_next(current, selection, list_lngth, raw, cur_data):
             go_next = 'hop_origin'
         elif selection == '3':
             go_next = 'hop_type'
+        elif selection == '4':
+            go_next = 'hop_alpha'
+        elif selection == '5':
+            go_next = 'hop_beta'
+        elif selection == '6':
+            go_next = 'hop_price'
+        elif selection == '7':
+            go_next = 'hop_qty'
+        elif selection == '8':
+            go_next = 'hop_notes'
+        elif selection == '9':
+            go_next = 'hop_save'
         elif selection == '10':
             go_next = 'hop'
         else:
