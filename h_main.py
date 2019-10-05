@@ -123,11 +123,22 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         # get the next screen from user input
         next_screen = draw.get_next(cur_screen, option, list_len, raw_data, screen)  
 
-        # logic if the screen is deleting something
+        # logic if the screen is deleting/updating something
         if next_screen == 'hop_del':
             next_screen = 'hop'
             db_curs = hs_db.cursor()
             db_curs.execute('DELETE FROM hops WHERE hop_id = {}'.format(raw_data[0]))
+            hs_db.commit()
+            db_curs.close()
+        elif next_screen == 'hop_update':
+            print("test code")
+            misc.cls()
+            add_val = input("Additional Quantity: ")
+            add_val = Decimal(add_val)
+            new_val = add_val + raw_data[7]
+            next_screen = raw_data
+            db_curs = hs_db.cursor()
+            db_curs.execute('UPDATE hops SET hop_qty = {} WHERE hop_id = {}'.format(new_val, next_screen[0]))
             hs_db.commit()
             db_curs.close()
         # logic if the screen is creating something
