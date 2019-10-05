@@ -146,3 +146,14 @@ def format_details(body, width):
     body_str = ''.join(body_form)
 
     return body_str
+
+def quote_str(string):
+    str_elem = ["'"]
+    
+    for i in string:
+        str_elem.append(i)
+
+    str_elem.append("'")
+    str_quoted = ''.join(str_elem)
+
+    return str_quoted

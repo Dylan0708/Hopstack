@@ -87,16 +87,16 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     # ingredient building variable initialization
     create_loop = False
 
-    hop_name = None
-    hop_origin = None
-    hop_type = None
-    htype_display = None
-    hop_alpha = None
-    hop_beta = None
+    hop_name = 'NULL'
+    hop_origin = 'NULL'
+    hop_type = 'NULL'
+    htype_display = 'NULL'
+    hop_alpha = 'NULL'
+    hop_beta = 'NULL'
     hop_price = 0
     hop_qty = 0
-    hop_notes = None
-    hnotes_display = None
+    hop_notes = 'NULL'
+    hnotes_display = 'NULL'
 
     # prebuilt headers
     main_head = 'Main Menu'
@@ -130,25 +130,27 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             misc.cls()
             hadd_body[0] = (None, ('Hop Name: ' + hop_name))
             screen = format_list(hadd_head, hadd_body, hadd_prompt)
+            hop_name = form.quote_str(hop_name)
         elif next_screen == 'hop_origin':
             create_loop = True
             hop_origin = input("Hop Origin: ")
             misc.cls()
             hadd_body[1] = (None, ('Hop Origin Country: ' + hop_origin))
             screen = format_list(hadd_head, hadd_body, hadd_prompt)
+            hop_origin = form.quote_str(hop_origin)
         elif next_screen == 'hop_type':
             create_loop = True
             hop_type = None
             while hop_type == None:
                 hop_temp = input("Hop Type: ")
                 if (hop_temp.lower() == 'bittering') or (hop_temp.lower() == 'b'):
-                    hop_type = 'B'
+                    hop_type = "'B'"
                     htype_display = 'Bittering'
                 elif (hop_temp.lower() == 'aroma') or (hop_temp.lower() == 'a'):
-                    hop_type = 'A'
+                    hop_type = "'A'"
                     htype_display = 'Aroma'
                 elif (hop_temp.lower() == 'both') or (hop_temp.lower() == 'o'):
-                    hop_type = 'O'
+                    hop_type = "'O'"
                     htype_display = 'Aroma and/or Bittering'
                 else:
                     print("Please enter 'Bittering, Aroma, or Both'")
@@ -225,6 +227,24 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             misc.cls()
             hadd_body[7] = (None, (hnotes_display + '...'))
             screen = format_list(hadd_head, hadd_body, hadd_prompt)
+            hop_notes = form.quote_str(hop_notes)
+        elif next_screen == 'hop_save':
+            try:
+                create_loop = False
+                next_screen = 'hop'
+                db_curs = hs_db.cursor()
+                query_str = 'INSERT INTO hops(hop_name, hop_origin, hop_type, alpha, beta, hop_price, hop_qty, hop_notes) VALUES ({}, {}, {}, {}, {}, {}, {}, {})'.format(hop_name, hop_origin, hop_type, hop_alpha, hop_beta, hop_price, hop_qty, hop_notes)
+                db_curs.execute(query_str)
+                hs_db.commit()
+                db_curs.close()
+            except mysql.connector.errors.IntegrityError:
+                create_loop = True
+                misc.cls()
+                screen = format_list('Hop Name Required', hadd_body, hadd_prompt)
+            except mysql.connector.errors.DataError:
+                create_loop = True
+                misc.cls()
+                screen = format_list('Invalid data. Double check alpha, beta, price, and quantity.', hadd_body, hadd_prompt)
         else:
             create_loop = False
 
