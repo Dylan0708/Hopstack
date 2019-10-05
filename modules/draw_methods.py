@@ -63,6 +63,21 @@ def get_next(current, selection, list_lngth, raw, cur_data):
     elif current == 'hop_det':
         if selection == '1':
             go_next = 'hop'
+        elif selection == '3':
+            misc.cls()
+            loop = True
+            while loop == True:
+                misc.cls()
+                print("Delete " + raw[1] + "? Y/N")
+                verify = input()
+                if verify.lower() == 'y':
+                    go_next = 'hop_del'
+                    loop = False
+                elif verify.lower() == 'n':
+                    go_next = [raw[0]]
+                    loop = False
+                else:
+                    loop = True
         else:
             misc.cls()
             go_next = None
@@ -97,7 +112,7 @@ def get_body(table, param, connection, current = None):
     next_body = []
 
     # put params in proper terms for the db query
-    if table == 'hop':
+    if table == 'hop' or table == 'hop_det':
         table = 'hops '
         columns = 'hop_id, hop_name '
         order = 'hop_name'

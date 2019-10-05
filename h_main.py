@@ -123,8 +123,15 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         # get the next screen from user input
         next_screen = draw.get_next(cur_screen, option, list_len, raw_data, screen)  
 
+        # logic if the screen is deleting something
+        if next_screen == 'hop_del':
+            next_screen = 'hop'
+            db_curs = hs_db.cursor()
+            db_curs.execute('DELETE FROM hops WHERE hop_id = {}'.format(raw_data[0]))
+            hs_db.commit()
+            db_curs.close()
         # logic if the screen is creating something
-        if next_screen == 'hop_name':
+        elif next_screen == 'hop_name':
             create_loop = True
             hop_name = input("Hop Name: ")
             misc.cls()
@@ -267,7 +274,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
             return [next_screen, hlist_head, search_body, hlist_prompt]
     else:
-        if 'Hop Select' in screen:
+        if 'hop' in cur_screen:
             srch_table = 'hop'
         next_det = draw.get_body(cur_screen, next_screen[0], hs_db, srch_table)
         det_head = next_det[1]
@@ -317,7 +324,8 @@ while outer_loop == True:
                     if cur_head == 'Hop Select':
                         cur_screen = 'hop_det'
                 else:
-                    cur_screen = cur_screen + '_det'
+                    if ('_det' in cur_screen) == False:
+                        cur_screen = cur_screen + '_det'
             else:
                 cur_screen = screen_next[0]
             cur_head = screen_next[1]
