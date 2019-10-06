@@ -119,8 +119,13 @@ def get_body(table, param, connection, current = None):
         columns = 'hop_id, hop_name '
         order = 'hop_name'
         db_id = 'hop_id '
-    elif table == 'yst':
-        table = 'yeast'
+        foot_add = 'Add Hop'
+    elif table == 'yst' or table == 'yst_det':
+        table = 'yeast '
+        columns = 'yeast_id, yeast_name '
+        order = 'yeast_name'
+        db_id = 'yeast_id'
+        foot_add = 'Add Yeast'
     elif table == 'ferm':
         table = 'fermentables'
     elif table == 'msc':
@@ -138,8 +143,7 @@ def get_body(table, param, connection, current = None):
     if type(param) == str:
         if param == 'all':
             curs.execute('SELECT ' + columns + 'FROM ' + table + 'ORDER BY ' + order)
-            if table == 'hops ':
-                next_foot = [(None, 'Ingredients'), (None, 'Main Menu'), (None, 'Add Hop'), (None, 'Search')]
+            next_foot = [(None, 'Ingredients'), (None, 'Main Menu'), (None, foot_add), (None, 'Search')]
         else:
             curs.execute('SELECT ' + columns + 'FROM ' + table + 'WHERE (hop_notes LIKE "%' + param + '%" OR hop_name LIKE "%' + param + '%") ORDER BY ' + order)
             next_foot = [(None, 'Ingredients'), (None, 'Main Menu'), (None, 'Back')]

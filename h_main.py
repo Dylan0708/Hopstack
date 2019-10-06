@@ -103,6 +103,8 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     ing_head = 'Ingredients'
     hlist_head = 'Hop Select'
     hadd_head = 'Create Hop'
+    ylist_head = 'Yeast Select'
+    yadd_head = 'Create Yeast'
 
     # prebuilt bodies
     main_body = [(None, 'Inventory'), (None, 'Recipes'), (None, 'Shopping Lists'), (None, 'Ingredients'), (None, 'Log Out'), (None, 'Exit')]
@@ -112,8 +114,9 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     # prebuilt prompts
     main_prompt = 'Select Menu: '
     ing_prompt = 'Filter Ingredients: '
+    add_prompt = 'Select Detail to Edit: '
     hlist_prompt = 'Select Hop: '
-    hadd_prompt = 'Select Detail to Edit: '
+    ylist_prompt = 'Select Yeast: '
 
     # print formatted screen
     while (next_screen == None) or (create_loop == True):
@@ -147,14 +150,14 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             hop_name = input("Hop Name: ")
             misc.cls()
             hadd_body[0] = (None, ('Hop Name: ' + hop_name))
-            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+            screen = format_list(hadd_head, hadd_body, add_prompt)
             hop_name = form.quote_str(hop_name)
         elif next_screen == 'hop_origin':
             create_loop = True
             hop_origin = input("Hop Origin: ")
             misc.cls()
             hadd_body[1] = (None, ('Hop Origin Country: ' + hop_origin))
-            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+            screen = format_list(hadd_head, hadd_body, add_prompt)
             hop_origin = form.quote_str(hop_origin)
         elif next_screen == 'hop_type':
             create_loop = True
@@ -174,7 +177,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
                     print("Please enter 'Bittering, Aroma, or Both'")
             misc.cls()
             hadd_body[2] = (None, ('Hop Type: ' + htype_display))
-            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+            screen = format_list(hadd_head, hadd_body, add_prompt)
         elif next_screen == 'hop_alpha':
             create_loop = True
             hop_alpha = None
@@ -188,7 +191,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             hop_temp = str(hop_alpha)
             misc.cls()
             hadd_body[3] = (None, ('Alpha Acid Content: ' + hop_temp + '%'))
-            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+            screen = format_list(hadd_head, hadd_body, add_prompt)
         elif next_screen == 'hop_beta':
             create_loop = True
             hop_beta = None
@@ -202,7 +205,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             hop_temp = str(hop_beta)
             misc.cls()
             hadd_body[4] = (None, ('Beta Acid Content: ' + hop_temp + '%'))
-            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+            screen = format_list(hadd_head, hadd_body, add_prompt)
         elif next_screen == 'hop_price':
             create_loop = True
             hop_price = None
@@ -216,7 +219,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             hop_temp = str(hop_price)
             misc.cls()
             hadd_body[5] = (None, ('Price: $' + hop_temp))
-            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+            screen = format_list(hadd_head, hadd_body, add_prompt)
         elif next_screen == 'hop_qty':
             create_loop = True
             hop_qty = None
@@ -230,7 +233,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             hop_temp = str(hop_qty)
             misc.cls()
             hadd_body[6] = (None, ('Inventory Quantity: ' + hop_temp + ' oz'))
-            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+            screen = format_list(hadd_head, hadd_body, add_prompt)
         elif next_screen == 'hop_notes':
             create_loop = True
             hnotes_lst = []
@@ -244,7 +247,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             hnotes_display = ''.join(hnotes_lst)
             misc.cls()
             hadd_body[7] = (None, (hnotes_display + '...'))
-            screen = format_list(hadd_head, hadd_body, hadd_prompt)
+            screen = format_list(hadd_head, hadd_body, add_prompt)
             hop_notes = form.quote_str(hop_notes)
         elif next_screen == 'hop_save':
             try:
@@ -258,11 +261,11 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             except mysql.connector.errors.IntegrityError:
                 create_loop = True
                 misc.cls()
-                screen = format_list('Hop Name Required', hadd_body, hadd_prompt)
+                screen = format_list('Hop Name Required', hadd_body, add_prompt)
             except mysql.connector.errors.DataError:
                 create_loop = True
                 misc.cls()
-                screen = format_list('Invalid data. Double check alpha, beta, price, and quantity.', hadd_body, hadd_prompt)
+                screen = format_list('Invalid data. Double check alpha, beta, price, and quantity.', hadd_body, add_prompt)
         else:
             create_loop = False
 
@@ -273,13 +276,16 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         elif next_screen == 'ing':
             return [next_screen, ing_head, ing_body, ing_prompt]
         elif next_screen == 'hop_add':
-            return [next_screen, hadd_head, hadd_body, hadd_prompt]
+            return [next_screen, hadd_head, hadd_body, add_prompt]
         elif next_screen == 'exit' or next_screen == 'log':
             return next_screen
         elif next_screen == 'hop':
             # get the list of query responses to format for the next screen
             hop_body = draw.get_body(next_screen, 'all', hs_db)
             return [next_screen, hlist_head, hop_body, hlist_prompt]
+        elif next_screen == 'yst':
+            yst_body = draw.get_body(next_screen, 'all', hs_db)
+            return [next_screen, ylist_head, yst_body, ylist_prompt]
         elif next_screen == 'srch':
             query = input("Search Query: ")
             search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
