@@ -293,6 +293,8 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     else:
         if 'hop' in cur_screen:
             srch_table = 'hop'
+        elif 'yst' in cur_screen:
+            srch_table = 'yst'
         next_det = draw.get_body(cur_screen, next_screen[0], hs_db, srch_table)
         det_head = next_det[1]
         return [next_screen, det_head, next_det, '1. Return\n2. Add Inventory\n3. Delete\n\nSelect Option: ']
@@ -340,6 +342,8 @@ while outer_loop == True:
                 if cur_screen == 'srch':
                     if cur_head == 'Hop Select':
                         cur_screen = 'hop_det'
+                    elif cur_head == 'Yeast Select':
+                        cur_screen = 'yst_det'
                 else:
                     if ('_det' in cur_screen) == False:
                         cur_screen = cur_screen + '_det'

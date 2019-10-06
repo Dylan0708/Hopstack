@@ -93,6 +93,57 @@ def detail_title(details):
         titled_line.append('Price: $' + str(details[4]) + ' per oz')
         titled_line.append('Inventory Quantity: ' + str(details[5]) + 'oz')
         titled_line.append('')
+    elif line_items == 12: # yeast
+        # format each line
+        if details[0] != None:
+            titled_line.append('Monthly Viability Loss: ' + details[0] + '%')
+        else:
+            titled_line.append(None)
+
+        if details[1] != None:
+            titled_line.append('Product ID: ' + details[1])
+        else:
+            titled_line.append(None)
+
+        if details[2] != None:
+            titled_line.append('Lab: ' + details[2])
+        else:
+            titled_line.append(None)
+
+        if details[3] != None:
+            if details[3] == 'Ale':
+                titled_line.append('Yeast Type: Ale (Saccharomyces Cerevisiae)')
+            elif details[3] == 'Lag':
+                titled_line.append('Yeast Type: Lager (Saccharomyces Pastorianus)')
+            elif details[3] == 'Brt':
+                titled_line.append('Yeast Type: Brett (Brettanomyces)')
+            elif details[3] == 'Dia':
+                titled_line.append('Yeast Type: Diastatic (Saccharomyces Cerevisiae var. Diastaticus)')
+            elif details[3] == 'Ped':
+                titled_line.append('Bacteria Type: Pediococcus')
+            elif details[3] == 'Lac':
+                titled_line.append('Bacteria Type: Lactobacillus')
+            elif details[3] == 'Kvk':
+                titled_line.append('Yeast Type: Kveik')
+            else:
+                titled_line.append('Yeast Type: Mixed Culture')
+        else:
+            titled_line.append(None)
+        
+        if details[4] != None:
+            titled_line.append('Alcohol Tolerance: ' + str(details[4]) + '%')
+        else:
+            titled_line.append(None)
+        
+        if details[5] != None:
+            if details[5] == 'L':
+                titled_line.append('Flocculation: Low')
+            elif details[5] == 'M':
+                titled_line.append('Flocculation: Medium')
+            else:
+                titled_line.append('Flocculation: High')
+        else:
+            titled_line.append(None)
 
     # get items to delete
     for i in titled_line:
