@@ -93,10 +93,11 @@ def detail_title(details):
         titled_line.append('Price: $' + str(details[4]) + ' per oz')
         titled_line.append('Inventory Quantity: ' + str(details[5]) + 'oz')
         titled_line.append('')
+
     elif line_items == 12: # yeast
         # format each line
         if details[0] != None:
-            titled_line.append('Monthly Viability Loss: ' + details[0] + '%')
+            titled_line.append('Monthly Viability Loss: ' + str(details[0]) + '%')
         else:
             titled_line.append(None)
 
@@ -144,6 +145,30 @@ def detail_title(details):
                 titled_line.append('Flocculation: High')
         else:
             titled_line.append(None)
+        
+        if details[6] != None:
+            titled_line.append('Minimum Attenuation: ' + str(details[6]) + '%')
+        else:
+            titled_line.append(None)
+
+        if details[7] != None:
+            titled_line.append('Maximum Attenuation: ' + str(details[7]) + '%')
+        else:
+            titled_line.append(None)
+
+        if details[8] != None:
+            titled_line.append('Minimum Temperature Tolerance: ' + str(details[8]) + '°C')
+        else:
+            titled_line.append(None)
+
+        if details[9] != None:
+            titled_line.append('Maximum Temperature Tolerance: ' + str(details[9]) + '°C')
+        else:
+            titled_line.append(None)
+        
+        titled_line.append('Price: $' + str(details[10]) + ' per unit')
+        titled_line.append('Inventory Quantity: ' + str(details[11]) + 'units')
+        titled_line.append('')
 
     # get items to delete
     for i in titled_line:

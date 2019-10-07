@@ -71,6 +71,8 @@ def get_next(current, selection, list_lngth, raw, cur_data):
         elif int(selection) == list_lngth:
             if ('Hop Select' in cur_data) == True:
                 go_next = 'hop'
+            elif ('Yeast Select' in cur_data) == True:
+                go_next = 'yst'
         else:
             misc.cls()
             go_next = None
@@ -94,6 +96,12 @@ def get_next(current, selection, list_lngth, raw, cur_data):
                     loop = False
                 else:
                     loop = True
+        else:
+            misc.cls()
+            go_next = None
+    elif current == 'yst_det':
+        if selection == '1':
+            go_next = 'yst'
         else:
             misc.cls()
             go_next = None
@@ -150,6 +158,16 @@ def get_body(table, param, connection, current = None):
             columns = 'hop_id, hop_name '
             order = 'hop_name'
             db_id = 'hop_id'
+            name_col = 'hop_name'
+            note_col = 'hop_notes'
+        elif current == 'yst':
+            table = 'yeast '
+            columns = 'yeast_id, yeast_name '
+            order = 'yeast_name'
+            db_id = 'yeast_id'
+            name_col = 'yeast_name'
+            note_col = 'yeast_notes'
+
 
     # establish db cursor
     curs = connection.cursor(buffered = True)
@@ -159,7 +177,7 @@ def get_body(table, param, connection, current = None):
             curs.execute('SELECT ' + columns + 'FROM ' + table + 'ORDER BY ' + order)
             next_foot = [(None, 'Ingredients'), (None, 'Main Menu'), (None, foot_add), (None, 'Search')]
         else:
-            curs.execute('SELECT ' + columns + 'FROM ' + table + 'WHERE (hop_notes LIKE "%' + param + '%" OR hop_name LIKE "%' + param + '%") ORDER BY ' + order)
+            curs.execute('SELECT ' + columns + 'FROM ' + table + 'WHERE (' + note_col + ' LIKE "%' + param + '%" OR ' + name_col + ' LIKE "%' + param + '%") ORDER BY ' + order)
             next_foot = [(None, 'Ingredients'), (None, 'Main Menu'), (None, 'Back')]
     else:
         curs.execute('SELECT * FROM ' + table + 'WHERE ' + db_id + '= ' + str(param))

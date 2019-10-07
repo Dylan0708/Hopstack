@@ -289,11 +289,14 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         elif next_screen == 'srch':
             query = input("Search Query: ")
             search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
-            return [next_screen, hlist_head, search_body, hlist_prompt]
+            if cur_screen == 'hop':
+                return [next_screen, hlist_head, search_body, hlist_prompt]
+            elif cur_screen == 'yst':
+                return [next_screen, ylist_head, search_body, ylist_prompt]
     else:
-        if 'hop' in cur_screen:
+        if 'Hop Select' in screen:
             srch_table = 'hop'
-        elif 'yst' in cur_screen:
+        elif 'Yeast Select' in screen:
             srch_table = 'yst'
         next_det = draw.get_body(cur_screen, next_screen[0], hs_db, srch_table)
         det_head = next_det[1]

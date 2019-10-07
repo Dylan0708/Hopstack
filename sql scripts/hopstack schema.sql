@@ -23,7 +23,7 @@ CREATE TABLE yeast
     yeast_type VARCHAR(3), -- Ale, Lag, Brt, Dia, Ped, Lac, Kvk, Mix
     alcohol_tolerance INT, -- Alcohol tolerance in %
     flocculation VARCHAR(1), -- L = Low, M = Medium, H = High
-    min_attenuation INT, -- Minimum attenuation in &
+    min_attenuation INT, -- Minimum attenuation in %
     max_attenuation INT, -- Maximum attenuation in %
     min_temperature INT, -- Minimum temperature in C
     max_temperature INT, -- Maximum temperature in C
