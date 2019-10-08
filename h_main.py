@@ -118,8 +118,9 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     hlist_prompt = 'Select Hop: '
     ylist_prompt = 'Select Yeast: '
 
-    # print formatted screen
+    # loop until a valid next screen is selected or through a create screen
     while (next_screen == None) or (create_loop == True):
+        # print formatted screen and get user input for next screen
         print(screen, end = '')
         option = input()
 
@@ -286,17 +287,18 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         elif next_screen == 'yst':
             yst_body = draw.get_body(next_screen, 'all', hs_db)
             return [next_screen, ylist_head, yst_body, ylist_prompt]
-        elif next_screen == 'srch':
+        elif next_screen == 'hop_srch':
             query = input("Search Query: ")
             search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
-            if cur_screen == 'hop':
-                return [next_screen, hlist_head, search_body, hlist_prompt]
-            elif cur_screen == 'yst':
-                return [next_screen, ylist_head, search_body, ylist_prompt]
+            return [next_screen, hlist_head, search_body, hlist_prompt]
+        elif next_screen == 'yst_srch':
+            query = input("Search Query: ")
+            search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
+            return [next_screen, ylist_head, search_body, ylist_prompt]
     else:
-        if 'Hop Select' in screen:
+        if cur_screen == 'hop' or cur_screen == 'hop_det' or cur_screen == 'hop_srch':
             srch_table = 'hop'
-        elif 'Yeast Select' in screen:
+        elif cur_screen == 'yst' or cur_screen == 'yst_det' or cur_screen == 'yst_srch':
             srch_table = 'yst'
         next_det = draw.get_body(cur_screen, next_screen[0], hs_db, srch_table)
         det_head = next_det[1]
@@ -342,11 +344,10 @@ while outer_loop == True:
             outer_loop = False
         else:
             if type(screen_next[0]) != str:
-                if cur_screen == 'srch':
-                    if cur_head == 'Hop Select':
-                        cur_screen = 'hop_det'
-                    elif cur_head == 'Yeast Select':
-                        cur_screen = 'yst_det'
+                if cur_screen == 'hop_srch':
+                    cur_screen = 'hop_det'
+                elif cur_screen == 'yst_srch':
+                    cur_screen = 'yst_det'
                 else:
                     if ('_det' in cur_screen) == False:
                         cur_screen = cur_screen + '_det'
