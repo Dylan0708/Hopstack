@@ -34,17 +34,21 @@ def get_next(current, selection, list_lngth, raw, cur_data):
             misc.cls()
             go_next = None
     elif current == 'hop':
-        if int(selection) <= (list_lngth - 4) and int(selection) > 0:
-            go_next = [raw[int(selection) - 1][0]]
-        elif int(selection) == list_lngth - 3:
-            go_next = 'ing'
-        elif int(selection) == list_lngth - 2:
-            go_next = 'main'
-        elif int(selection) == list_lngth - 1:
-            go_next = 'hop_add'
-        elif int(selection) == list_lngth:
-            go_next = 'hop_srch'
-        else:
+        try:
+            if int(selection) <= (list_lngth - 4) and int(selection) > 0:
+                go_next = [raw[int(selection) - 1][0]]
+            elif int(selection) == list_lngth - 3:
+                go_next = 'ing'
+            elif int(selection) == list_lngth - 2:
+                go_next = 'main'
+            elif int(selection) == list_lngth - 1:
+                go_next = 'hop_add'
+            elif int(selection) == list_lngth:
+                go_next = 'hop_srch'
+            else:
+                misc.cls()
+                go_next = None
+        except ValueError:
             misc.cls()
             go_next = None
     elif current == 'hop_srch':
@@ -83,17 +87,21 @@ def get_next(current, selection, list_lngth, raw, cur_data):
             misc.cls()
             go_next = None
     elif current == 'yst':
-        if int(selection) <= (list_lngth - 4) and int(selection) > 0:
-            go_next = [raw[int(selection) - 1][0]]
-        elif int(selection) == list_lngth - 3:
-            go_next = 'ing'
-        elif int(selection) == list_lngth - 2:
-            go_next = 'main'
-        elif int(selection) == list_lngth - 1:
-            go_next = 'yst_add'
-        elif int(selection) == list_lngth:
-            go_next = 'yst_srch'
-        else:
+        try:
+            if int(selection) <= (list_lngth - 4) and int(selection) > 0:
+                go_next = [raw[int(selection) - 1][0]]
+            elif int(selection) == list_lngth - 3:
+                go_next = 'ing'
+            elif int(selection) == list_lngth - 2:
+                go_next = 'main'
+            elif int(selection) == list_lngth - 1:
+                go_next = 'yst_add'
+            elif int(selection) == list_lngth:
+                go_next = 'yst_srch'
+            else:
+                misc.cls()
+                go_next = None
+        except ValueError:
             misc.cls()
             go_next = None
     elif current == 'yst_srch':
@@ -151,16 +159,14 @@ def get_body(table, param, connection, current = None):
         order = 'hop_name'
         db_id = 'hop_id '
         foot_add = 'Add Hop'
-        name_col = 'hop_name'
-        note_col = 'hop_notes'
+        srch_params = ' hop_notes LIKE "%{}%" OR hop_name LIKE "%{}%"'.format(param, param)
     elif table == 'yst' or table == 'yst_det' or table == 'yst_srch':
         table = 'yeast '
         columns = 'yeast_id, yeast_name '
         order = 'yeast_name'
         db_id = 'yeast_id'
         foot_add = 'Add Yeast'
-        name_col = 'yeast_name'
-        note_col = 'yeast_notes'
+        srch_params = ' yeast_notes LIKE "%{}%" OR yeast_name LIKE "%{}%" OR lab LIKE "%{}%"'.format(param, param, param)
     elif table == 'ferm':
         table = 'fermentables'
     elif table == 'msc':
@@ -174,7 +180,7 @@ def get_body(table, param, connection, current = None):
             curs.execute('SELECT ' + columns + 'FROM ' + table + 'ORDER BY ' + order)
             next_foot = [(None, 'Ingredients'), (None, 'Main Menu'), (None, foot_add), (None, 'Search')]
         else:
-            curs.execute('SELECT ' + columns + 'FROM ' + table + 'WHERE (' + note_col + ' LIKE "%' + param + '%" OR ' + name_col + ' LIKE "%' + param + '%") ORDER BY ' + order)
+            curs.execute('SELECT ' + columns + 'FROM ' + table + 'WHERE (' + srch_params + ') ORDER BY ' + order)
             next_foot = [(None, 'Ingredients'), (None, 'Main Menu'), (None, 'Back')]
     else:
         curs.execute('SELECT * FROM ' + table + 'WHERE ' + db_id + '= ' + str(param))
