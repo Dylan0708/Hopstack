@@ -110,6 +110,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     main_body = [(None, 'Inventory'), (None, 'Recipes'), (None, 'Shopping Lists'), (None, 'Ingredients'), (None, 'Log Out'), (None, 'Exit')]
     ing_body = [(None, 'Hops'), (None, 'Yeast'), (None, 'Fermentables & Adjuncts'), (None, 'Water'), (None, 'Miscellaneous'), (None, 'Main Menu')]
     hadd_body = [(None, 'Hop Name'), (None, 'Hop Origin Country'), (None, 'Hop Type (Bittering, Aroma, or Both)'), (None, 'Alpha Acid Content (%)'), (None, 'Beta Acid Content (%)'), (None, 'Price'), (None, 'Quantity in Inventory'), (None, 'Notes'), (None, 'Save Hop'), (None, 'Exit Without Saving')]
+    yadd_body = [(None, 'Yeast Name'), (None, 'Monthly Viability Loss (%)'), (None, 'Product ID'), (None, 'Lab'), (None, 'Yeast/Bacteria Type (Ale, Lager, Brett, Diastaticus, Kveik, Pediococcus, Lactobacillus, or Mixed Culture)'), (None, 'Alcohol Tolerance (%)'), (None, 'Flocculation (Low, Medium, or High)'), (None, 'Minimum Attenuation (%)'), (None, 'Maximum Attenuation (%)'), (None, 'Minimum Temperature (°C)'), (None, 'Maximum Temperature (°C)'), (None, 'Price'), (None, 'Quantity in Inventory'), (None, 'Notes'), (None, 'Save Yeast'), (None, 'Exit Without Saving')]
 
     # prebuilt prompts
     main_prompt = 'Select Menu: '
@@ -278,6 +279,8 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             return [next_screen, ing_head, ing_body, ing_prompt]
         elif next_screen == 'hop_add':
             return [next_screen, hadd_head, hadd_body, add_prompt]
+        elif next_screen == 'yst_add':
+            return [next_screen, yadd_head, yadd_body, add_prompt]
         elif next_screen == 'exit' or next_screen == 'log':
             return next_screen
         elif next_screen == 'hop':
