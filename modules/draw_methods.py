@@ -86,6 +86,30 @@ def get_next(current, selection, list_lngth, raw, cur_data):
         else:
             misc.cls()
             go_next = None
+    elif current == 'hop_add':
+        if selection == '1':
+            go_next = 'hop_name'
+        elif selection == '2':
+            go_next = 'hop_origin'
+        elif selection == '3':
+            go_next = 'hop_type'
+        elif selection == '4':
+            go_next = 'hop_alpha'
+        elif selection == '5':
+            go_next = 'hop_beta'
+        elif selection == '6':
+            go_next = 'hop_price'
+        elif selection == '7':
+            go_next = 'hop_qty'
+        elif selection == '8':
+            go_next = 'hop_notes'
+        elif selection == '9':
+            go_next = 'hop_save'
+        elif selection == '10':
+            go_next = 'hop'
+        else:
+            misc.cls()
+            go_next = None
     elif current == 'yst':
         try:
             if int(selection) <= (list_lngth - 4) and int(selection) > 0:
@@ -122,27 +146,39 @@ def get_next(current, selection, list_lngth, raw, cur_data):
         else:
             misc.cls()
             go_next = None
-    elif current == 'hop_add':
+    elif current == 'yst_add':
         if selection == '1':
-            go_next = 'hop_name'
+            go_next = 'yst_name'
         elif selection == '2':
-            go_next = 'hop_origin'
+            go_next = 'yst_ar'
         elif selection == '3':
-            go_next = 'hop_type'
+            go_next = 'yst_prid'
         elif selection == '4':
-            go_next = 'hop_alpha'
+            go_next = 'yst_lab'
         elif selection == '5':
-            go_next = 'hop_beta'
+            go_next = 'yst_type'
         elif selection == '6':
-            go_next = 'hop_price'
+            go_next = 'yst_alc'
         elif selection == '7':
-            go_next = 'hop_qty'
+            go_next = 'yst_floc'
         elif selection == '8':
-            go_next = 'hop_notes'
+            go_next = 'yst_minatt'
         elif selection == '9':
-            go_next = 'hop_save'
+            go_next = 'yst_maxatt'
         elif selection == '10':
-            go_next = 'hop'
+            go_next = 'yst_mintmp'
+        elif selection == '11':
+            go_next = 'yst_maxtmp'
+        elif selection == '12':
+            go_next = 'yst_price'
+        elif selection == '13':
+            go_next = 'yst_qty'
+        elif selection == '14':
+            go_next = 'yst_notes'
+        elif selection == '15':
+            go_next = 'yst_save'
+        elif selection == '16':
+            go_next = 'yst'
         else:
             misc.cls()
             go_next = None
