@@ -318,8 +318,9 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             while yst_ar == None:
                 yst_ar = input("Monthly Viability Loss: ")
                 try:
-                    yst_ar = int(yst_ar)
-                except ValueError:
+                    yst_ar = Decimal(yst_ar)
+                    yst_ar = int(round(yst_ar))
+                except decimal.InvalidOperation:
                     print("Viability loss must be a numeric value.")
                     yst_ar = None
                 if yst_ar != None:
@@ -384,7 +385,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
                 try:
                     yst_alc = Decimal(yst_alc)
                     yst_alc = int(round(yst_alc))
-                except ValueError:
+                except decimal.InvalidOperation:
                     print("Alcohol tolerance must be a numeric value.")
                     yst_alc = None
             misc.cls()
@@ -417,7 +418,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
                 try:
                     yst_minatt = Decimal(yst_minatt)
                     yst_minatt = int(round(yst_minatt))
-                except ValueError:
+                except decimal.InvalidOperation:
                     print("Minimum attenuation must be a numeric value.")
                     yst_minatt = None
                 if yst_minatt != None:
@@ -439,7 +440,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
                 try:
                     yst_maxatt = Decimal(yst_maxatt)
                     yst_maxatt = int(round(yst_maxatt))
-                except ValueError:
+                except decimal.InvalidOperation:
                     print("Maximum attenuation must be a numeric value.")
                     yst_maxatt = None
                 if yst_maxatt != None:
@@ -461,7 +462,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
                 try:
                     yst_mintmp = Decimal(yst_mintmp)
                     yst_mintmp = int(round(yst_mintmp))
-                except ValueError:
+                except decimal.InvalidOperation:
                     print("Minimum temperature must be a numeric value.")
                     yst_mintmp = None
                 if yst_mintmp != None:
@@ -480,7 +481,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
                 try:
                     yst_maxtmp = Decimal(yst_maxtmp)
                     yst_maxtmp = int(round(yst_maxtmp))
-                except ValueError:
+                except decimal.InvalidOperation:
                     print("Maximum temperature must be a numeric value.")
                     yst_maxtmp = None
                 if yst_maxtmp != None:
