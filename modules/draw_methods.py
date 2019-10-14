@@ -198,7 +198,7 @@ def get_body(table, param, connection, current = None):
         srch_params = ' hop_notes LIKE "%{}%" OR hop_name LIKE "%{}%"'.format(param, param)
     elif table == 'yst' or table == 'yst_det' or table == 'yst_srch':
         table = 'yeast '
-        columns = 'yeast_id, yeast_name '
+        columns = 'yeast_id, yeast_name, lab '
         order = 'yeast_name'
         db_id = 'yeast_id'
         foot_add = 'Add Yeast'

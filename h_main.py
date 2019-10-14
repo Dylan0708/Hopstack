@@ -154,7 +154,6 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             hs_db.commit()
             db_curs.close()
         elif next_screen == 'hop_update':
-            print("test code")
             misc.cls()
             add_val = input("Additional Quantity: ")
             add_val = Decimal(add_val)
@@ -286,6 +285,10 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
                 create_loop = True
                 misc.cls()
                 screen = format_list('Invalid data. Double check alpha, beta, price, and quantity.', hadd_body, add_prompt)
+            except mysql.connector.errors.ProgrammingError:
+                create_loop = True
+                misc.cls()
+                screen = format_list('Invalid data. \\ is not a valid character.', yadd_body, add_prompt)
         elif next_screen == 'yst_name':
             create_loop = True
             yst_name = input("Yeast Name: ")
@@ -316,6 +319,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             misc.cls()
             yadd_body[2] = (None, ('Product ID: ' + yst_prid))
             screen = format_list(yadd_head, yadd_body, add_prompt)
+            yst_prid = form.quote_str(yst_prid)
         elif next_screen == 'yst_lab':
             create_loop = True
             yst_lab = input("Lab: ")
@@ -471,6 +475,70 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             misc.cls()
             yadd_body[10] = (None, ('Maximum Temperature: ' + str(yst_maxtmp) + '°C'))
             screen = format_list(yadd_head, yadd_body, add_prompt)
+        elif next_screen == 'yst_price':
+            create_loop = True
+            yst_price = None
+            while yst_price == None:
+                yst_temp = input("Price: ")
+                try:
+                    yst_price = Decimal(yst_temp)
+                except decimal.InvalidOperation:
+                    print("Price must be a numeric value.")
+            yst_price = round(yst_price, 2)
+            yst_temp = str(yst_price)
+            misc.cls()
+            yadd_body[11] = (None, ('Price: $' + yst_temp))
+            screen = format_list(yadd_head, yadd_body, add_prompt)
+        elif next_screen == 'yst_qty':
+            create_loop = True
+            yst_qty = None
+            while yst_qty == None:
+                yst_temp = input("Inventory Quantity: ")
+                try:
+                    yst_qty = Decimal(yst_temp)
+                except decimal.InvalidOperation:
+                    print("Quantity must be a numeric value.")
+            yst_qty = round(yst_qty, 2)
+            yst_temp = str(yst_qty)
+            misc.cls()
+            yadd_body[12] = (None, ('Inventory Quantity: ' + yst_temp + ' Units'))
+            screen = format_list(yadd_head, yadd_body, add_prompt)
+        elif next_screen == 'yst_notes':
+            create_loop = True
+            ynotes_lst = []
+            ynotes_loop = 0
+            yst_notes = input("Notes: ")
+            for i in yst_notes:
+                ynotes_lst.append(i)
+                ynotes_loop += 1
+                if ynotes_loop == 25:
+                    break
+            ynotes_display = ''.join(ynotes_lst)
+            misc.cls()
+            yadd_body[13] = (None, (ynotes_display + '...'))
+            screen = format_list(yadd_head, yadd_body, add_prompt)
+            yst_notes = form.quote_str(yst_notes)
+        elif next_screen == 'yst_save':
+            try:
+                create_loop = False
+                next_screen = 'yst'
+                db_curs = hs_db.cursor()
+                query_str = 'INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_qty, yeast_notes) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})'.format(yst_name, yst_ar, yst_prid, yst_lab, yst_type, yst_alc, yst_floc, yst_minatt, yst_maxatt, yst_mintmp, yst_maxtmp, yst_price, yst_qty, yst_notes)
+                db_curs.execute(query_str)
+                hs_db.commit()
+                db_curs.close()
+            except mysql.connector.errors.IntegrityError:
+                create_loop = True
+                misc.cls()
+                screen = format_list('Yeast Name Required', yadd_body, add_prompt)
+            except mysql.connector.errors.DataError:
+                create_loop = True
+                misc.cls()
+                screen = format_list('Invalid data. Double check price, and quantity.', yadd_body, add_prompt)
+            except mysql.connector.errors.ProgrammingError:
+                create_loop = True
+                misc.cls()
+                screen = format_list('Invalid data. \\ is not a valid character.', yadd_body, add_prompt)
         else: 
             create_loop = False
 
@@ -486,8 +554,8 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             return [next_screen, yadd_head, yadd_body, add_prompt]
         elif next_screen == 'exit' or next_screen == 'log':
             return next_screen
+        # get the list of query responses to format for the next screen
         elif next_screen == 'hop':
-            # get the list of query responses to format for the next screen
             hop_body = draw.get_body(next_screen, 'all', hs_db)
             return [next_screen, hlist_head, hop_body, hlist_prompt]
         elif next_screen == 'yst':
