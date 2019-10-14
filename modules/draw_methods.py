@@ -143,6 +143,23 @@ def get_next(current, selection, list_lngth, raw, cur_data):
     elif current == 'yst_det':
         if selection == '1':
             go_next = 'yst'
+        elif selection == '2':
+            go_next = 'yst_update'
+        elif selection == '3':
+            misc.cls()
+            loop = True
+            while loop == True:
+                misc.cls()
+                print("Delete " + raw[1] + "? Y/N")
+                verify = input()
+                if verify.lower() == 'y':
+                    go_next = 'yst_del'
+                    loop = False
+                elif verify.lower() == 'n':
+                    go_next = [raw[0]]
+                    loop = False
+                else:
+                    loop = True
         else:
             misc.cls()
             go_next = None

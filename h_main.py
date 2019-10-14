@@ -163,6 +163,22 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             db_curs.execute('UPDATE hops SET hop_qty = {} WHERE hop_id = {}'.format(new_val, next_screen[0]))
             hs_db.commit()
             db_curs.close()
+        elif next_screen == 'yst_del':
+            next_screen = 'yst'
+            db_curs = hs_db.cursor()
+            db_curs.execute('DELETE FROM yeast WHERE yeast_id = {}'.format(raw_data[0]))
+            hs_db.commit()
+            db_curs.close()
+        elif next_screen == 'yst_update':
+            misc.cls()
+            add_val = input("Additional Quantity: ")
+            add_val = Decimal(add_val)
+            new_val = add_val + raw_data[13]
+            next_screen = raw_data
+            db_curs = hs_db.cursor()
+            db_curs.execute('UPDATE yeast SET yeast_qty = {} WHERE yeast_id = {}'.format(new_val, next_screen[0]))
+            hs_db.commit()
+            db_curs.close()
         # logic if the screen is creating something
         elif next_screen == 'hop_name':
             create_loop = True

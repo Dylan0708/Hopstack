@@ -166,8 +166,8 @@ def detail_title(details):
         else:
             titled_line.append(None)
         
-        titled_line.append('Price: $' + str(details[10]) + ' per unit')
-        titled_line.append('Inventory Quantity: ' + str(details[11]) + 'units')
+        titled_line.append('Price: $' + str(details[10]) + ' per Unit')
+        titled_line.append('Inventory Quantity: ' + str(details[11]) + ' Units')
         titled_line.append('')
 
     # get items to delete
