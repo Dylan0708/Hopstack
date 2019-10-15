@@ -208,20 +208,25 @@ def get_body(table, param, connection, current = None):
     # put params in proper terms for the db query
     if table == 'hop' or table == 'hop_det' or table == 'hop_srch':
         table = 'hops '
-        columns = 'hop_id, hop_name '
+        columns = 'hop_id, hop_name, hop_origin '
         order = 'hop_name'
         db_id = 'hop_id '
         foot_add = 'Add Hop'
-        srch_params = ' hop_notes LIKE "%{}%" OR hop_name LIKE "%{}%"'.format(param, param)
+        srch_params = ' hop_notes LIKE "%{}%" OR hop_name LIKE "%{}%" OR hop_origin LIKE "%{}%"'.format(param, param, param)
     elif table == 'yst' or table == 'yst_det' or table == 'yst_srch':
         table = 'yeast '
         columns = 'yeast_id, yeast_name, lab '
         order = 'yeast_name'
-        db_id = 'yeast_id'
+        db_id = 'yeast_id '
         foot_add = 'Add Yeast'
         srch_params = ' yeast_notes LIKE "%{}%" OR yeast_name LIKE "%{}%" OR lab LIKE "%{}%"'.format(param, param, param)
-    elif table == 'ferm':
-        table = 'fermentables'
+    elif table == 'ferm' or table == 'ferm_det' or table == 'ferm_srch':
+        table = 'fermentables '
+        columns = 'ferm_id, ferm_name, ferm_origin '
+        order = 'ferm_name'
+        db_id = 'ferm_id '
+        foot_add = 'Add Fermentable'
+        srch_params = ' ferm_notes LIKE "%{}%" OR ferm_name LIKE "%{}%" OR ferm_origin LIKE "%{}%"'.format(param, param, param)
     elif table == 'msc':
         table = 'misc'
 

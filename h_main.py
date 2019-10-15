@@ -123,6 +123,8 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     hadd_head = 'Create Hop'
     ylist_head = 'Yeast Select'
     yadd_head = 'Create Yeast'
+    flist_head = 'Fermentable Select'
+    fadd_head = 'Create Fermentable'
 
     # prebuilt bodies
     main_body = [(None, 'Inventory'), (None, 'Recipes'), (None, 'Shopping Lists'), (None, 'Ingredients'), (None, 'Log Out'), (None, 'Exit')]
@@ -136,6 +138,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     add_prompt = 'Select Detail to Edit: '
     hlist_prompt = 'Select Hop: '
     ylist_prompt = 'Select Yeast: '
+    flist_prompt = 'Select Fermentable: '
 
     # loop until a valid next screen is selected or through a create screen
     while (next_screen == None) or (create_loop == True):
@@ -578,6 +581,9 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         elif next_screen == 'yst':
             yst_body = draw.get_body(next_screen, 'all', hs_db)
             return [next_screen, ylist_head, yst_body, ylist_prompt]
+        elif next_screen == 'ferm':
+            ferm_body = draw.get_body(next_screen, 'all', hs_db)
+            return [next_screen, flist_head, ferm_body, flist_prompt]
         elif next_screen == 'hop_srch':
             query = input("Search Query: ")
             search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
