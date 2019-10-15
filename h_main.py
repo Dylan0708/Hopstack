@@ -592,6 +592,10 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             query = input("Search Query: ")
             search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
             return [next_screen, ylist_head, search_body, ylist_prompt]
+        elif next_screen == 'ferm_srch':
+            query = input("Search Query: ")
+            search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
+            return [next_screen, flist_head, search_body, flist_prompt]
     else:
         if cur_screen == 'hop' or cur_screen == 'hop_det' or cur_screen == 'hop_srch':
             srch_table = 'hop'
