@@ -199,6 +199,24 @@ def get_next(current, selection, list_lngth, raw, cur_data):
         else:
             misc.cls()
             go_next = None
+    elif current == 'ferm':
+        try:
+            if int(selection) <= (list_lngth - 4) and int(selection) > 0:
+                go_next = [raw[int(selection) - 1][0]]
+            elif int(selection) == list_lngth - 3:
+                go_next = 'ing'
+            elif int(selection) == list_lngth - 2:
+                go_next = 'main'
+            elif int(selection) == list_lngth - 1:
+                go_next = 'ferm_add'
+            elif int(selection) == list_lngth:
+                go_next = 'ferm_srch'
+            else:
+                misc.cls()
+                go_next = None
+        except ValueError:
+            misc.cls()
+            go_next = None
 
     return go_next
 

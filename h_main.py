@@ -123,8 +123,8 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     hadd_head = 'Create Hop'
     ylist_head = 'Yeast Select'
     yadd_head = 'Create Yeast'
-    flist_head = 'Fermentable Select'
-    fadd_head = 'Create Fermentable'
+    flist_head = 'Fermentable/Adjunct Select'
+    fadd_head = 'Create Fermentable/Adjunct'
 
     # prebuilt bodies
     main_body = [(None, 'Inventory'), (None, 'Recipes'), (None, 'Shopping Lists'), (None, 'Ingredients'), (None, 'Log Out'), (None, 'Exit')]
@@ -138,7 +138,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     add_prompt = 'Select Detail to Edit: '
     hlist_prompt = 'Select Hop: '
     ylist_prompt = 'Select Yeast: '
-    flist_prompt = 'Select Fermentable: '
+    flist_prompt = 'Select Fermentable/Adjunct: '
 
     # loop until a valid next screen is selected or through a create screen
     while (next_screen == None) or (create_loop == True):
