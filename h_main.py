@@ -651,6 +651,8 @@ while outer_loop == True:
                     cur_screen = 'hop_det'
                 elif cur_screen == 'yst_srch':
                     cur_screen = 'yst_det'
+                elif cur_screen == 'ferm_srch':
+                    cur_screen = 'ferm_det'
                 else:
                     if ('_det' in cur_screen) == False:
                         cur_screen = cur_screen + '_det'
