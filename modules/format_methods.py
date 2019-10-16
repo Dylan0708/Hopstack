@@ -169,6 +169,72 @@ def detail_title(details):
         titled_line.append('Price: $' + str(details[10]) + ' per Unit')
         titled_line.append('Inventory Quantity: ' + str(details[11]) + ' Units')
         titled_line.append('')
+    elif line_items == 8: # fermentables
+        # format each line
+        if details[0] != None:
+            titled_line.append('Fermentable/Adjunct Origin: ' + details[0])
+        else:
+            titled_line.append(None)
+
+        if details[1] != None:
+            if details[1] == 'B':
+                titled_line.append('Fermentable/Adjunct Type: Base Malt')
+            elif details[1] == 'S':
+                titled_line.append('Fermentable/Adjunct Type: Specialty Malt')
+            elif details[1] == 'L':
+                titled_line.append('Fermentable/Adjunct Type: Liquid Extract')
+            elif details[1] == 'D':
+                titled_line.append('Fermentable/Adjunct Type: Dry Extract')
+            elif details[1] == 'U':
+                titled_line.append('Fermentable/Adjunct Type: Sugar')
+            elif details[1] == 'Y':
+                titled_line.append('Fermentable/Adjunct Type: Syrup')
+            elif details[1] == 'J':
+                titled_line.append('Fermentable/Adjunct Type: Juice')
+            elif details[1] == 'F':
+                titled_line.append('Fermentable/Adjunct Type: Fruit')
+            elif details[1] == 'A':
+                titled_line.append('Fermentable/Adjunct Type: Adjunct')
+            elif details[1] == 'O':
+                titled_line.append('Fermentable/Adjunct Type: Other')
+        else:
+            titled_line.append(None)
+
+        if details[2] != None:
+            if details[1] == 'B' or details[1] == 'S' or details[1] == 'A':
+                line_title = 'Base Gravity Potential: '
+            elif details[1] == 'L' or details[1] == 'D' or details[1] == 'U' or details[1] == 'Y' or details[1] == 'J' or details[1] == 'F' or details[1] == 'O':
+                line_title = 'Specific Gravity: '
+            else:
+                line_title = 'Base Gravity Potential/Specific Gravity: '
+            titled_line.append(line_title + str(details[2]))
+        else:
+            titled_line.append(None)
+
+        if details[3] != None:
+            titled_line.append('Colour: ' + str(details[3]) + ' Lovibond')
+        else:
+            titled_line.append(None)
+
+        if details[4] != None:
+            if details[1] == 'B' or details[1] == 'S' or details[1] == 'A':
+                titled_line.append('Diastatic Power: ' + str(details[4]) + ' Litner')
+            else:
+                titled_line.append(None)
+        else:
+            titled_line.append(None)
+            
+        if details[5] != None:
+            if details[1] == 'B' or details[1] == 'S' or details[1] == 'A':
+                titled_line.append('Protein Content: ' + str(details[5]) + '%')
+            else:
+                titled_line.append(None)
+        else:
+            titled_line.append(None)
+        
+        titled_line.append('Price: $' + str(details[6]) + ' per lb')
+        titled_line.append('Inventory Quantity: ' + str(details[7]) + ' lbs')
+        titled_line.append('')
 
     # get items to delete
     for i in titled_line:

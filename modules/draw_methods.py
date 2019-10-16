@@ -229,6 +229,12 @@ def get_next(current, selection, list_lngth, raw, cur_data):
         else:
             misc.cls()
             go_next = None
+    elif current == 'ferm_det':
+        if selection == '1':
+            go_next = 'ferm'
+        else:
+            misc.cls()
+            go_next = None
 
     return go_next
 

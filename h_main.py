@@ -601,6 +601,8 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             srch_table = 'hop'
         elif cur_screen == 'yst' or cur_screen == 'yst_det' or cur_screen == 'yst_srch':
             srch_table = 'yst'
+        elif cur_screen == 'ferm' or cur_screen == 'ferm_det' or cur_screen == 'ferm_srch':
+            srch_table = 'ferm'
         next_det = draw.get_body(cur_screen, next_screen[0], hs_db, srch_table)
         det_head = next_det[1]
         return [next_screen, det_head, next_det, '1. Return\n2. Add Inventory\n3. Delete\n\nSelect Option: ']
