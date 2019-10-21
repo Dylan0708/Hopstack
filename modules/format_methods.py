@@ -172,31 +172,31 @@ def detail_title(details):
     elif line_items == 8: # fermentables
         # format each line
         if details[0] != None:
-            titled_line.append('Fermentable/Adjunct Origin: ' + details[0])
+            titled_line.append('Origin: ' + details[0])
         else:
             titled_line.append(None)
 
         if details[1] != None:
             if details[1] == 'B':
-                titled_line.append('Fermentable/Adjunct Type: Base Malt')
+                titled_line.append('Type: Base Malt')
             elif details[1] == 'S':
-                titled_line.append('Fermentable/Adjunct Type: Specialty Malt')
+                titled_line.append('Type: Specialty Malt')
             elif details[1] == 'L':
-                titled_line.append('Fermentable/Adjunct Type: Liquid Extract')
+                titled_line.append('Type: Liquid Extract')
             elif details[1] == 'D':
-                titled_line.append('Fermentable/Adjunct Type: Dry Extract')
+                titled_line.append('Type: Dry Extract')
             elif details[1] == 'U':
-                titled_line.append('Fermentable/Adjunct Type: Sugar')
+                titled_line.append('Type: Sugar')
             elif details[1] == 'Y':
-                titled_line.append('Fermentable/Adjunct Type: Syrup')
+                titled_line.append('Type: Syrup')
             elif details[1] == 'J':
-                titled_line.append('Fermentable/Adjunct Type: Juice')
+                titled_line.append('Type: Juice')
             elif details[1] == 'F':
-                titled_line.append('Fermentable/Adjunct Type: Fruit')
+                titled_line.append('Type: Fruit')
             elif details[1] == 'A':
-                titled_line.append('Fermentable/Adjunct Type: Adjunct')
+                titled_line.append('Type: Adjunct')
             elif details[1] == 'O':
-                titled_line.append('Fermentable/Adjunct Type: Other')
+                titled_line.append('Type: Other')
         else:
             titled_line.append(None)
 
@@ -299,3 +299,18 @@ def quote_str(string):
     str_quoted = ''.join(str_elem)
 
     return str_quoted
+
+def sql_sanitize(query):
+    query_elem = []
+
+    for i in query:
+        query_elem.append(i)
+
+        if i == '\\':
+            query_elem.append('\\')
+        elif i == "'":
+            query_elem.append("'")
+    
+    sanit_str = ''.join(query_elem)
+
+    return sanit_str

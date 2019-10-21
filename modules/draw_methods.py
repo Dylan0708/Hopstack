@@ -235,6 +235,34 @@ def get_next(current, selection, list_lngth, raw, cur_data):
         else:
             misc.cls()
             go_next = None
+    elif current == 'ferm_add':
+        if selection == '1':
+            go_next = 'ferm_name'
+        elif selection == '2':
+            go_next = 'ferm_origin'
+        elif selection == '3':
+            go_next = 'ferm_type'
+        elif selection == '4':
+            go_next = 'ferm_pg'
+        elif selection == '5':
+            go_next = 'ferm_col'
+        elif selection == '6':
+            go_next = 'ferm_dp'
+        elif selection == '7':
+            go_next = 'ferm_pc'
+        elif selection == '8':
+            go_next = 'ferm_price'
+        elif selection == '9':
+            go_next = 'ferm_qty'
+        elif selection == '10':
+            go_next = 'ferm_notes'
+        elif selection == '11':
+            go_next = 'ferm_save'
+        elif selection == '12':
+            go_next = 'ferm'
+        else:
+            misc.cls()
+            go_next = None
 
     return go_next
 
