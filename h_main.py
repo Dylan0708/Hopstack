@@ -1,7 +1,7 @@
 from modules import format_methods as form, misc_methods as misc, draw_methods as draw
 import decimal
 from decimal import Decimal
-import time, mysql.connector
+import time, mysql.connector, hstack_classes as hscls
 
 #take separate list components and format into a single string
 def format_list(head, body, prompt):
@@ -87,16 +87,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     # ingredient building variable initialization
     create_loop = False
 
-    hop_name = 'NULL'
-    hop_origin = 'NULL'
-    hop_type = 'NULL'
-    htype_display = 'NULL'
-    hop_alpha = 'NULL'
-    hop_beta = 'NULL'
-    hop_price = 0
-    hop_qty = 0
-    hop_notes = 'NULL'
-    hnotes_display = 'NULL'
+    hop_cr = hscls.Hop()
 
     yst_name = 'NULL'
     yst_ar = 21
@@ -142,7 +133,6 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     # prebuilt bodies
     main_body = [(None, 'Inventory'), (None, 'Recipes'), (None, 'Shopping Lists'), (None, 'Ingredients'), (None, 'Log Out'), (None, 'Exit')]
     ing_body = [(None, 'Hops'), (None, 'Yeast'), (None, 'Fermentables & Adjuncts'), (None, 'Water'), (None, 'Miscellaneous'), (None, 'Main Menu')]
-    hadd_body = [(None, 'Name'), (None, 'Origin'), (None, 'Type (Bittering, Aroma, or Both)'), (None, 'Alpha Acid Content (%)'), (None, 'Beta Acid Content (%)'), (None, 'Price'), (None, 'Quantity in Inventory'), (None, 'Notes'), (None, 'Save'), (None, 'Exit Without Saving')]
     yadd_body = [(None, 'Name'), (None, 'Monthly Viability Loss (%)'), (None, 'Product ID'), (None, 'Lab'), (None, 'Type (Ale, Lager, Brett, Diastaticus, Kveik, Pediococcus, Lactobacillus, or Mixed Culture)'), (None, 'Alcohol Tolerance (%)'), (None, 'Flocculation (Low, Medium, or High)'), (None, 'Minimum Attenuation (%)'), (None, 'Maximum Attenuation (%)'), (None, 'Minimum Temperature (°C)'), (None, 'Maximum Temperature (°C)'), (None, 'Price'), (None, 'Quantity in Inventory'), (None, 'Notes'), (None, 'Save'), (None, 'Exit Without Saving')]
     fadd_body = [(None, 'Name'), (None, 'Origin'), (None, 'Type (Base Malt, Specialty Malt, Liquid Extract, Dry Extract, Sugar, Syrup, Juice, Fruit, Adjunct, or Other)'), (None, 'Potential/Specific Gravity'), (None, 'Colour Contribution (Lovibond)'), (None, 'Diastatic Power (Litner)'), (None, 'Protein Content (%)'), (None, 'Price'), (None, 'Quantity in Inventory'), (None, 'Notes'), (None, 'Save Yeast'), (None, 'Exit Without Saving')]
 
@@ -216,126 +206,57 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         # logic if the screen is creating something
         elif next_screen == 'hop_name':
             create_loop = True
-            hop_name = input("Name: ")
+            hop_cr.get_name()
             misc.cls()
-            hadd_body[0] = (None, ('Name: ' + hop_name))
-            screen = format_list(hadd_head, hadd_body, add_prompt)
-            hop_name = form.quote_str(hop_name)
+            screen = format_list(hadd_head, hop_cr.body, add_prompt)
         elif next_screen == 'hop_origin':
             create_loop = True
-            hop_origin = input("Origin: ")
+            hop_cr.get_origin()
             misc.cls()
-            hadd_body[1] = (None, ('Origin: ' + hop_origin))
-            screen = format_list(hadd_head, hadd_body, add_prompt)
-            hop_origin = form.quote_str(hop_origin)
+            screen = format_list(hadd_head, hop_cr.body, add_prompt)
         elif next_screen == 'hop_type':
             create_loop = True
-            hop_type = None
-            while hop_type == None:
-                hop_temp = input("Type: ")
-                if ('bo' in hop_temp.lower()) == True:
-                    hop_type = "'O'"
-                    htype_display = 'Both (Aroma and Bittering)'
-                elif ('b' in hop_temp.lower()) == True:
-                    hop_type = "'B'"
-                    htype_display = 'Bittering'
-                elif ('a' in hop_temp.lower()) == True:
-                    hop_type = "'A'"
-                    htype_display = 'Aroma'
-                else:
-                    print("Enter valid hop type.")
+            hop_cr.get_type()
             misc.cls()
-            hadd_body[2] = (None, ('Type: ' + htype_display))
-            screen = format_list(hadd_head, hadd_body, add_prompt)
+            screen = format_list(hadd_head, hop_cr.body, add_prompt)
         elif next_screen == 'hop_alpha':
             create_loop = True
-            hop_alpha = None
-            while hop_alpha == None:
-                hop_temp = input("Alpha %: ")
-                try:
-                    hop_alpha = Decimal(hop_temp)
-                except decimal.InvalidOperation:
-                    print("Alpha acid must be a numeric value.")
-            hop_alpha = round(hop_alpha, 2)
-            hop_temp = str(hop_alpha)
+            hop_cr.get_alpha()
             misc.cls()
-            hadd_body[3] = (None, ('Alpha Acid Content: ' + hop_temp + '%'))
-            screen = format_list(hadd_head, hadd_body, add_prompt)
+            screen = format_list(hadd_head, hop_cr.body, add_prompt)
         elif next_screen == 'hop_beta':
             create_loop = True
-            hop_beta = None
-            while hop_beta == None:
-                hop_temp = input("Beta %: ")
-                try:
-                    hop_beta = Decimal(hop_temp)
-                except decimal.InvalidOperation:
-                    print("Beta acid must be a numeric value.")
-            hop_beta = round(hop_beta, 2)
-            hop_temp = str(hop_beta)
+            hop_cr.get_beta()
             misc.cls()
-            hadd_body[4] = (None, ('Beta Acid Content: ' + hop_temp + '%'))
-            screen = format_list(hadd_head, hadd_body, add_prompt)
+            screen = format_list(hadd_head, hop_cr.body, add_prompt)
         elif next_screen == 'hop_price':
             create_loop = True
-            hop_price = None
-            while hop_price == None:
-                hop_temp = input("Price: ")
-                try:
-                    hop_price = Decimal(hop_temp)
-                except decimal.InvalidOperation:
-                    print("Price must be a numeric value.")
-            hop_price = round(hop_price, 2)
-            hop_temp = str(hop_price)
+            hop_cr.get_price()
             misc.cls()
-            hadd_body[5] = (None, ('Price: $' + hop_temp))
-            screen = format_list(hadd_head, hadd_body, add_prompt)
+            screen = format_list(hadd_head, hop_cr.body, add_prompt)
         elif next_screen == 'hop_qty':
             create_loop = True
-            hop_qty = None
-            while hop_qty == None:
-                hop_temp = input("Inventory Quantity: ")
-                try:
-                    hop_qty = Decimal(hop_temp)
-                except decimal.InvalidOperation:
-                    print("Quantity must be a numeric value.")
-            hop_qty = round(hop_qty, 2)
-            hop_temp = str(hop_qty)
+            hop_cr.get_qty()
             misc.cls()
-            hadd_body[6] = (None, ('Inventory Quantity: ' + hop_temp + ' oz'))
-            screen = format_list(hadd_head, hadd_body, add_prompt)
+            screen = format_list(hadd_head, hop_cr.body, add_prompt)
         elif next_screen == 'hop_notes':
             create_loop = True
-            hnotes_lst = []
-            hnotes_loop = 0
-            hop_notes = input("Notes: ")
-            for i in hop_notes:
-                hnotes_lst.append(i)
-                hnotes_loop += 1
-                if hnotes_loop == 25:
-                    break
-            hnotes_display = ''.join(hnotes_lst)
+            hop_cr.get_notes()
             misc.cls()
-            hadd_body[7] = (None, (hnotes_display + '...'))
-            screen = format_list(hadd_head, hadd_body, add_prompt)
-            hop_notes = form.sql_sanitize(hop_notes)
-            hop_notes = form.quote_str(hop_notes)
+            screen = format_list(hadd_head, hop_cr.body, add_prompt)
         elif next_screen == 'hop_save':
-            try:
+            success = hop_cr.save(hs_db)
+            if success[0]:
                 create_loop = False
                 next_screen = 'hop'
-                db_curs = hs_db.cursor()
-                query_str = 'INSERT INTO hops(hop_name, hop_origin, hop_type, alpha, beta, hop_price, hop_qty, hop_notes) VALUES ({}, {}, {}, {}, {}, {}, {}, {})'.format(hop_name, hop_origin, hop_type, hop_alpha, hop_beta, hop_price, hop_qty, hop_notes)
-                db_curs.execute(query_str)
-                hs_db.commit()
-                db_curs.close()
-            except mysql.connector.errors.IntegrityError:
+            else:
                 create_loop = True
+                if success[1] == "1048 (23000): Column 'hop_name' cannot be null":
+                    temp_head = 'Hop Name Required'
+                else:
+                    temp_head = 'Invalid data. Double check alpha, beta, price, and quantity.'
                 misc.cls()
-                screen = format_list('Hop Name Required', hadd_body, add_prompt)
-            except mysql.connector.errors.DataError:
-                create_loop = True
-                misc.cls()
-                screen = format_list('Invalid data. Double check alpha, beta, price, and quantity.', hadd_body, add_prompt)
+                screen = format_list(temp_head, hop_cr.body, add_prompt)
 
         elif next_screen == 'yst_name':
             create_loop = True
@@ -807,7 +728,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         elif next_screen == 'ing':
             return [next_screen, ing_head, ing_body, ing_prompt]
         elif next_screen == 'hop_add':
-            return [next_screen, hadd_head, hadd_body, add_prompt]
+            return [next_screen, hadd_head, hop_cr.body, add_prompt]
         elif next_screen == 'yst_add':
             return [next_screen, yadd_head, yadd_body, add_prompt]
         elif next_screen == 'ferm_add':
