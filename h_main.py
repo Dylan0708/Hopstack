@@ -88,16 +88,14 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     create_loop = False
 
     hop_cr = hscls.Hop()
-
+    yst_cr = hscls.Yeast()
     yst_name = 'NULL'
     yst_ar = 21
     yst_prid = 'NULL'
     yst_lab = 'NULL'
     yst_type = 'NULL'
-    ytype_display = 'NULL'
     yst_alc = 'NULL'
     yst_floc = 'NULL'
-    yfloc_display = 'NULL'
     yst_minatt = 'NULL'
     yst_maxatt = 'NULL'
     yst_mintmp = 'NULL'
@@ -260,205 +258,64 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
 
         elif next_screen == 'yst_name':
             create_loop = True
-            yst_name = input("Name: ")
+            yst_cr.get_name()
             misc.cls()
-            yadd_body[0] = (None, ('Name: ' + yst_name))
-            screen = format_list(yadd_head, yadd_body, add_prompt)
-            yst_name = form.quote_str(yst_name)
+            screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_ar':
             create_loop = True
-            yst_ar = None
-            while yst_ar == None:
-                yst_ar = input("Monthly Viability Loss: ")
-                try:
-                    yst_ar = Decimal(yst_ar)
-                    yst_ar = int(round(yst_ar))
-                except decimal.InvalidOperation:
-                    print("Viability loss must be a numeric value.")
-                    yst_ar = None
-                if yst_ar != None:
-                    if yst_ar > 100 or yst_ar < 0:
-                        yst_ar = None
-                        print("Viability loss must be between 0 and 100.")
+            yst_cr.get_ar()
             misc.cls()
-            yadd_body[1] = (None, ('Monthly Viability Loss: ' + str(yst_ar) + '%'))
-            screen = format_list(yadd_head, yadd_body, add_prompt)
+            screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_prid':
             create_loop = True
-            yst_prid = input("Product ID: ")
+            yst_cr.get_pid()
             misc.cls()
-            yadd_body[2] = (None, ('Product ID: ' + yst_prid))
-            screen = format_list(yadd_head, yadd_body, add_prompt)
-            yst_prid = form.quote_str(yst_prid)
+            screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_lab':
             create_loop = True
-            yst_lab = input("Lab: ")
+            yst_cr.get_lab()
             misc.cls()
-            yadd_body[3] = (None, ('Lab: ' + yst_lab))
-            screen = format_list(yadd_head, yadd_body, add_prompt)
+            screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_type':
             create_loop = True
-            yst_type = None
-            while yst_type == None:
-                yst_temp = input("Type: ")
-                if ('lac' in yst_temp.lower()) == True:
-                    yst_type = "'Lac'"
-                    ytype_display = 'Lactobacillus'
-                elif ('lag' in yst_temp.lower()) == True:
-                    yst_type = "'Lag'"
-                    ytype_display = 'Lager'
-                elif ('p' in yst_temp.lower()) == True:
-                    yst_type = "'Ped'"
-                    ytype_display = 'Pediococcus'
-                elif ('d' in yst_temp.lower()) == True:
-                    yst_type = "'Dia'"
-                    ytype_display = 'Diastaticus'
-                elif ('b' in yst_temp.lower()) == True:
-                    yst_type = "'Brt'"
-                    ytype_display = 'Brettanomyces'
-                elif ('ale' in yst_temp.lower()) == True:
-                    yst_type = "'Ale'"
-                    ytype_display = 'Ale'
-                elif ('k' in yst_temp.lower()) == True:
-                    yst_type = "'Kvk'"
-                    ytype_display = 'Kveik'
-                elif ('m' in yst_temp.lower()) == True:
-                    yst_type = "'Mix'"
-                    ytype_display = 'Mixed Culture'
-                else:
-                    print("Enter valid yeast/bacteria type.")
+            yst_cr.get_type()
             misc.cls()
-            yadd_body[4] = (None, ('Type: ' + ytype_display))
-            screen = format_list(yadd_head, yadd_body, add_prompt)
+            screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_alc':
             create_loop = True
-            yst_alc = None
-            while yst_alc == None:
-                yst_alc = input("Alcohol Tolerance: ")
-                try:
-                    yst_alc = Decimal(yst_alc)
-                    yst_alc = int(round(yst_alc))
-                except decimal.InvalidOperation:
-                    print("Alcohol tolerance must be a numeric value.")
-                    yst_alc = None
+            yst_cr.get_alc()
             misc.cls()
-            yadd_body[5] = (None, ('Alcohol Tolerance: ' + str(yst_alc) + '%'))
-            screen = format_list(yadd_head, yadd_body, add_prompt)
+            screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_floc':
             create_loop = True
-            yst_floc = None
-            while yst_floc == None:
-                yst_temp = input("Flocculation: ")
-                if ('h' in yst_temp.lower()) == True:
-                    yst_floc = "'H'"
-                    yfloc_display = 'High'
-                elif ('m' in yst_temp.lower()) == True:
-                    yst_floc = "'M'"
-                    yfloc_display = 'Medium'
-                elif ('l' in yst_temp.lower()) == True:
-                    yst_floc = "'L'"
-                    yfloc_display = 'Low'
-                else:
-                    print("Enter valid flocculation level.")
+            yst_cr.get_floc()
             misc.cls()
-            yadd_body[6] = (None, ('Flocculation: ' + yfloc_display))
-            screen = format_list(yadd_head, yadd_body, add_prompt)
+            screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_minatt':
             create_loop = True
-            yst_minatt = None
-            while yst_minatt == None:
-                yst_minatt = input("Minimum Attenuation: ")
-                try:
-                    yst_minatt = Decimal(yst_minatt)
-                    yst_minatt = int(round(yst_minatt))
-                except decimal.InvalidOperation:
-                    print("Minimum attenuation must be a numeric value.")
-                    yst_minatt = None
-                if yst_minatt != None:
-                    if yst_minatt > 100 or yst_minatt < 0:
-                        yst_minatt = None
-                        print("Minimum attenuation must be between 0 and 100.")
-                    elif type(yst_maxatt) == int:
-                        if yst_minatt > yst_maxatt:
-                            yst_minatt = None
-                            print("Minimum attenuation can't be higher than maximum attenuation.")
+            yst_cr.get_minat()
             misc.cls()
-            yadd_body[7] = (None, ('Minimum Attenuation: ' + str(yst_minatt) + '%'))
-            screen = format_list(yadd_head, yadd_body, add_prompt)
+            screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_maxatt':
             create_loop = True
-            yst_maxatt = None
-            while yst_maxatt == None:
-                yst_maxatt = input("Maximum Attenuation: ")
-                try:
-                    yst_maxatt = Decimal(yst_maxatt)
-                    yst_maxatt = int(round(yst_maxatt))
-                except decimal.InvalidOperation:
-                    print("Maximum attenuation must be a numeric value.")
-                    yst_maxatt = None
-                if yst_maxatt != None:
-                    if yst_maxatt > 100 or yst_maxatt < 0:
-                        yst_maxatt = None
-                        print("Maximum attenuation must be between 0 and 100.")
-                    elif type(yst_minatt) == int:
-                        if yst_minatt > yst_maxatt:
-                            yst_maxatt = None
-                            print("Maximum attenuation can't be lower than minimum attenuation.")
+            yst_cr.get_maxat()
             misc.cls()
-            yadd_body[8] = (None, ('Maximum Attenuation: ' + str(yst_maxatt) + '%'))
-            screen = format_list(yadd_head, yadd_body, add_prompt)
+            screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_mintmp':
             create_loop = True
-            yst_mintmp = None
-            while yst_mintmp == None:
-                yst_mintmp = input("Minimum Temperature: ")
-                try:
-                    yst_mintmp = Decimal(yst_mintmp)
-                    yst_mintmp = int(round(yst_mintmp))
-                except decimal.InvalidOperation:
-                    print("Minimum temperature must be a numeric value.")
-                    yst_mintmp = None
-                if yst_mintmp != None:
-                    if type(yst_maxtmp) == int:
-                        if yst_mintmp > yst_maxtmp:
-                            yst_mintmp = None
-                            print("Minimum temperature can't be higher than maximum temperature.")
+            yst_cr.get_mintmp()
             misc.cls()
-            yadd_body[9] = (None, ('Minimum Temperature: ' + str(yst_mintmp) + '°C'))
-            screen = format_list(yadd_head, yadd_body, add_prompt)
+            screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_maxtmp':
             create_loop = True
-            yst_maxtmp = None
-            while yst_maxtmp == None:
-                yst_maxtmp = input("Maximum Temperature: ")
-                try:
-                    yst_maxtmp = Decimal(yst_maxtmp)
-                    yst_maxtmp = int(round(yst_maxtmp))
-                except decimal.InvalidOperation:
-                    print("Maximum temperature must be a numeric value.")
-                    yst_maxtmp = None
-                if yst_maxtmp != None:
-                    if type(yst_mintmp) == int:
-                        if yst_mintmp > yst_maxtmp:
-                            yst_maxtmp = None
-                            print("Maximum temperature can't be lower than minimum temperature.")
+            yst_cr.get_maxtmp()
             misc.cls()
-            yadd_body[10] = (None, ('Maximum Temperature: ' + str(yst_maxtmp) + '°C'))
-            screen = format_list(yadd_head, yadd_body, add_prompt)
+            screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_price':
             create_loop = True
-            yst_price = None
-            while yst_price == None:
-                yst_temp = input("Price: ")
-                try:
-                    yst_price = Decimal(yst_temp)
-                except decimal.InvalidOperation:
-                    print("Price must be a numeric value.")
-            yst_price = round(yst_price, 2)
-            yst_temp = str(yst_price)
+            yst_cr.get_price()
             misc.cls()
-            yadd_body[11] = (None, ('Price: $' + yst_temp))
-            screen = format_list(yadd_head, yadd_body, add_prompt)
+            screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_qty':
             create_loop = True
             yst_qty = None
