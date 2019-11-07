@@ -89,21 +89,6 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
 
     hop_cr = hscls.Hop()
     yst_cr = hscls.Yeast()
-    yst_name = 'NULL'
-    yst_ar = 21
-    yst_prid = 'NULL'
-    yst_lab = 'NULL'
-    yst_type = 'NULL'
-    yst_alc = 'NULL'
-    yst_floc = 'NULL'
-    yst_minatt = 'NULL'
-    yst_maxatt = 'NULL'
-    yst_mintmp = 'NULL'
-    yst_maxtmp = 'NULL'
-    yst_price = 0
-    yst_qty = 0
-    yst_notes = 'NULL'
-    ynotes_display = 'NULL'
 
     ferm_name = 'NULL'
     ferm_origin = 'NULL'
@@ -249,7 +234,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
                 next_screen = 'hop'
             else:
                 create_loop = True
-                if success[1] == "1048 (23000): Column 'hop_name' cannot be null":
+                if success[1] == 'name':
                     temp_head = 'Hop Name Required'
                 else:
                     temp_head = 'Invalid data. Double check alpha, beta, price, and quantity.'
@@ -318,51 +303,27 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_qty':
             create_loop = True
-            yst_qty = None
-            while yst_qty == None:
-                yst_temp = input("Inventory Quantity: ")
-                try:
-                    yst_qty = Decimal(yst_temp)
-                except decimal.InvalidOperation:
-                    print("Quantity must be a numeric value.")
-            yst_qty = round(yst_qty, 2)
-            yst_temp = str(yst_qty)
+            yst_cr.get_qty()
             misc.cls()
-            yadd_body[12] = (None, ('Inventory Quantity: ' + yst_temp + ' Units'))
-            screen = format_list(yadd_head, yadd_body, add_prompt)
+            screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_notes':
             create_loop = True
-            ynotes_lst = []
-            ynotes_loop = 0
-            yst_notes = input("Notes: ")
-            for i in yst_notes:
-                ynotes_lst.append(i)
-                ynotes_loop += 1
-                if ynotes_loop == 25:
-                    break
-            ynotes_display = ''.join(ynotes_lst)
+            yst_cr.get_notes()
             misc.cls()
-            yadd_body[13] = (None, (ynotes_display + '...'))
-            screen = format_list(yadd_head, yadd_body, add_prompt)
-            yst_notes = form.sql_sanitize(yst_notes)
-            yst_notes = form.quote_str(yst_notes)
+            screen = format_list(yadd_head, yst_cr.body, add_prompt)
         elif next_screen == 'yst_save':
-            try:
+            success = yst_cr.save(hs_db)
+            if success[0]:
                 create_loop = False
                 next_screen = 'yst'
-                db_curs = hs_db.cursor()
-                query_str = 'INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_qty, yeast_notes) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})'.format(yst_name, yst_ar, yst_prid, yst_lab, yst_type, yst_alc, yst_floc, yst_minatt, yst_maxatt, yst_mintmp, yst_maxtmp, yst_price, yst_qty, yst_notes)
-                db_curs.execute(query_str)
-                hs_db.commit()
-                db_curs.close()
-            except mysql.connector.errors.IntegrityError:
+            else:
                 create_loop = True
+                if success[1] == 'name':
+                    temp_head = 'Yeast Name Required'
+                else:
+                    temp_head = 'Invalid data. Double check price, and quantity.'
                 misc.cls()
-                screen = format_list('Yeast Name Required', yadd_body, add_prompt)
-            except mysql.connector.errors.DataError:
-                create_loop = True
-                misc.cls()
-                screen = format_list('Invalid data. Double check price, and quantity.', yadd_body, add_prompt)
+                screen = format_list(temp_head, yst_cr.body, add_prompt)
 
         elif next_screen == 'ferm_name':
             create_loop = True

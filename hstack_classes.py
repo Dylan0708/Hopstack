@@ -110,10 +110,10 @@ class Hop:
             db.commit()
             curs.close()
             return (True, None)
-        except mysql.connector.errors.IntegrityError as err:
-            return (False, err)
-        except mysql.connector.errors.DataError as err:
-            return (False, err)
+        except mysql.connector.errors.IntegrityError:
+            return (False, 'name')
+        except mysql.connector.errors.DataError:
+            return (False, 'data')
 
 class Yeast:
     def __init__(self, name = 'NULL', age_rate = 21, prod_id = 'NULL', lab = 'NULL', y_type = 'NULL', alc_tol = 'NULL', flocc = 'NULL', min_atten = 'NULL', max_atten = 'NULL', min_temp = 'NULL', max_temp = 'NULL', price = 0, qty = 0, notes = 'NULL'):
@@ -281,7 +281,7 @@ class Yeast:
                         self.min_temp = None
                         print("Minimum temperature can't be higher than maximum temperature.")
         self.body[9] = (None, ('Minimum Temperature: ' + str(self.min_temp) + '°C'))
-    # Saves the user provided minimum temperature formatted for mysql, and a tuple for screen formatting
+    # Saves the user provided maximum temperature formatted for mysql, and a tuple for screen formatting
     def get_maxtmp(self):
         self.max_temp = None
         while self.max_temp == None:
@@ -298,6 +298,7 @@ class Yeast:
                         self.max_temp = None
                         print("Maximum temperature can't be lower than minimum temperature.")
         self.body[10] = (None, ('Maximum Temperature: ' + str(self.max_temp) + '°C'))
+    # Saves the user provided price formatted for mysql, and a tuple for screen formatting
     def get_price(self):
         self.price = None
         while self.price == None:
@@ -309,6 +310,45 @@ class Yeast:
         self.price = round(self.price, 2)
         yst_temp = str(self.price)
         self.body[11] = (None, ('Price: $' + yst_temp))
+    # Saves the user provided quantity formatted for mysql, and a tuple for screen formatting
+    def get_qty(self):
+        self.qty = None
+        while self.qty == None:
+            yst_temp = input("Inventory Quantity: ")
+            try:
+                self.qty = Decimal(yst_temp)
+            except decimal.InvalidOperation:
+                print("Quantity must be a numeric value.")
+        self.qty = round(self.qty, 2)
+        yst_temp = str(self.qty)
+        self.body[12] = (None, ('Inventory Quantity: ' + yst_temp + ' Units'))
+    # Saves the user provided notes formatted for mysql, and a tuple for screen formatting
+    def get_notes(self):
+        ynotes_lst = []
+        ynotes_loop = 0
+        self.notes = input("Notes: ")
+        for i in self.notes:
+            ynotes_lst.append(i)
+            ynotes_loop += 1
+            if ynotes_loop == 25:
+                break
+        ynotes_display = ''.join(ynotes_lst)
+        self.body[13] = (None, (ynotes_display + '...'))
+        self.notes = form.sql_sanitize(self.notes)
+        self.notes = form.quote_str(self.notes)
+    # Saves the provided (or default) values to the database. Returns True if operation was successful. Returns False if operation was unsuccessful along with error
+    def save(self, db):
+        try:
+            curs = db.cursor()
+            query_str = 'INSERT INTO yeast(yeast_name, age_rate, product_id, lab, yeast_type, alcohol_tolerance, flocculation, min_attenuation, max_attenuation, min_temperature, max_temperature, yeast_price, yeast_qty, yeast_notes) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})'.format(self.name, self.age_rate, self.prod_id, self.lab, self.y_type, self.alc_tol, self.flocc, self.min_atten, self.max_atten, self.min_temp, self.max_temp, self.price, self.qty, self.notes)
+            curs.execute(query_str)
+            db.commit()
+            curs.close()
+            return (True, None)
+        except mysql.connector.errors.IntegrityError:
+            return (False, 'name')
+        except mysql.connector.errors.DataError:
+            return (False, 'data')
 
 class Ferm:
     def __init__(self, db_id, name, origin, f_type, grav, colour, dia_pow, prot_cont, price, qty, notes):
