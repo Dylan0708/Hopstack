@@ -89,19 +89,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
 
     hop_cr = hscls.Hop()
     yst_cr = hscls.Yeast()
-
-    ferm_name = 'NULL'
-    ferm_origin = 'NULL'
-    ferm_type = 'NULL'
-    ftype_display = 'NULL'
-    ferm_pg = 'NULL'
-    ferm_col = 'NULL'
-    ferm_dp = 'NULL'
-    ferm_pc = 'NULL'
-    ferm_price = 0
-    ferm_qty = 0
-    ferm_notes = 'NULL'
-    fnotes_display = 'NULL'
+    ferm_cr = hscls.Ferm()
 
     # prebuilt headers
     main_head = 'Main Menu'
@@ -116,8 +104,6 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     # prebuilt bodies
     main_body = [(None, 'Inventory'), (None, 'Recipes'), (None, 'Shopping Lists'), (None, 'Ingredients'), (None, 'Log Out'), (None, 'Exit')]
     ing_body = [(None, 'Hops'), (None, 'Yeast'), (None, 'Fermentables & Adjuncts'), (None, 'Water'), (None, 'Miscellaneous'), (None, 'Main Menu')]
-    yadd_body = [(None, 'Name'), (None, 'Monthly Viability Loss (%)'), (None, 'Product ID'), (None, 'Lab'), (None, 'Type (Ale, Lager, Brett, Diastaticus, Kveik, Pediococcus, Lactobacillus, or Mixed Culture)'), (None, 'Alcohol Tolerance (%)'), (None, 'Flocculation (Low, Medium, or High)'), (None, 'Minimum Attenuation (%)'), (None, 'Maximum Attenuation (%)'), (None, 'Minimum Temperature (°C)'), (None, 'Maximum Temperature (°C)'), (None, 'Price'), (None, 'Quantity in Inventory'), (None, 'Notes'), (None, 'Save'), (None, 'Exit Without Saving')]
-    fadd_body = [(None, 'Name'), (None, 'Origin'), (None, 'Type (Base Malt, Specialty Malt, Liquid Extract, Dry Extract, Sugar, Syrup, Juice, Fruit, Adjunct, or Other)'), (None, 'Potential/Specific Gravity'), (None, 'Colour Contribution (Lovibond)'), (None, 'Diastatic Power (Litner)'), (None, 'Protein Content (%)'), (None, 'Price'), (None, 'Quantity in Inventory'), (None, 'Notes'), (None, 'Save Yeast'), (None, 'Exit Without Saving')]
 
     # prebuilt prompts
     main_prompt = 'Select Menu: '
@@ -235,7 +221,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             else:
                 create_loop = True
                 if success[1] == 'name':
-                    temp_head = 'Hop Name Required'
+                    temp_head = 'Name Required'
                 else:
                     temp_head = 'Invalid data. Double check alpha, beta, price, and quantity.'
                 misc.cls()
@@ -319,7 +305,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             else:
                 create_loop = True
                 if success[1] == 'name':
-                    temp_head = 'Yeast Name Required'
+                    temp_head = 'Name Required'
                 else:
                     temp_head = 'Invalid data. Double check price, and quantity.'
                 misc.cls()
@@ -327,214 +313,76 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
 
         elif next_screen == 'ferm_name':
             create_loop = True
-            ferm_name = input("Name: ")
+            ferm_cr.get_name()
             misc.cls()
-            fadd_body[0] = (None, ('Name: ' + ferm_name))
-            screen = format_list(fadd_head, fadd_body, add_prompt)
-            ferm_name = form.quote_str(ferm_name)
+            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
         elif next_screen == 'ferm_origin':
             create_loop = True
-            ferm_origin = input("Origin: ")
+            ferm_cr.get_origin()
             misc.cls()
-            fadd_body[1] = (None, ('Origin: ' + ferm_origin))
-            screen = format_list(fadd_head, fadd_body, add_prompt)
-            ferm_origin = form.quote_str(ferm_origin)
+            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
         elif next_screen == 'ferm_type':
             create_loop = True
-            ferm_type = None
-            while ferm_type == None:
-                ferm_temp = input("Type: ")
-                if ('b' in ferm_temp.lower()) == True:
-                    ferm_type = "'B'"
-                    ftype_display = 'Base Malt'
-                elif ('sp' in ferm_temp.lower()) == True:
-                    ferm_type = "'S'"
-                    ftype_display = 'Specialty Malt'
-                elif ('l' in ferm_temp.lower()) == True:
-                    ferm_type = "'L'"
-                    ftype_display = 'Liquid Extract'
-                elif ('a' in ferm_temp.lower()) == True:
-                    ferm_type = "'A'"
-                    ftype_display = 'Adjunct'
-                elif ('d' in ferm_temp.lower()) == True:
-                    ferm_type = "'D'"
-                    ftype_display = 'Dry Extract'
-                elif ('su' in ferm_temp.lower()) == True:
-                    ferm_type = "'U'"
-                    ftype_display = 'Sugar'
-                elif ('sy' in ferm_temp.lower()) == True:
-                    ferm_type = "'Y'"
-                    ftype_display = 'Syrup'
-                elif ('j' in ferm_temp.lower()) == True:
-                    ferm_type = "'J'"
-                    ftype_display = 'Juice'
-                elif ('f' in ferm_temp.lower()) == True:
-                    ferm_type = "'F'"
-                    ftype_display = 'Fruit'
-                else:
-                    ferm_type = "'O'"
-                    ftype_display = 'Other'
+            ferm_cr.get_type()
             misc.cls()
-            if ferm_pg != 'NULL':
-                ferm_temp = str(ferm_pg)
-                if ferm_type == "'B'" or ferm_type == "'S'" or ferm_type == "'A'":
-                    fadd_body[3] = (None, ('Potential Gravity: ' + ferm_temp))
-                else:
-                    fadd_body[3] = (None, ('Specific Gravity: ' + ferm_temp))
-            if ferm_dp != 'NULL':
-                ferm_temp = str(ferm_dp)
-                if ferm_type != "'B'" and ferm_type != "'S'" and ferm_type != "'A'":
-                    ferm_dp = 'NULL'
-                    fadd_body[5] = (None, 'Diastatic Power (Litner)')
-            if ferm_pc != 'NULL':
-                ferm_temp = str(ferm_pc)
-                if ferm_type != "'B'" and ferm_type != "'S'" and ferm_type != "'A'":
-                    ferm_pc = 'NULL'
-                    fadd_body[6] = (None, 'Protein Content (%)')
-            fadd_body[2] = (None, ('Type: ' + ftype_display))
-            screen = format_list(fadd_head, fadd_body, add_prompt)
+            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
         elif next_screen == 'ferm_pg':
             create_loop = True
-            if ferm_type == "'B'" or ferm_type == "'S'" or ferm_type == "'A'":
-                ferm_pg = None
-                while ferm_pg == None:
-                    ferm_temp = input("Potential Gravity: ")
-                    try:
-                        ferm_pg = Decimal(ferm_temp)
-                    except decimal.InvalidOperation:
-                        print("Potential gravity must be a numeric value.")
-                ferm_pg = round(ferm_pg, 3)
-                ferm_temp = str(ferm_pg)
-                misc.cls()
-                fadd_body[3] = (None, ('Potential Gravity: ' + ferm_temp))
-                screen = format_list(fadd_head, fadd_body, add_prompt)
-            elif ferm_type == "'L'" or ferm_type == "'D'" or ferm_type == "'U'" or ferm_type == "'Y'" or ferm_type == "'J'" or ferm_type == "'F'" or ferm_type == "'O'":
-                ferm_pg = None
-                while ferm_pg == None:
-                    ferm_temp = input("Specific Gravity: ")
-                    try:
-                        ferm_pg = Decimal(ferm_temp)
-                    except decimal.InvalidOperation:
-                        print("Specific gravity must be a numeric value.")
-                ferm_pg = round(ferm_pg, 3)
-                ferm_temp = str(ferm_pg)
-                misc.cls()
-                fadd_body[3] = (None, ('Specific Gravity: ' + ferm_temp))
-                screen = format_list(fadd_head, fadd_body, add_prompt)
+            can_write = ferm_cr.get_grav()
+            misc.cls()
+            if can_write:
+                screen = format_list(fadd_head, ferm_cr.body, add_prompt)
             else:
-                misc.cls()
-                screen = format_list('Potential/Specific Gravity Requires a Type', fadd_body, add_prompt)
+                screen = format_list('Potential/Specific Gravity Requires a Type', ferm_cr.body, add_prompt)
         elif next_screen == 'ferm_col':
             create_loop = True
-            ferm_col = None
-            while ferm_col == None:
-                ferm_temp = input("Colour Contribution: ")
-                try:
-                    ferm_col = Decimal(ferm_temp)
-                except decimal.InvalidOperation:
-                    print("Colour contribution must be a numeric value.")
-            ferm_col = round(ferm_col, 2)
-            ferm_temp = str(ferm_col)
+            ferm_cr.get_col()
             misc.cls()
-            fadd_body[4] = (None, ('Colour Contribution: ' + ferm_temp + ' Lovibond'))
-            screen = format_list(fadd_head, fadd_body, add_prompt)
+            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
         elif next_screen == 'ferm_dp':
             create_loop = True
-            if ferm_type == "'B'" or ferm_type == "'S'" or ferm_type == "'A'":
-                ferm_dp = None
-                while ferm_dp == None:
-                    ferm_temp = input("Diastatic Power: ")
-                    try:
-                        ferm_dp = Decimal(ferm_temp)
-                    except decimal.InvalidOperation:
-                        print("Diastatic power must be a numeric value.")
-                ferm_dp = round(ferm_dp, 1)
-                ferm_temp = str(ferm_dp)
-                misc.cls()
-                fadd_body[5] = (None, ('Diastatic Power: ' + ferm_temp + ' Litner'))
-                screen = format_list(fadd_head, fadd_body, add_prompt)
+            can_write = ferm_cr.get_dp()
+            misc.cls()
+            if can_write:
+                screen = format_list(fadd_head, ferm_cr.body, add_prompt)
             else:
-                misc.cls()
-                screen = format_list('Diastatic Power Requires Type "Base Malt", "Specialty Malt", or "Adjunct"', fadd_body, add_prompt)
+                screen = format_list('Diastatic Power Requires Type "Base Malt", "Specialty Malt", or "Adjunct"', ferm_cr.body, add_prompt)
         elif next_screen == 'ferm_pc':
             create_loop = True
-            if ferm_type == "'B'" or ferm_type == "'S'" or ferm_type == "'A'":
-                ferm_pc = None
-                while ferm_pc == None:
-                    ferm_temp = input("Protein Content %: ")
-                    try:
-                        ferm_pc = Decimal(ferm_temp)
-                    except decimal.InvalidOperation:
-                        print("Protein content must be a numeric value.")
-                ferm_pc = round(ferm_pc, 1)
-                ferm_temp = str(ferm_pc)
-                misc.cls()
-                fadd_body[6] = (None, ('Protein Content: ' + ferm_temp + '%'))
-                screen = format_list(fadd_head, fadd_body, add_prompt)
+            can_write = ferm_cr.get_pc()
+            misc.cls()
+            if can_write:
+                screen = format_list(fadd_head, ferm_cr.body, add_prompt)
             else:
-                misc.cls()
-                screen = format_list('Protein Content Requires Type "Base Malt", "Specialty Malt", or "Adjunct"', fadd_body, add_prompt)
+                screen = format_list('Protein Content Requires Type "Base Malt", "Specialty Malt", or "Adjunct"', ferm_cr.body, add_prompt)
         elif next_screen == 'ferm_price':
             create_loop = True
-            ferm_price = None
-            while ferm_price == None:
-                ferm_temp = input("Price: ")
-                try:
-                    ferm_price = Decimal(ferm_temp)
-                except decimal.InvalidOperation:
-                    print("Price must be a numeric value.")
-            ferm_price = round(ferm_price, 2)
-            ferm_temp = str(ferm_price)
+            ferm_cr.get_price()
             misc.cls()
-            fadd_body[7] = (None, ('Price: $' + ferm_temp))
-            screen = format_list(fadd_head, fadd_body, add_prompt)
+            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
         elif next_screen == 'ferm_qty':
             create_loop = True
-            ferm_qty = None
-            while ferm_qty == None:
-                ferm_temp = input("Inventory Quantity: ")
-                try:
-                    ferm_qty = Decimal(ferm_temp)
-                except decimal.InvalidOperation:
-                    print("Quantity must be a numeric value.")
-            ferm_qty = round(ferm_qty, 2)
-            ferm_temp = str(ferm_qty)
+            ferm_cr.get_qty()
             misc.cls()
-            fadd_body[8] = (None, ('Inventory Quantity: ' + ferm_temp + ' lbs'))
-            screen = format_list(fadd_head, fadd_body, add_prompt)
+            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
         elif next_screen == 'ferm_notes':
             create_loop = True
-            fnotes_lst = []
-            fnotes_loop = 0
-            ferm_notes = input("Notes: ")
-            for i in ferm_notes:
-                fnotes_lst.append(i)
-                fnotes_loop += 1
-                if fnotes_loop == 25:
-                    break
-            fnotes_display = ''.join(fnotes_lst)
+            ferm_cr.get_notes()
             misc.cls()
-            fadd_body[9] = (None, (fnotes_display + '...'))
-            screen = format_list(fadd_head, fadd_body, add_prompt)
-            ferm_notes = form.sql_sanitize(ferm_notes)
-            ferm_notes = form.quote_str(ferm_notes)
+            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
         elif next_screen == 'ferm_save':
-            try:
+            success = ferm_cr.save(hs_db)
+            if success[0]:
                 create_loop = False
                 next_screen = 'ferm'
-                db_curs = hs_db.cursor()
-                query_str = 'INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_qty, ferm_notes) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {})'.format(ferm_name, ferm_origin, ferm_type, ferm_pg, ferm_col, ferm_dp, ferm_pc, ferm_price, ferm_qty, ferm_notes)
-                db_curs.execute(query_str)
-                hs_db.commit()
-                db_curs.close()
-            except mysql.connector.errors.IntegrityError:
+            else:
                 create_loop = True
+                if success[1] == 'name':
+                    temp_head = 'Name Required'
+                else:
+                    temp_head = 'Invalid data. Double check potential/specific gravity, colour, diastatic power, protein content, price, and quantity.'
                 misc.cls()
-                screen = format_list('Fermentable Name Required', fadd_body, add_prompt)
-            except mysql.connector.errors.DataError:
-                create_loop = True
-                misc.cls()
-                screen = format_list('Invalid data. Double check potential gravity, colour, diastatic power, protein content, price, and quantity.', fadd_body, add_prompt)
+                screen = format_list(temp_head, ferm_cr.body, add_prompt)
 
         else: 
             create_loop = False
@@ -548,9 +396,9 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         elif next_screen == 'hop_add':
             return [next_screen, hadd_head, hop_cr.body, add_prompt]
         elif next_screen == 'yst_add':
-            return [next_screen, yadd_head, yadd_body, add_prompt]
+            return [next_screen, yadd_head, yst_cr.body, add_prompt]
         elif next_screen == 'ferm_add':
-            return [next_screen, fadd_head, fadd_body, add_prompt]
+            return [next_screen, fadd_head, ferm_cr.body, add_prompt]
         elif next_screen == 'exit' or next_screen == 'log':
             return next_screen
         # get the list of query responses to format for the next screen

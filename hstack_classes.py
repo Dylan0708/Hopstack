@@ -351,8 +351,7 @@ class Yeast:
             return (False, 'data')
 
 class Ferm:
-    def __init__(self, db_id, name, origin, f_type, grav, colour, dia_pow, prot_cont, price, qty, notes):
-        self.db_id = db_id
+    def __init__(self, name = 'NULL', origin = 'NULL', f_type = 'NULL', grav = 'NULL', colour = 'NULL', dia_pow = 'NULL', prot_cont = 'NULL', price = 0, qty = 0, notes = 'NULL'):
         self.name = name
         self.origin = origin
         self.f_type = f_type
@@ -361,8 +360,194 @@ class Ferm:
         self.dia_pow = dia_pow
         self.prot_cont = prot_cont
         self.price = price
-        self. qty = qty
+        self.qty = qty
         self.notes = notes
+        self.body = [(None, 'Name'), (None, 'Origin'), (None, 'Type (Base Malt, Specialty Malt, Liquid Extract, Dry Extract, Sugar, Syrup, Juice, Fruit, Adjunct, or Other)'), (None, 'Potential/Specific Gravity'), (None, 'Colour Contribution (Lovibond)'), (None, 'Diastatic Power (Litner)'), (None, 'Protein Content (%)'), (None, 'Price'), (None, 'Quantity in Inventory'), (None, 'Notes'), (None, 'Save'), (None, 'Exit Without Saving')]
+    # Saves the user provided name formatted for mysql, and a tuple for screen formatting
+    def get_name(self):
+        temp_name = input("Name: ")
+        self.body[0] = (None, ('Name: ' + temp_name))
+        self.name = form.quote_str(temp_name)
+    # Saves the user provided origin formatted for mysql, and a tuple for screen formatting
+    def get_origin(self):
+        temp_origin = input("Origin: ")
+        self.body[1] = (None, ('Origin: ' + temp_origin))
+        self.origin = form.quote_str(temp_origin)
+    # Saves the user provided type formatted for mysql, and a tuple for screen formatting
+    def get_type(self):
+        self.f_type = None
+        while self.f_type == None:
+            ferm_temp = input("Type: ")
+            if ('b' in ferm_temp.lower()) == True:
+                self.f_type = "'B'"
+                ftype_display = 'Base Malt'
+            elif ('sp' in ferm_temp.lower()) == True:
+                self.f_type = "'S'"
+                ftype_display = 'Specialty Malt'
+            elif ('l' in ferm_temp.lower()) == True:
+                self.f_type = "'L'"
+                ftype_display = 'Liquid Extract'
+            elif ('a' in ferm_temp.lower()) == True:
+                self.f_type = "'A'"
+                ftype_display = 'Adjunct'
+            elif ('d' in ferm_temp.lower()) == True:
+                self.f_type = "'D'"
+                ftype_display = 'Dry Extract'
+            elif ('su' in ferm_temp.lower()) == True:
+                self.f_type = "'U'"
+                ftype_display = 'Sugar'
+            elif ('sy' in ferm_temp.lower()) == True:
+                self.f_type = "'Y'"
+                ftype_display = 'Syrup'
+            elif ('j' in ferm_temp.lower()) == True:
+                self.f_type = "'J'"
+                ftype_display = 'Juice'
+            elif ('f' in ferm_temp.lower()) == True:
+                self.f_type = "'F'"
+                ftype_display = 'Fruit'
+            else:
+                self.f_type = "'O'"
+                ftype_display = 'Other'
+        if self.grav != 'NULL':
+            ferm_temp = str(self.grav)
+            if self.f_type == "'B'" or self.f_type == "'S'" or self.f_type == "'A'":
+                self.body[3] = (None, ('Potential Gravity: ' + ferm_temp))
+            else:
+                self.body[3] = (None, ('Specific Gravity: ' + ferm_temp))
+        if self.dia_pow != 'NULL':
+            ferm_temp = str(self.dia_pow)
+            if self.f_type != "'B'" and self.f_type != "'S'" and self.f_type != "'A'":
+                self.dia_pow = 'NULL'
+                self.body[5] = (None, 'Diastatic Power (Litner)')
+        if self.prot_cont != 'NULL':
+            ferm_temp = str(self.prot_cont)
+            if self.f_type != "'B'" and self.f_type != "'S'" and self.f_type != "'A'":
+                self.prot_cont = 'NULL'
+                self.body[6] = (None, 'Protein Content (%)')
+        self.body[2] = (None, ('Type: ' + ftype_display))
+    # Saves the user provided potential gravity/specific gravity (depending on type) formatted for mysql, and a tuple for screen formatting
+    def get_grav(self):
+        if self.f_type == "'B'" or self.f_type == "'S'" or self.f_type == "'A'":
+            self.grav = None
+            while self.grav == None:
+                ferm_temp = input("Potential Gravity: ")
+                try:
+                    self.grav = Decimal(ferm_temp)
+                except decimal.InvalidOperation:
+                    print("Potential gravity must be a numeric value.")
+            self.grav = round(self.grav, 3)
+            ferm_temp = str(self.grav)
+            self.body[3] = (None, ('Potential Gravity: ' + ferm_temp))
+            return True
+        elif self.f_type == "'L'" or self.f_type == "'D'" or self.f_type == "'U'" or self.f_type == "'Y'" or self.f_type == "'J'" or self.f_type == "'F'" or self.f_type == "'O'":
+            self.grav = None
+            while self.grav == None:
+                ferm_temp = input("Specific Gravity: ")
+                try:
+                    self.grav = Decimal(ferm_temp)
+                except decimal.InvalidOperation:
+                    print("Specific gravity must be a numeric value.")
+            self.grav = round(self.grav, 3)
+            ferm_temp = str(self.grav)
+            self.body[3] = (None, ('Specific Gravity: ' + ferm_temp))
+            return True
+        else:
+            return False
+    # Saves the user provided lovibond formatted for mysql, and a tuple for screen formatting
+    def get_col(self):
+        self.colour = None
+        while self.colour == None:
+            ferm_temp = input("Colour Contribution: ")
+            try:
+                self.colour = Decimal(ferm_temp)
+            except decimal.InvalidOperation:
+                print("Colour contribution must be a numeric value.")
+        self.colour = round(self.colour, 2)
+        ferm_temp = str(self.colour)
+        self.body[4] = (None, ('Colour Contribution: ' + ferm_temp + ' Lovibond'))
+    # Saves the user provided diastatic power (depending on type) formatted for mysql, and a tuple for screen formatting
+    def get_dp(self):
+        if self.f_type == "'B'" or self.f_type == "'S'" or self.f_type == "'A'":
+            self.dia_pow = None
+            while self.dia_pow == None:
+                ferm_temp = input("Diastatic Power: ")
+                try:
+                    self.dia_pow = Decimal(ferm_temp)
+                except decimal.InvalidOperation:
+                    print("Diastatic power must be a numeric value.")
+            self.dia_pow = round(self.dia_pow, 1)
+            ferm_temp = str(self.dia_pow)
+            self.body[5] = (None, ('Diastatic Power: ' + ferm_temp + ' Litner'))
+            return True
+        else:
+            return False
+    # Saves the user provided protein content (depending on type) formatted for mysql, and a tuple for screen formatting
+    def get_pc(self):
+        if self.f_type == "'B'" or self.f_type == "'S'" or self.f_type == "'A'":
+            self.prot_cont = None
+            while self.prot_cont == None:
+                ferm_temp = input("Protein Content %: ")
+                try:
+                    self.prot_cont = Decimal(ferm_temp)
+                except decimal.InvalidOperation:
+                    print("Protein content must be a numeric value.")
+            self.prot_cont = round(self.prot_cont, 1)
+            ferm_temp = str(self.prot_cont)
+            self.body[6] = (None, ('Protein Content: ' + ferm_temp + '%'))
+            return True
+        else:
+            return False
+    # Saves the user provided price formatted for mysql, and a tuple for screen formatting
+    def get_price(self):
+        self.price = None
+        while self.price == None:
+            ferm_temp = input("Price: ")
+            try:
+                self.price = Decimal(ferm_temp)
+            except decimal.InvalidOperation:
+                print("Price must be a numeric value.")
+        self.price = round(self.price, 2)
+        ferm_temp = str(self.price)
+        self.body[7] = (None, ('Price: $' + ferm_temp))
+    # Saves the user provided quantity formatted for mysql, and a tuple for screen formatting
+    def get_qty(self):
+        self.qty = None
+        while self.qty == None:
+            ferm_temp = input("Inventory Quantity: ")
+            try:
+                self.qty = Decimal(ferm_temp)
+            except decimal.InvalidOperation:
+                print("Quantity must be a numeric value.")
+        self.qty = round(self.qty, 2)
+        ferm_temp = str(self.qty)
+        self.body[8] = (None, ('Inventory Quantity: ' + ferm_temp + ' lbs'))
+    # Saves the user provided notes formatted for mysql, and a tuple for screen formatting
+    def get_notes(self):
+        fnotes_lst = []
+        fnotes_loop = 0
+        self.notes = input("Notes: ")
+        for i in self.notes:
+            fnotes_lst.append(i)
+            fnotes_loop += 1
+            if fnotes_loop == 25:
+                break
+        fnotes_display = ''.join(fnotes_lst)
+        self.body[9] = (None, (fnotes_display + '...'))
+        self.notes = form.sql_sanitize(self.notes)
+        self.notes = form.quote_str(self.notes)
+    # Saves the provided (or default) values to the database. Returns True if operation was successful. Returns False if operation was unsuccessful along with error
+    def save(self, db):
+        try:
+            curs = db.cursor()
+            query_str = 'INSERT INTO fermentables(ferm_name, ferm_origin, ferm_type, potential_gravity, colour, diastatic_power, protein_content, ferm_price, ferm_qty, ferm_notes) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {})'.format(self.name, self.origin, self.f_type, self.grav, self.colour, self.dia_pow, self.prot_cont, self.price, self.qty, self.notes)
+            curs.execute(query_str)
+            db.commit()
+            curs.close()
+            return (True, None)
+        except mysql.connector.errors.IntegrityError:
+            return (False, 'name')
+        except mysql.connector.errors.DataError:
+            return (False, 'data') 
 
 class Water:
     def __init__(self, db_id, name, ca, mg, na, so4, cl, hco3, price, qty, notes):
