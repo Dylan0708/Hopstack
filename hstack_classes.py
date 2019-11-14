@@ -16,12 +16,14 @@ class Hop:
     def get_name(self):
         temp_name = input("Name: ")
         self.body[0] = (None, ('Name: ' + temp_name))
-        self.name = form.quote_str(temp_name)
+        self.name = form.sql_sanitize(temp_name)
+        self.name = form.quote_str(self.name)
     # Saves the user provided origin formatted for mysql, and a tuple for screen formatting
     def get_origin(self):
         temp_origin = input("Origin: ")
         self.body[1] = (None, ('Origin: ' + temp_origin))
-        self.origin = form.quote_str(temp_origin)
+        self.origin = form.sql_sanitize(temp_origin)
+        self.origin = form.quote_str(self.origin)
     # Saves the user provided type formatted for mysql, and a tuple for screen formatting
     def get_type(self):
         self.h_type = None
@@ -136,7 +138,8 @@ class Yeast:
     def get_name(self):
         temp_name = input("Name: ")
         self.body[0] = (None, ('Name: ' + temp_name))
-        self.name = form.quote_str(temp_name)
+        self.name = form.sql_sanitize(temp_name)
+        self.name = form.quote_str(self.name)
     # Saves the user provided age rate formatted for mysql, and a tuple for screen formatting
     def get_ar(self):
         self.age_rate = None
@@ -157,12 +160,14 @@ class Yeast:
     def get_pid(self):
         temp_pid = input("Product ID: ")
         self.body[2] = (None, ('Product ID: ' + temp_pid))
-        self.prod_id = form.quote_str(temp_pid)
+        self.prod_id = form.sql_sanitize(temp_pid)
+        self.prod_id = form.quote_str(self.prod_id)
     # Saves the user provided lab formatted for mysql, and a tuple for screen formatting
     def get_lab(self):
         temp_lab = input("Lab: ")
         self.body[3] = (None, ('Lab: ' + temp_lab))
-        self.lab = form.quote_str(temp_lab)
+        self.lab = form.sql_sanitize(temp_lab)
+        self.lab = form.quote_str(self.lab)
     # Saves the user provided type formatted for mysql, and a tuple for screen formatting
     def get_type(self):
         self.y_type = None
@@ -367,12 +372,14 @@ class Ferm:
     def get_name(self):
         temp_name = input("Name: ")
         self.body[0] = (None, ('Name: ' + temp_name))
-        self.name = form.quote_str(temp_name)
+        self.name = form.sql_sanitize(temp_name)
+        self.name = form.quote_str(self.name)
     # Saves the user provided origin formatted for mysql, and a tuple for screen formatting
     def get_origin(self):
         temp_origin = input("Origin: ")
         self.body[1] = (None, ('Origin: ' + temp_origin))
-        self.origin = form.quote_str(temp_origin)
+        self.origin = form.sql_sanitize(temp_origin)
+        self.origin = form.quote_str(self.origin)
     # Saves the user provided type formatted for mysql, and a tuple for screen formatting
     def get_type(self):
         self.f_type = None
