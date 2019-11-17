@@ -113,6 +113,328 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     ylist_prompt = 'Select Yeast: '
     flist_prompt = 'Select Fermentable/Adjunct: '
 
+    # Create ingredient switch functions
+    def h_name():
+        nonlocal create_loop, hop_cr, screen, add_prompt, hadd_head
+        create_loop = True
+        hop_cr.get_name()
+        misc.cls()
+        screen = format_list(hadd_head, hop_cr.body, add_prompt)
+
+    def h_origin():
+        nonlocal create_loop, hop_cr, screen, add_prompt, hadd_head
+        create_loop = True
+        hop_cr.get_origin()
+        misc.cls()
+        screen = format_list(hadd_head, hop_cr.body, add_prompt)
+
+    def h_type():
+        nonlocal create_loop, hop_cr, screen, add_prompt, hadd_head
+        create_loop = True
+        hop_cr.get_type()
+        misc.cls()
+        screen = format_list(hadd_head, hop_cr.body, add_prompt)
+
+    def h_alpha():
+        nonlocal create_loop, hop_cr, screen, add_prompt, hadd_head
+        create_loop = True
+        hop_cr.get_alpha()
+        misc.cls()
+        screen = format_list(hadd_head, hop_cr.body, add_prompt)
+
+    def h_beta():
+        nonlocal create_loop, hop_cr, screen, add_prompt, hadd_head
+        create_loop = True
+        hop_cr.get_beta()
+        misc.cls()
+        screen = format_list(hadd_head, hop_cr.body, add_prompt)
+
+    def h_price():
+        nonlocal create_loop, hop_cr, screen, add_prompt, hadd_head
+        create_loop = True
+        hop_cr.get_price()
+        misc.cls()
+        screen = format_list(hadd_head, hop_cr.body, add_prompt)
+
+    def h_qty():
+        nonlocal create_loop, hop_cr, screen, add_prompt, hadd_head
+        create_loop = True
+        hop_cr.get_qty()
+        misc.cls()
+        screen = format_list(hadd_head, hop_cr.body, add_prompt)
+
+    def h_notes():
+        nonlocal create_loop, hop_cr, screen, add_prompt, hadd_head
+        create_loop = True
+        hop_cr.get_notes()
+        misc.cls()
+        screen = format_list(hadd_head, hop_cr.body, add_prompt)
+
+    def h_save():
+        nonlocal create_loop, hop_cr, screen, hs_db, next_screen, add_prompt
+        success = hop_cr.save(hs_db)
+        if success[0]:
+            create_loop = False
+            next_screen = 'hop'
+        else:
+            create_loop = True
+            if success[1] == 'name':
+                temp_head = 'Name Required'
+            else:
+                temp_head = 'Invalid data. Double check alpha, beta, price, and quantity.'
+            misc.cls()
+            screen = format_list(temp_head, hop_cr.body, add_prompt)
+
+    def y_name():
+        nonlocal create_loop, yst_cr, screen, add_prompt, yadd_head
+        create_loop = True
+        yst_cr.get_name()
+        misc.cls()
+        screen = format_list(yadd_head, yst_cr.body, add_prompt)
+
+    def y_ar():
+        nonlocal create_loop, yst_cr, screen, add_prompt, yadd_head
+        create_loop = True
+        yst_cr.get_ar()
+        misc.cls()
+        screen = format_list(yadd_head, yst_cr.body, add_prompt)
+
+    def y_prid():
+        nonlocal create_loop, yst_cr, screen, add_prompt, yadd_head
+        create_loop = True
+        yst_cr.get_pid()
+        misc.cls()
+        screen = format_list(yadd_head, yst_cr.body, add_prompt)
+
+    def y_lab():
+        nonlocal create_loop, yst_cr, screen, add_prompt, yadd_head
+        create_loop = True
+        yst_cr.get_lab()
+        misc.cls()
+        screen = format_list(yadd_head, yst_cr.body, add_prompt)
+
+    def y_type():
+        nonlocal create_loop, yst_cr, screen, add_prompt, yadd_head
+        create_loop = True
+        yst_cr.get_type()
+        misc.cls()
+        screen = format_list(yadd_head, yst_cr.body, add_prompt)
+
+    def y_alc():
+        nonlocal create_loop, yst_cr, screen, add_prompt, yadd_head
+        create_loop = True
+        yst_cr.get_alc()
+        misc.cls()
+        screen = format_list(yadd_head, yst_cr.body, add_prompt)
+
+    def y_floc():
+        nonlocal create_loop, yst_cr, screen, add_prompt, yadd_head
+        create_loop = True
+        yst_cr.get_floc()
+        misc.cls()
+        screen = format_list(yadd_head, yst_cr.body, add_prompt)
+
+    def y_minatt():
+        nonlocal create_loop, yst_cr, screen, add_prompt, yadd_head
+        create_loop = True
+        yst_cr.get_minat()
+        misc.cls()
+        screen = format_list(yadd_head, yst_cr.body, add_prompt)
+
+    def y_maxatt():
+        nonlocal create_loop, yst_cr, screen, add_prompt, yadd_head
+        create_loop = True
+        yst_cr.get_maxat()
+        misc.cls()
+        screen = format_list(yadd_head, yst_cr.body, add_prompt)
+
+    def y_mintmp():
+        nonlocal create_loop, yst_cr, screen, add_prompt, yadd_head
+        create_loop = True
+        yst_cr.get_mintmp()
+        misc.cls()
+        screen = format_list(yadd_head, yst_cr.body, add_prompt)
+
+    def y_maxtmp():
+        nonlocal create_loop, yst_cr, screen, add_prompt, yadd_head
+        create_loop = True
+        yst_cr.get_maxtmp()
+        misc.cls()
+        screen = format_list(yadd_head, yst_cr.body, add_prompt)
+
+    def y_price():
+        nonlocal create_loop, yst_cr, screen, add_prompt, yadd_head
+        create_loop = True
+        yst_cr.get_price()
+        misc.cls()
+        screen = format_list(yadd_head, yst_cr.body, add_prompt)
+
+    def y_qty():
+        nonlocal create_loop, yst_cr, screen, add_prompt, yadd_head
+        create_loop = True
+        yst_cr.get_qty()
+        misc.cls()
+        screen = format_list(yadd_head, yst_cr.body, add_prompt)
+
+    def y_notes():
+        nonlocal create_loop, yst_cr, screen, add_prompt, yadd_head
+        create_loop = True
+        yst_cr.get_notes()
+        misc.cls()
+        screen = format_list(yadd_head, yst_cr.body, add_prompt)
+
+    def y_save():
+        nonlocal create_loop, yst_cr, screen, hs_db, next_screen, add_prompt
+        success = yst_cr.save(hs_db)
+        if success[0]:
+            create_loop = False
+            next_screen = 'yst'
+        else:
+            create_loop = True
+            if success[1] == 'name':
+                temp_head = 'Name Required'
+            else:
+                temp_head = 'Invalid data. Double check price, and quantity.'
+            misc.cls()
+            screen = format_list(temp_head, yst_cr.body, add_prompt)
+
+    def f_name():
+        nonlocal create_loop, ferm_cr, screen, add_prompt, fadd_head
+        create_loop = True
+        ferm_cr.get_name()
+        misc.cls()
+        screen = format_list(fadd_head, ferm_cr.body, add_prompt)
+
+    def f_origin():
+        nonlocal create_loop, ferm_cr, screen, add_prompt, fadd_head
+        create_loop = True
+        ferm_cr.get_origin()
+        misc.cls()
+        screen = format_list(fadd_head, ferm_cr.body, add_prompt)
+
+    def f_type():
+        nonlocal create_loop, ferm_cr, screen, add_prompt, fadd_head
+        create_loop = True
+        ferm_cr.get_type()
+        misc.cls()
+        screen = format_list(fadd_head, ferm_cr.body, add_prompt)
+
+    def f_pg():
+        nonlocal create_loop, ferm_cr, screen, add_prompt, fadd_head
+        create_loop = True
+        can_write = ferm_cr.get_grav()
+        misc.cls()
+        if can_write:
+            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
+        else:
+            screen = format_list('Potential/Specific Gravity Requires a Type', ferm_cr.body, add_prompt)
+
+    def f_col():
+        nonlocal create_loop, ferm_cr, screen, add_prompt, fadd_head
+        create_loop = True
+        ferm_cr.get_col()
+        misc.cls()
+        screen = format_list(fadd_head, ferm_cr.body, add_prompt)
+
+    def f_dp():
+        nonlocal create_loop, ferm_cr, screen, add_prompt, fadd_head
+        create_loop = True
+        can_write = ferm_cr.get_dp()
+        misc.cls()
+        if can_write:
+            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
+        else:
+            screen = format_list('Diastatic Power Requires Type "Base Malt", "Specialty Malt", or "Adjunct"', ferm_cr.body, add_prompt)
+
+    def f_pc():
+        nonlocal create_loop, ferm_cr, screen, add_prompt, fadd_head
+        create_loop = True
+        can_write = ferm_cr.get_pc()
+        misc.cls()
+        if can_write:
+            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
+        else:
+            screen = format_list('Protein Content Requires Type "Base Malt", "Specialty Malt", or "Adjunct"', ferm_cr.body, add_prompt)
+
+    def f_price():
+        nonlocal create_loop, ferm_cr, screen, add_prompt, fadd_head
+        create_loop = True
+        ferm_cr.get_price()
+        misc.cls()
+        screen = format_list(fadd_head, ferm_cr.body, add_prompt)
+
+    def f_qty():
+        nonlocal create_loop, ferm_cr, screen, add_prompt, fadd_head
+        create_loop = True
+        ferm_cr.get_qty()
+        misc.cls()
+        screen = format_list(fadd_head, ferm_cr.body, add_prompt)
+
+    def f_notes():
+        nonlocal create_loop, ferm_cr, screen, add_prompt, fadd_head
+        create_loop = True
+        ferm_cr.get_notes()
+        misc.cls()
+        screen = format_list(fadd_head, ferm_cr.body, add_prompt)
+
+    def f_save():
+        nonlocal create_loop, ferm_cr, screen, hs_db, next_screen, add_prompt
+        success = ferm_cr.save(hs_db)
+        if success[0]:
+            create_loop = False
+            next_screen = 'ferm'
+        else:
+            create_loop = True
+            if success[1] == 'name':
+                temp_head = 'Name Required'
+            else:
+                temp_head = 'Invalid data. Double check potential/specific gravity, colour, diastatic power, protein content, price, and quantity.'
+            misc.cls()
+            screen = format_list(temp_head, ferm_cr.body, add_prompt)
+
+    def default():
+        nonlocal create_loop
+        create_loop = False
+
+    # ingredient create switcher. Provide next_screen variable
+    create_case = {
+        'hop_name': h_name,
+        'hop_origin': h_origin,
+        'hop_type': h_type,
+        'hop_alpha': h_alpha,
+        'hop_beta': h_beta,
+        'hop_price': h_price,
+        'hop_qty': h_qty,
+        'hop_notes': h_notes,
+        'hop_save': h_save,
+        'yst_name': y_name,
+        'yst_ar': y_ar,
+        'yst_prid': y_prid,
+        'yst_lab': y_lab,
+        'yst_type': y_type,
+        'yst_alc': y_alc,
+        'yst_floc': y_floc,
+        'yst_minatt': y_minatt,
+        'yst_maxatt': y_maxatt,
+        'yst_mintmp': y_mintmp,
+        'yst_maxtmp': y_maxtmp,
+        'yst_price': y_price,
+        'yst_qty': y_qty,
+        'yst_notes': y_notes,
+        'yst_save': y_save,
+        'ferm_name': f_name,
+        'ferm_origin': f_origin,
+        'ferm_type': f_type,
+        'ferm_pg': f_pg,
+        'ferm_col': f_col,
+        'ferm_dp': f_dp,
+        'ferm_pc': f_pc,
+        'ferm_price': f_price,
+        'ferm_qty': f_qty,
+        'ferm_notes': f_notes,
+        'ferm_save': f_save
+    }
+
     # loop until a valid next screen is selected or through a create screen
     while (next_screen == None) or (create_loop == True):
         # print formatted screen and get user input for next screen
@@ -120,222 +442,12 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         option = input()
 
         # get the next screen from user input
-        next_screen = draw.get_next(cur_screen, option, list_len, raw_data, screen)  
+        next_screen = draw.get_next(cur_screen, option, list_len, raw_data, screen)   
 
-        # logic if the screen is creating something
-        if next_screen == 'hop_name':
-            create_loop = True
-            hop_cr.get_name()
-            misc.cls()
-            screen = format_list(hadd_head, hop_cr.body, add_prompt)
-        elif next_screen == 'hop_origin':
-            create_loop = True
-            hop_cr.get_origin()
-            misc.cls()
-            screen = format_list(hadd_head, hop_cr.body, add_prompt)
-        elif next_screen == 'hop_type':
-            create_loop = True
-            hop_cr.get_type()
-            misc.cls()
-            screen = format_list(hadd_head, hop_cr.body, add_prompt)
-        elif next_screen == 'hop_alpha':
-            create_loop = True
-            hop_cr.get_alpha()
-            misc.cls()
-            screen = format_list(hadd_head, hop_cr.body, add_prompt)
-        elif next_screen == 'hop_beta':
-            create_loop = True
-            hop_cr.get_beta()
-            misc.cls()
-            screen = format_list(hadd_head, hop_cr.body, add_prompt)
-        elif next_screen == 'hop_price':
-            create_loop = True
-            hop_cr.get_price()
-            misc.cls()
-            screen = format_list(hadd_head, hop_cr.body, add_prompt)
-        elif next_screen == 'hop_qty':
-            create_loop = True
-            hop_cr.get_qty()
-            misc.cls()
-            screen = format_list(hadd_head, hop_cr.body, add_prompt)
-        elif next_screen == 'hop_notes':
-            create_loop = True
-            hop_cr.get_notes()
-            misc.cls()
-            screen = format_list(hadd_head, hop_cr.body, add_prompt)
-        elif next_screen == 'hop_save':
-            success = hop_cr.save(hs_db)
-            if success[0]:
-                create_loop = False
-                next_screen = 'hop'
-            else:
-                create_loop = True
-                if success[1] == 'name':
-                    temp_head = 'Name Required'
-                else:
-                    temp_head = 'Invalid data. Double check alpha, beta, price, and quantity.'
-                misc.cls()
-                screen = format_list(temp_head, hop_cr.body, add_prompt)
-
-        elif next_screen == 'yst_name':
-            create_loop = True
-            yst_cr.get_name()
-            misc.cls()
-            screen = format_list(yadd_head, yst_cr.body, add_prompt)
-        elif next_screen == 'yst_ar':
-            create_loop = True
-            yst_cr.get_ar()
-            misc.cls()
-            screen = format_list(yadd_head, yst_cr.body, add_prompt)
-        elif next_screen == 'yst_prid':
-            create_loop = True
-            yst_cr.get_pid()
-            misc.cls()
-            screen = format_list(yadd_head, yst_cr.body, add_prompt)
-        elif next_screen == 'yst_lab':
-            create_loop = True
-            yst_cr.get_lab()
-            misc.cls()
-            screen = format_list(yadd_head, yst_cr.body, add_prompt)
-        elif next_screen == 'yst_type':
-            create_loop = True
-            yst_cr.get_type()
-            misc.cls()
-            screen = format_list(yadd_head, yst_cr.body, add_prompt)
-        elif next_screen == 'yst_alc':
-            create_loop = True
-            yst_cr.get_alc()
-            misc.cls()
-            screen = format_list(yadd_head, yst_cr.body, add_prompt)
-        elif next_screen == 'yst_floc':
-            create_loop = True
-            yst_cr.get_floc()
-            misc.cls()
-            screen = format_list(yadd_head, yst_cr.body, add_prompt)
-        elif next_screen == 'yst_minatt':
-            create_loop = True
-            yst_cr.get_minat()
-            misc.cls()
-            screen = format_list(yadd_head, yst_cr.body, add_prompt)
-        elif next_screen == 'yst_maxatt':
-            create_loop = True
-            yst_cr.get_maxat()
-            misc.cls()
-            screen = format_list(yadd_head, yst_cr.body, add_prompt)
-        elif next_screen == 'yst_mintmp':
-            create_loop = True
-            yst_cr.get_mintmp()
-            misc.cls()
-            screen = format_list(yadd_head, yst_cr.body, add_prompt)
-        elif next_screen == 'yst_maxtmp':
-            create_loop = True
-            yst_cr.get_maxtmp()
-            misc.cls()
-            screen = format_list(yadd_head, yst_cr.body, add_prompt)
-        elif next_screen == 'yst_price':
-            create_loop = True
-            yst_cr.get_price()
-            misc.cls()
-            screen = format_list(yadd_head, yst_cr.body, add_prompt)
-        elif next_screen == 'yst_qty':
-            create_loop = True
-            yst_cr.get_qty()
-            misc.cls()
-            screen = format_list(yadd_head, yst_cr.body, add_prompt)
-        elif next_screen == 'yst_notes':
-            create_loop = True
-            yst_cr.get_notes()
-            misc.cls()
-            screen = format_list(yadd_head, yst_cr.body, add_prompt)
-        elif next_screen == 'yst_save':
-            success = yst_cr.save(hs_db)
-            if success[0]:
-                create_loop = False
-                next_screen = 'yst'
-            else:
-                create_loop = True
-                if success[1] == 'name':
-                    temp_head = 'Name Required'
-                else:
-                    temp_head = 'Invalid data. Double check price, and quantity.'
-                misc.cls()
-                screen = format_list(temp_head, yst_cr.body, add_prompt)
-
-        elif next_screen == 'ferm_name':
-            create_loop = True
-            ferm_cr.get_name()
-            misc.cls()
-            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
-        elif next_screen == 'ferm_origin':
-            create_loop = True
-            ferm_cr.get_origin()
-            misc.cls()
-            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
-        elif next_screen == 'ferm_type':
-            create_loop = True
-            ferm_cr.get_type()
-            misc.cls()
-            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
-        elif next_screen == 'ferm_pg':
-            create_loop = True
-            can_write = ferm_cr.get_grav()
-            misc.cls()
-            if can_write:
-                screen = format_list(fadd_head, ferm_cr.body, add_prompt)
-            else:
-                screen = format_list('Potential/Specific Gravity Requires a Type', ferm_cr.body, add_prompt)
-        elif next_screen == 'ferm_col':
-            create_loop = True
-            ferm_cr.get_col()
-            misc.cls()
-            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
-        elif next_screen == 'ferm_dp':
-            create_loop = True
-            can_write = ferm_cr.get_dp()
-            misc.cls()
-            if can_write:
-                screen = format_list(fadd_head, ferm_cr.body, add_prompt)
-            else:
-                screen = format_list('Diastatic Power Requires Type "Base Malt", "Specialty Malt", or "Adjunct"', ferm_cr.body, add_prompt)
-        elif next_screen == 'ferm_pc':
-            create_loop = True
-            can_write = ferm_cr.get_pc()
-            misc.cls()
-            if can_write:
-                screen = format_list(fadd_head, ferm_cr.body, add_prompt)
-            else:
-                screen = format_list('Protein Content Requires Type "Base Malt", "Specialty Malt", or "Adjunct"', ferm_cr.body, add_prompt)
-        elif next_screen == 'ferm_price':
-            create_loop = True
-            ferm_cr.get_price()
-            misc.cls()
-            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
-        elif next_screen == 'ferm_qty':
-            create_loop = True
-            ferm_cr.get_qty()
-            misc.cls()
-            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
-        elif next_screen == 'ferm_notes':
-            create_loop = True
-            ferm_cr.get_notes()
-            misc.cls()
-            screen = format_list(fadd_head, ferm_cr.body, add_prompt)
-        elif next_screen == 'ferm_save':
-            success = ferm_cr.save(hs_db)
-            if success[0]:
-                create_loop = False
-                next_screen = 'ferm'
-            else:
-                create_loop = True
-                if success[1] == 'name':
-                    temp_head = 'Name Required'
-                else:
-                    temp_head = 'Invalid data. Double check potential/specific gravity, colour, diastatic power, protein content, price, and quantity.'
-                misc.cls()
-                screen = format_list(temp_head, ferm_cr.body, add_prompt)
-
-        else: 
-            create_loop = False
+        if type(next_screen) == str:
+            create_case.get(next_screen, default)()
+        else:
+            default()
 
     # logic if the screen is deleting/updating something
     if next_screen == 'hop_del':
