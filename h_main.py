@@ -435,6 +435,15 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         'ferm_save': f_save
     }
 
+    modify_case = {
+        'hop_del': h_del,
+        'hop_update': h_up,
+        'yst_del': y_del,
+        'yst_update': y_up,
+        'ferm_del': f_del,
+        'ferm_update': f_up
+    }
+
     # loop until a valid next screen is selected or through a create screen
     while (next_screen == None) or (create_loop == True):
         # print formatted screen and get user input for next screen
