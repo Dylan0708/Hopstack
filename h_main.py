@@ -392,6 +392,69 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             misc.cls()
             screen = format_list(temp_head, ferm_cr.body, add_prompt)
 
+    # Update ingredient switch functions
+    def h_up():
+        nonlocal next_screen, hs_db, raw_data
+        misc.cls()
+        add_val = input("Additional Quantity: ")
+        add_val = Decimal(add_val)
+        new_val = add_val + raw_data[7]
+        next_screen = raw_data
+        db_curs = hs_db.cursor()
+        db_curs.execute('UPDATE hops SET hop_qty = {} WHERE hop_id = {}'.format(new_val, next_screen[0]))
+        hs_db.commit()
+        db_curs.close()
+
+    def y_up():
+        nonlocal next_screen, hs_db, raw_data
+        misc.cls()
+        add_val = input("Additional Quantity: ")
+        add_val = Decimal(add_val)
+        new_val = add_val + raw_data[13]
+        next_screen = raw_data
+        db_curs = hs_db.cursor()
+        db_curs.execute('UPDATE yeast SET yeast_qty = {} WHERE yeast_id = {}'.format(new_val, next_screen[0]))
+        hs_db.commit()
+        db_curs.close()
+
+    def f_up():
+        nonlocal next_screen, hs_db, raw_data
+        misc.cls()
+        add_val = input("Additional Quantity: ")
+        add_val = Decimal(add_val)
+        new_val = add_val + raw_data[9]
+        next_screen = raw_data
+        db_curs = hs_db.cursor()
+        db_curs.execute('UPDATE fermentables SET ferm_qty = {} WHERE ferm_id = {}'.format(new_val, next_screen[0]))
+        hs_db.commit()
+        db_curs.close()
+
+    # Delete ingredient switch functions
+    def h_del():
+        nonlocal next_screen, hs_db, raw_data
+        next_screen = 'hop'
+        db_curs = hs_db.cursor()
+        db_curs.execute('DELETE FROM hops WHERE hop_id = {}'.format(raw_data[0]))
+        hs_db.commit()
+        db_curs.close()
+
+    def y_del():
+        nonlocal next_screen, hs_db, raw_data
+        next_screen = 'yst'
+        db_curs = hs_db.cursor()
+        db_curs.execute('DELETE FROM yeast WHERE yeast_id = {}'.format(raw_data[0]))
+        hs_db.commit()
+        db_curs.close()
+
+    def f_del():
+        nonlocal next_screen, hs_db, raw_data
+        next_screen = 'ferm'
+        db_curs = hs_db.cursor()
+        db_curs.execute('DELETE FROM fermentables WHERE ferm_id = {}'.format(raw_data[0]))
+        hs_db.commit()
+        db_curs.close()
+
+    # Default switch function
     def default():
         nonlocal create_loop
         create_loop = False
@@ -453,60 +516,17 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         # get the next screen from user input
         next_screen = draw.get_next(cur_screen, option, list_len, raw_data, screen)   
 
+        # Switch for adding an ingredient
         if type(next_screen) == str:
             create_case.get(next_screen, default)()
         else:
             default()
 
-    # logic if the screen is deleting/updating something
-    if next_screen == 'hop_del':
-        next_screen = 'hop'
-        db_curs = hs_db.cursor()
-        db_curs.execute('DELETE FROM hops WHERE hop_id = {}'.format(raw_data[0]))
-        hs_db.commit()
-        db_curs.close()
-    elif next_screen == 'hop_update':
-        misc.cls()
-        add_val = input("Additional Quantity: ")
-        add_val = Decimal(add_val)
-        new_val = add_val + raw_data[7]
-        next_screen = raw_data
-        db_curs = hs_db.cursor()
-        db_curs.execute('UPDATE hops SET hop_qty = {} WHERE hop_id = {}'.format(new_val, next_screen[0]))
-        hs_db.commit()
-        db_curs.close()
-    elif next_screen == 'yst_del':
-        next_screen = 'yst'
-        db_curs = hs_db.cursor()
-        db_curs.execute('DELETE FROM yeast WHERE yeast_id = {}'.format(raw_data[0]))
-        hs_db.commit()
-        db_curs.close()
-    elif next_screen == 'yst_update':
-        misc.cls()
-        add_val = input("Additional Quantity: ")
-        add_val = Decimal(add_val)
-        new_val = add_val + raw_data[13]
-        next_screen = raw_data
-        db_curs = hs_db.cursor()
-        db_curs.execute('UPDATE yeast SET yeast_qty = {} WHERE yeast_id = {}'.format(new_val, next_screen[0]))
-        hs_db.commit()
-        db_curs.close()
-    elif next_screen == 'ferm_del':
-        next_screen = 'ferm'
-        db_curs = hs_db.cursor()
-        db_curs.execute('DELETE FROM fermentables WHERE ferm_id = {}'.format(raw_data[0]))
-        hs_db.commit()
-        db_curs.close()
-    elif next_screen == 'ferm_update':
-        misc.cls()
-        add_val = input("Additional Quantity: ")
-        add_val = Decimal(add_val)
-        new_val = add_val + raw_data[9]
-        next_screen = raw_data
-        db_curs = hs_db.cursor()
-        db_curs.execute('UPDATE fermentables SET ferm_qty = {} WHERE ferm_id = {}'.format(new_val, next_screen[0]))
-        hs_db.commit()
-        db_curs.close()
+    # switch for updating/deleting an ingredient
+    if type(next_screen) == str:
+        modify_case.get(next_screen, default)()
+    else:
+        default()
 
     # return the screen data if next screen doesn't require a db query
     if type(next_screen) == str:

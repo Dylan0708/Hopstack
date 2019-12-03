@@ -5,6 +5,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 /testcode.py
+/HopStack.code-workspace
 
 # C extensions
 *.so
