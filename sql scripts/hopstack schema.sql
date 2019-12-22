@@ -125,7 +125,7 @@ CREATE TABLE list
 (
 	list_id INT AUTO_INCREMENT,
 	list_name VARCHAR(100),
-	timestamp DATETIME DEFAULT(NOW()),
+	timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
 	list_ingredients JSON,
 	list_total DECIMAL(7, 2),
 	list_notes VARCHAR(1000),

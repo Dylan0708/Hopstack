@@ -92,8 +92,6 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     ferm_cr = hscls.Ferm()
 
     # prebuilt headers
-    main_head = 'Main Menu'
-    ing_head = 'Ingredients'
     hlist_head = 'Hop Select'
     hadd_head = 'Create Hop'
     ylist_head = 'Yeast Select'
@@ -101,13 +99,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     flist_head = 'Fermentable/Adjunct Select'
     fadd_head = 'Create Fermentable/Adjunct'
 
-    # prebuilt bodies
-    main_body = [(None, 'Inventory'), (None, 'Recipes'), (None, 'Shopping Lists'), (None, 'Ingredients'), (None, 'Log Out'), (None, 'Exit')]
-    ing_body = [(None, 'Hops'), (None, 'Yeast'), (None, 'Fermentables & Adjuncts'), (None, 'Water'), (None, 'Miscellaneous'), (None, 'Main Menu')]
-
     # prebuilt prompts
-    main_prompt = 'Select Menu: '
-    ing_prompt = 'Filter Ingredients: '
     add_prompt = 'Select Detail to Edit: '
     hlist_prompt = 'Select Hop: '
     ylist_prompt = 'Select Yeast: '
@@ -459,6 +451,70 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         nonlocal create_loop
         create_loop = False
 
+    # Menu switch functions
+    def main_menu():
+        nonlocal next_screen
+        main_head = 'Main Menu'
+        main_body = [(None, 'Inventory'), (None, 'Recipes'), (None, 'Shopping Lists'), (None, 'Ingredients'), (None, 'Log Out'), (None, 'Exit')]
+        main_prompt = 'Select Menu: '
+        return [next_screen, main_head, main_body, main_prompt]
+
+    def ing_menu():
+        nonlocal next_screen
+        ing_head = 'Ingredients'
+        ing_body = [(None, 'Hops'), (None, 'Yeast'), (None, 'Fermentables & Adjuncts'), (None, 'Water'), (None, 'Miscellaneous'), (None, 'Main Menu')]
+        ing_prompt = 'Filter Ingredients: '
+        return [next_screen, ing_head, ing_body, ing_prompt]
+
+    def h_add():
+        nonlocal next_screen, hop_cr, hadd_head, add_prompt
+        return [next_screen, hadd_head, hop_cr.body, add_prompt]
+
+    def y_add():
+        nonlocal next_screen, yst_cr, yadd_head, add_prompt
+        return [next_screen, yadd_head, yst_cr.body, add_prompt]
+
+    def f_add():
+        nonlocal next_screen, ferm_cr, fadd_head, add_prompt
+        return [next_screen, fadd_head, ferm_cr.body, add_prompt]
+
+    def ext_func():
+        nonlocal next_screen
+        return next_screen
+
+    def hop_menu():
+        nonlocal next_screen, hs_db, hlist_head, hlist_prompt
+        hop_body = draw.get_body(next_screen, 'all', hs_db)
+        return [next_screen, hlist_head, hop_body, hlist_prompt]
+
+    def yst_menu():
+        nonlocal next_screen, hs_db, ylist_head, ylist_prompt
+        yst_body = draw.get_body(next_screen, 'all', hs_db)
+        return [next_screen, ylist_head, yst_body, ylist_prompt]
+
+    def ferm_menu():
+        nonlocal next_screen, hs_db, flist_head, flist_prompt
+        ferm_body = draw.get_body(next_screen, 'all', hs_db)
+        return [next_screen, flist_head, ferm_body, flist_prompt]
+
+    def hop_srch():
+        nonlocal next_screen, hs_db, cur_screen, hlist_head, hlist_prompt
+        query = input("Search Query: ")
+        search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
+        return [next_screen, hlist_head, search_body, hlist_prompt]
+
+    def yst_srch():
+        nonlocal next_screen, hs_db, cur_screen, ylist_head, ylist_prompt
+        query = input("Search Query: ")
+        search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
+        return [next_screen, ylist_head, search_body, ylist_prompt]
+
+    def ferm_srch():
+        nonlocal next_screen, hs_db, cur_screen, flist_head, flist_prompt
+        query = input("Search Query: ")
+        search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
+        return [next_screen, flist_head, search_body, flist_prompt]
+
     # ingredient create switcher. Provide next_screen variable
     create_case = {
         'hop_name': h_name,
@@ -507,6 +563,22 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         'ferm_update': f_up
     }
 
+    menu_case = {
+        'main': main_menu,
+        'ing': ing_menu,
+        'hop_add': h_add,
+        'yst_add': y_add,
+        'ferm_add': f_add,
+        'exit': ext_func,
+        'log': ext_func,
+        'hop': hop_menu,
+        'yst': yst_menu,
+        'ferm': ferm_menu,
+        'hop_srch': hop_srch,
+        'yst_srch': yst_srch,
+        'ferm_srch': ferm_srch
+    }
+
     # loop until a valid next screen is selected or through a create screen
     while (next_screen == None) or (create_loop == True):
         # print formatted screen and get user input for next screen
@@ -530,40 +602,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
 
     # return the screen data if next screen doesn't require a db query
     if type(next_screen) == str:
-        if next_screen == 'main':
-            return [next_screen, main_head, main_body, main_prompt]
-        elif next_screen == 'ing':
-            return [next_screen, ing_head, ing_body, ing_prompt]
-        elif next_screen == 'hop_add':
-            return [next_screen, hadd_head, hop_cr.body, add_prompt]
-        elif next_screen == 'yst_add':
-            return [next_screen, yadd_head, yst_cr.body, add_prompt]
-        elif next_screen == 'ferm_add':
-            return [next_screen, fadd_head, ferm_cr.body, add_prompt]
-        elif next_screen == 'exit' or next_screen == 'log':
-            return next_screen
-        # get the list of query responses to format for the next screen
-        elif next_screen == 'hop':
-            hop_body = draw.get_body(next_screen, 'all', hs_db)
-            return [next_screen, hlist_head, hop_body, hlist_prompt]
-        elif next_screen == 'yst':
-            yst_body = draw.get_body(next_screen, 'all', hs_db)
-            return [next_screen, ylist_head, yst_body, ylist_prompt]
-        elif next_screen == 'ferm':
-            ferm_body = draw.get_body(next_screen, 'all', hs_db)
-            return [next_screen, flist_head, ferm_body, flist_prompt]
-        elif next_screen == 'hop_srch':
-            query = input("Search Query: ")
-            search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
-            return [next_screen, hlist_head, search_body, hlist_prompt]
-        elif next_screen == 'yst_srch':
-            query = input("Search Query: ")
-            search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
-            return [next_screen, ylist_head, search_body, ylist_prompt]
-        elif next_screen == 'ferm_srch':
-            query = input("Search Query: ")
-            search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
-            return [next_screen, flist_head, search_body, flist_prompt]
+        return menu_case.get(next_screen)()
     else:
         if cur_screen == 'hop' or cur_screen == 'hop_det' or cur_screen == 'hop_srch':
             srch_table = 'hop'
