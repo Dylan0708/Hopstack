@@ -235,6 +235,46 @@ def detail_title(details):
         titled_line.append('Price: $' + str(details[6]) + ' per lb')
         titled_line.append('Inventory Quantity: ' + str(details[7]) + ' lbs')
         titled_line.append('')
+    elif line_items == 9: # water
+        # format each line
+        if details[0] != None:
+            titled_line.append('PH: ' + str(details[0]))
+        else:
+            titled_line.append(None)
+            
+        if details[1] != None:
+            titled_line.append('Calcium: ' + str(details[1]) + ' ppm')
+        else:
+            titled_line.append(None)
+        
+        if details[2] != None:
+            titled_line.append('Magnesium: ' + str(details[2]) + ' ppm')
+        else:
+            titled_line.append(None)
+
+        if details[3] != None:
+            titled_line.append('Sodium: ' + str(details[3]) + ' ppm')
+        else:
+            titled_line.append(None)
+
+        if details[4] != None:
+            titled_line.append('Sulfate: ' + str(details[4]) + ' ppm')
+        else:
+            titled_line.append(None)
+
+        if details[5] != None:
+            titled_line.append('Chloride: ' + str(details[5]) + ' ppm')
+        else:
+            titled_line.append(None)
+
+        if details[6] != None:
+            titled_line.append('Bicarbonate: ' + str(details[6]) + ' ppm')
+        else:
+            titled_line.append(None)
+
+        titled_line.append('Price: $' + str(details[7]) + ' per gal')
+        titled_line.append('Inventory Quantity: ' + str(details[8]) + ' gal')
+        titled_line.append('')
 
     # get items to delete
     for i in titled_line:
