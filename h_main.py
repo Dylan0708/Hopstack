@@ -579,6 +579,18 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         'ferm_srch': ferm_srch
     }
 
+    query_case ={
+        'hop': 'hop',
+        'hop_det': 'hop',
+        'hop_srch': 'hop',
+        'yst': 'yst',
+        'yst_det': 'yst',
+        'yst_srch': 'yst',
+        'ferm': 'ferm',
+        'ferm_det': 'ferm',
+        'ferm_srch': 'ferm'
+    }
+
     # loop until a valid next screen is selected or through a create screen
     while (next_screen == None) or (create_loop == True):
         # print formatted screen and get user input for next screen
@@ -603,13 +615,9 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     # return the screen data if next screen doesn't require a db query
     if type(next_screen) == str:
         return menu_case.get(next_screen)()
+    # get data if next screen does require a db query
     else:
-        if cur_screen == 'hop' or cur_screen == 'hop_det' or cur_screen == 'hop_srch':
-            srch_table = 'hop'
-        elif cur_screen == 'yst' or cur_screen == 'yst_det' or cur_screen == 'yst_srch':
-            srch_table = 'yst'
-        elif cur_screen == 'ferm' or cur_screen == 'ferm_det' or cur_screen == 'ferm_srch':
-            srch_table = 'ferm'
+        srch_table = query_case.get(cur_screen)
         next_det = draw.get_body(cur_screen, next_screen[0], hs_db, srch_table)
         det_head = next_det[1]
         return [next_screen, det_head, next_det, '1. Return\n2. Add Inventory\n3. Delete\n\nSelect Option: ']
