@@ -308,6 +308,13 @@ def get_body(table, param, connection, current = None):
         db_id = 'ferm_id '
         foot_add = 'Add Fermentable'
         srch_params = ' ferm_notes LIKE "%{}%" OR ferm_name LIKE "%{}%" OR ferm_origin LIKE "%{}%"'.format(param, param, param)
+    elif table == 'wat' or table == 'wat_det' or table == 'wat_srch':
+        table = 'water '
+        columns = 'water_id, water_name '
+        order = 'water_name'
+        db_id = 'water_id '
+        foot_add = 'Add Water'
+        srch_params = ' water_notes LIKE "%{}%" OR water_name LIKE "%{}%"'.format(param, param)
     elif table == 'msc':
         table = 'misc'
 

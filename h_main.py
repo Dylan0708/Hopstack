@@ -98,12 +98,15 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     yadd_head = 'Create Yeast'
     flist_head = 'Fermentable/Adjunct Select'
     fadd_head = 'Create Fermentable/Adjunct'
+    wlist_head = 'Water Select'
+    wadd_head = 'Create Water'
 
     # prebuilt prompts
     add_prompt = 'Select Detail to Edit: '
     hlist_prompt = 'Select Hop: '
     ylist_prompt = 'Select Yeast: '
     flist_prompt = 'Select Fermentable/Adjunct: '
+    wlist_prompt = 'Select Water: '
 
     # Create ingredient switch functions
     def h_name():
@@ -497,6 +500,11 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         ferm_body = draw.get_body(next_screen, 'all', hs_db)
         return [next_screen, flist_head, ferm_body, flist_prompt]
 
+    def wat_menu():
+        nonlocal next_screen, hs_db, wlist_head, wlist_prompt 
+        wat_body = draw.get_body(next_screen, 'all', hs_db)
+        return [next_screen, wlist_head, wat_body, wlist_prompt]
+
     def hop_srch():
         nonlocal next_screen, hs_db, cur_screen, hlist_head, hlist_prompt
         query = input("Search Query: ")
@@ -574,6 +582,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         'hop': hop_menu,
         'yst': yst_menu,
         'ferm': ferm_menu,
+        'wat': wat_menu,
         'hop_srch': hop_srch,
         'yst_srch': yst_srch,
         'ferm_srch': ferm_srch
@@ -588,7 +597,10 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         'yst_srch': 'yst',
         'ferm': 'ferm',
         'ferm_det': 'ferm',
-        'ferm_srch': 'ferm'
+        'ferm_srch': 'ferm',
+        'wat': 'wat',
+        'wat_det': 'wat',
+        'wat_srch': 'wat'
     }
 
     # loop until a valid next screen is selected or through a create screen
