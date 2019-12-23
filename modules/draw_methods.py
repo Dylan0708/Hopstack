@@ -298,6 +298,18 @@ def get_next(current, selection, list_lngth, raw, cur_data):
         except ValueError:
             misc.cls()
             go_next = None 
+    elif current == 'wat_srch':
+        if int(selection) <= (list_lngth - 3) and int(selection) > 0:
+            go_next = [raw[int(selection) - 1][0]]
+        elif int(selection) == list_lngth - 2:
+            go_next = 'ing'
+        elif int(selection) == list_lngth - 1:
+            go_next = 'main'
+        elif int(selection) == list_lngth:
+            go_next = 'wat'
+        else:
+            misc.cls()
+            go_next = None
     elif current == 'wat_det':
         if selection == '1':
             go_next = 'wat'

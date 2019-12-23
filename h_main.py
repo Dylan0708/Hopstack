@@ -523,6 +523,12 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
         return [next_screen, flist_head, search_body, flist_prompt]
 
+    def wat_srch():
+        nonlocal next_screen, hs_db, cur_screen, wlist_head, wlist_prompt
+        query = input("Search Query: ")
+        search_body = draw.get_body(next_screen, query, hs_db, cur_screen)
+        return [next_screen, wlist_head, search_body, wlist_prompt]
+
     # ingredient create switcher. Provide next_screen variable
     create_case = {
         'hop_name': h_name,
@@ -585,7 +591,8 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         'wat': wat_menu,
         'hop_srch': hop_srch,
         'yst_srch': yst_srch,
-        'ferm_srch': ferm_srch
+        'ferm_srch': ferm_srch,
+        'wat_srch': wat_srch
     }
 
     query_case ={
@@ -680,6 +687,8 @@ while outer_loop == True:
                     cur_screen = 'yst_det'
                 elif cur_screen == 'ferm_srch':
                     cur_screen = 'ferm_det'
+                elif cur_screen == 'wat_srch':
+                    cur_screen = 'wat_det'
                 else:
                     if ('_det' in cur_screen) == False:
                         cur_screen = cur_screen + '_det'
