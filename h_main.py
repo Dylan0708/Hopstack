@@ -518,6 +518,18 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         hs_db.commit()
         db_curs.close()
 
+    def w_up():
+        nonlocal next_screen, hs_db, raw_data
+        misc.cls()
+        add_val = input("Additional Quantity: ")
+        add_val = Decimal(add_val)
+        new_val = add_val + raw_data[10]
+        next_screen = raw_data
+        db_curs = hs_db.cursor()
+        db_curs.execute('UPDATE water SET water_qty = {} WHERE water_id = {}'.format(new_val, next_screen[0]))
+        hs_db.commit()
+        db_curs.close()
+
     # Delete ingredient switch functions
     def h_del():
         nonlocal next_screen, hs_db, raw_data
@@ -540,6 +552,14 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         next_screen = 'ferm'
         db_curs = hs_db.cursor()
         db_curs.execute('DELETE FROM fermentables WHERE ferm_id = {}'.format(raw_data[0]))
+        hs_db.commit()
+        db_curs.close()
+
+    def w_del():
+        nonlocal next_screen, hs_db, raw_data
+        next_screen = 'wat'
+        db_curs = hs_db.cursor()
+        db_curs.execute('DELETE FROM water WHERE water_id = {}'.format(raw_data[0]))
         hs_db.commit()
         db_curs.close()
 
@@ -684,7 +704,9 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         'yst_del': y_del,
         'yst_update': y_up,
         'ferm_del': f_del,
-        'ferm_update': f_up
+        'ferm_update': f_up,
+        'wat_del': w_del,
+        'wat_update': w_up
     }
 
     menu_case = {
