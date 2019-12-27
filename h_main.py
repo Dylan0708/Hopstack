@@ -389,6 +389,98 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             misc.cls()
             screen = format_list(temp_head, ferm_cr.body, add_prompt)
 
+    def w_name():
+        nonlocal create_loop, wat_cr, screen, add_prompt, wadd_head
+        create_loop = True
+        wat_cr.get_name()
+        misc.cls()
+        screen = format_list(wadd_head, wat_cr.body, add_prompt)
+
+    def w_ph():
+        nonlocal create_loop, wat_cr, screen, add_prompt, wadd_head
+        create_loop = True
+        wat_cr.get_ph()
+        misc.cls()
+        screen = format_list(wadd_head, wat_cr.body, add_prompt)
+        
+    def w_ca():
+        nonlocal create_loop, wat_cr, screen, add_prompt, wadd_head
+        create_loop = True
+        wat_cr.get_ca()
+        misc.cls()
+        screen = format_list(wadd_head, wat_cr.body, add_prompt)
+        
+    def w_mg():
+        nonlocal create_loop, wat_cr, screen, add_prompt, wadd_head
+        create_loop = True
+        wat_cr.get_mg()
+        misc.cls()
+        screen = format_list(wadd_head, wat_cr.body, add_prompt)
+        
+    def w_na():
+        nonlocal create_loop, wat_cr, screen, add_prompt, wadd_head
+        create_loop = True
+        wat_cr.get_na()
+        misc.cls()
+        screen = format_list(wadd_head, wat_cr.body, add_prompt)
+        
+    def w_so4():
+        nonlocal create_loop, wat_cr, screen, add_prompt, wadd_head
+        create_loop = True
+        wat_cr.get_so4()
+        misc.cls()
+        screen = format_list(wadd_head, wat_cr.body, add_prompt)
+        
+    def w_cl():
+        nonlocal create_loop, wat_cr, screen, add_prompt, wadd_head
+        create_loop = True
+        wat_cr.get_cl()
+        misc.cls()
+        screen = format_list(wadd_head, wat_cr.body, add_prompt)
+        
+    def w_hco3():
+        nonlocal create_loop, wat_cr, screen, add_prompt, wadd_head
+        create_loop = True
+        wat_cr.get_hco3()
+        misc.cls()
+        screen = format_list(wadd_head, wat_cr.body, add_prompt)
+    
+    def w_price():
+        nonlocal create_loop, wat_cr, screen, add_prompt, wadd_head
+        create_loop = True
+        wat_cr.get_price()
+        misc.cls()
+        screen = format_list(wadd_head, wat_cr.body, add_prompt)
+        
+    def w_qty():
+        nonlocal create_loop, wat_cr, screen, add_prompt, wadd_head
+        create_loop = True
+        wat_cr.get_qty()
+        misc.cls()
+        screen = format_list(wadd_head, wat_cr.body, add_prompt)
+        
+    def w_notes():
+        nonlocal create_loop, wat_cr, screen, add_prompt, wadd_head
+        create_loop = True
+        wat_cr.get_notes()
+        misc.cls()
+        screen = format_list(wadd_head, wat_cr.body, add_prompt)
+        
+    def w_save():
+        nonlocal create_loop, wat_cr, screen, hs_db, next_screen, add_prompt
+        success = wat_cr.save(hs_db)
+        if success[0]:
+            create_loop = False
+            next_screen = 'wat'
+        else:
+            create_loop = True
+            if success[1] == 'name':
+                temp_head = 'Name Required'
+            else:
+                temp_head = 'Invalid data. Double check all values.'
+            misc.cls()
+            screen = format_list(temp_head, wat_cr.body, add_prompt)
+
     # Update ingredient switch functions
     def h_up():
         nonlocal next_screen, hs_db, raw_data
@@ -483,6 +575,10 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         nonlocal next_screen, ferm_cr, fadd_head, add_prompt
         return [next_screen, fadd_head, ferm_cr.body, add_prompt]
 
+    def w_add():
+        nonlocal next_screen, wat_cr, wadd_head, add_prompt
+        return [next_screen, wadd_head, wat_cr.body, add_prompt]
+
     def ext_func():
         nonlocal next_screen
         return next_screen
@@ -567,7 +663,19 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         'ferm_price': f_price,
         'ferm_qty': f_qty,
         'ferm_notes': f_notes,
-        'ferm_save': f_save
+        'ferm_save': f_save,
+        'wat_name': w_name,
+        'wat_ph': w_ph,
+        'wat_ca': w_ca,
+        'wat_mg': w_mg,
+        'wat_na': w_na,
+        'wat_so4': w_so4,
+        'wat_cl': w_cl,
+        'wat_hco3': w_hco3,
+        'wat_price': w_price,
+        'wat_qty': w_qty,
+        'wat_notes': w_notes,
+        'wat_save': w_save
     }
 
     modify_case = {
@@ -585,6 +693,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         'hop_add': h_add,
         'yst_add': y_add,
         'ferm_add': f_add,
+        'wat_add': w_add,
         'exit': ext_func,
         'log': ext_func,
         'hop': hop_menu,

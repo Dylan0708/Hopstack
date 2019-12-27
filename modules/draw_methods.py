@@ -333,6 +333,36 @@ def get_next(current, selection, list_lngth, raw, cur_data):
         else:
             misc.cls()
             go_next = None
+    elif current == 'wat_add':
+        if selection == '1':
+            go_next = 'wat_name'
+        elif selection == '2':
+            go_next = 'wat_ph'
+        elif selection == '3':
+            go_next = 'wat_ca'
+        elif selection == '4':
+            go_next = 'wat_mg'
+        elif selection == '5':
+            go_next = 'wat_na'
+        elif selection == '6':
+            go_next = 'wat_so4'
+        elif selection == '7':
+            go_next = 'wat_cl'
+        elif selection == '8':
+            go_next = 'wat_hco3'
+        elif selection == '9':
+            go_next = 'wat_price'
+        elif selection == '10':
+            go_next = 'wat_qty'
+        elif selection == '11':
+            go_next = 'wat_notes'
+        elif selection == '12':
+            go_next = 'wat_save'
+        elif selection == '13':
+            go_next = 'wat'
+        else:
+            misc.cls()
+            go_next = None
 
     return go_next
 
