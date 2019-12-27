@@ -100,7 +100,10 @@ class Hop:
             if hnotes_loop == 25:
                 break
         hnotes_display = ''.join(hnotes_lst)
-        self.body[7] = (None, (hnotes_display + '...'))
+        if hnotes_loop == 25:
+            self.body[7] = (None, (hnotes_display + '...'))
+        else:
+            self.body[7] = (None, (hnotes_display))
         self.notes = form.sql_sanitize(self.notes)
         self.notes = form.quote_str(self.notes)
     # Saves the provided (or default) values to the database. Returns True if operation was successful. Returns False if operation was unsuccessful along with error
@@ -338,7 +341,10 @@ class Yeast:
             if ynotes_loop == 25:
                 break
         ynotes_display = ''.join(ynotes_lst)
-        self.body[13] = (None, (ynotes_display + '...'))
+        if ynotes_loop == 25:
+            self.body[13] = (None, (ynotes_display + '...'))
+        else:
+            self.body[13] = (None, (ynotes_display))
         self.notes = form.sql_sanitize(self.notes)
         self.notes = form.quote_str(self.notes)
     # Saves the provided (or default) values to the database. Returns True if operation was successful. Returns False if operation was unsuccessful along with error
@@ -539,7 +545,10 @@ class Ferm:
             if fnotes_loop == 25:
                 break
         fnotes_display = ''.join(fnotes_lst)
-        self.body[9] = (None, (fnotes_display + '...'))
+        if fnotes_loop == 25:
+            self.body[9] = (None, (fnotes_display + '...'))
+        else:
+            self.body[9] = (None, (fnotes_display))
         self.notes = form.sql_sanitize(self.notes)
         self.notes = form.quote_str(self.notes)
     # Saves the provided (or default) values to the database. Returns True if operation was successful. Returns False if operation was unsuccessful along with error
@@ -557,9 +566,9 @@ class Ferm:
             return (False, 'data') 
 
 class Water:
-    def __init__(self, db_id, name, ca, mg, na, so4, cl, hco3, price, qty, notes):
-        self.db_id = db_id
+    def __init__(self, name = 'NULL', ph = 'NULL', ca = 'NULL', mg = 'NULL', na = 'NULL', so4 = 'NULL', cl = 'NULL', hco3 = 'NULL', price = 0, qty = 0, notes = 'NULL'):
         self.name = name
+        self.ph = ph
         self.ca = ca
         self.mg = mg
         self.na = na
@@ -569,6 +578,151 @@ class Water:
         self.price = price
         self.qty = qty
         self.notes = notes
+        self.body = [(None, 'Name'), (None, 'PH'), (None, 'Calcium (ppm)'), (None, 'Magnesium (ppm)'), (None, 'Sodium (ppm)'), (None, 'Sulfate (ppm)'), (None, 'Chloride (ppm)'), (None, 'Bicarbonate (ppm)'), (None, 'Price'), (None, 'Quantity in Inventory'), (None, 'Notes'), (None, 'Save'), (None, 'Exit Without Saving')]
+    # Saves the user provided name formatted for mysql, and a tuple for screen formatting
+    def get_name(self):
+        temp_name = input("Name: ")
+        self.body[0] = (None, ('Name: ' + temp_name))
+        self.name = form.sql_sanitize(temp_name)
+        self.name = form.quote_str(self.name)
+    # Saves the user provided ph formatted for mysql, and a tuple for screen formatting
+    def get_ph(self):
+        self.ph = None
+        while self.ph == None:
+            wat_temp = input("PH: ")
+            try:
+                self.ph = Decimal(wat_temp)
+            except decimal.InvalidOperation:
+                print("PH must be a numeric value.")
+        self.ph = round(self.ph, 2)
+        wat_temp = str(self.ph)
+        self.body[1] = (None, ('PH: ' + wat_temp))
+    # Saves the user provided calcium ppm formatted for mysql, and a tuple for screen formatting
+    def get_ca(self):
+        self.ca = None
+        while self.ca == None:
+            wat_temp = input("Calcium (ppm): ")
+            try:
+                self.ca = Decimal(wat_temp)
+            except decimal.InvalidOperation:
+                print("Calcium must be a numeric value.")
+        self.ca = round(self.ca, 2)
+        wat_temp = str(self.ca)
+        self.body[2] = (None, ('Calcium: ' + wat_temp + ' ppm'))
+    # Saves the user provided magnesium ppm formatted for mysql, and a tuple for screen formatting
+    def get_mg(self):
+        self.mg = None
+        while self.mg == None:
+            wat_temp = input("Magnesium (ppm): ")
+            try:
+                self.mg = Decimal(wat_temp)
+            except decimal.InvalidOperation:
+                print("Magnesium must be a numeric value.")
+        self.mg = round(self.mg, 2)
+        wat_temp = str(self.mg)
+        self.body[3] = (None, ('Magnesium: ' + wat_temp + ' ppm'))
+    # Saves the user provided sodium ppm formatted for mysql, and a tuple for screen formatting
+    def get_na(self):
+        self.na = None
+        while self.na == None:
+            wat_temp = input("Sodium (ppm): ")
+            try:
+                self.na = Decimal(wat_temp)
+            except decimal.InvalidOperation:
+                print("Sodium must be a numeric value.")
+        self.na = round(self.na, 2)
+        wat_temp = str(self.na)
+        self.body[4] = (None, ('Sodium: ' + wat_temp + ' ppm'))
+    # Saves the user provided sulfate ppm formatted for mysql, and a tuple for screen formatting
+    def get_so4(self):
+        self.so4 = None
+        while self.so4 == None:
+            wat_temp = input("Sulfate (ppm): ")
+            try:
+                self.so4 = Decimal(wat_temp)
+            except decimal.InvalidOperation:
+                print("Sulfate must be a numeric value.")
+        self.so4 = round(self.so4, 2)
+        wat_temp = str(self.so4)
+        self.body[5] = (None, ('Sulfate: ' + wat_temp + ' ppm'))
+    # Saves the user provided chloride ppm formatted for mysql, and a tuple for screen formatting
+    def get_cl(self):
+        self.cl = None
+        while self.cl == None:
+            wat_temp = input("Chloride (ppm): ")
+            try:
+                self.cl = Decimal(wat_temp)
+            except decimal.InvalidOperation:
+                print("Chloride must be a numeric value.")
+        self.cl = round(self.cl, 2)
+        wat_temp = str(self.cl)
+        self.body[6] = (None, ('Chloride: ' + wat_temp + ' ppm'))
+    # Saves the user provided bicarbonate ppm formatted for mysql, and a tuple for screen formatting
+    def get_hco3(self):
+        self.hco3 = None
+        while self.hco3 == None:
+            wat_temp = input("Bicarbonate (ppm): ")
+            try:
+                self.hco3 = Decimal(wat_temp)
+            except decimal.InvalidOperation:
+                print("Bicarbonate must be a numeric value.")
+        self.hco3 = round(self.hco3, 2)
+        wat_temp = str(self.hco3)
+        self.body[7] = (None, ('Bicarbonate: ' + wat_temp + ' ppm'))
+    # Saves the user provided price formatted for mysql, and a tuple for screen formatting
+    def get_price(self):
+        self.price = None
+        while self.price == None:
+            wat_temp = input("Price: ")
+            try:
+                self.price = Decimal(wat_temp)
+            except decimal.InvalidOperation:
+                print("Price must be a numeric value.")
+        self.price = round(self.price, 2)
+        wat_temp = str(self.price)
+        self.body[8] = (None, ('Price: $' + wat_temp))
+    # Saves the user provided quantity formatted for mysql, and a tuple for screen formatting
+    def get_qty(self):
+        self.qty = None
+        while self.qty == None:
+            wat_temp = input("Inventory Quantity: ")
+            try:
+                self.qty = Decimal(wat_temp)
+            except decimal.InvalidOperation:
+                print("Quantity must be a numeric value.")
+        self.qty = round(self.qty, 2)
+        wat_temp = str(self.qty)
+        self.body[9] = (None, ('Inventory Quantity: ' + wat_temp + ' gal'))
+    # Saves the user provided notes formatted for mysql, and a tuple for screen formatting
+    def get_notes(self):
+        wnotes_lst = []
+        wnotes_loop = 0
+        self.notes = input("Notes: ")
+        for i in self.notes:
+            wnotes_lst.append(i)
+            wnotes_loop += 1
+            if wnotes_loop == 25:
+                break
+        wnotes_display = ''.join(wnotes_lst)
+        if wnotes_loop == 25:
+            self.body[10] = (None, (wnotes_display + '...'))
+        else:
+            self.body[10] = (None, (wnotes_display))
+        self.notes = form.sql_sanitize(self.notes)
+        self.notes = form.quote_str(self.notes)
+    # Saves the provided (or default) values to the database. Returns True if operation was successful. Returns False if operation was unsuccessful along with error
+    def save(self, db):
+        try:
+            curs = db.cursor()
+            query_str = 'INSERT INTO water(water_name, ph, calcium, magnesium, sodium, sulfate, chloride, bicarbonate, water_price, water_qty, water_notes) VALUES ({}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {})'.format(self.name, self.ph, self.ca, self.mg, self.na, self.so4, self.cl, self.hco3, self.price, self.qty, self.notes)
+            curs.execute(query_str)
+            db.commit()
+            curs.close()
+            return (True, None)
+        except mysql.connector.errors.IntegrityError:
+            return (False, 'name')
+        except mysql.connector.errors.DataError:
+            return (False, 'data') 
 
 class Misc:
     def __init__(self, db_id, name, measure, m_type, price, qty, notes):

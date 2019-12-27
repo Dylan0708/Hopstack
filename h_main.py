@@ -84,12 +84,14 @@ def format_details(head, body, prompt):
 def draw_list(screen, raw_data, cur_screen, hs_db):
     list_len = len(raw_data)
     next_screen = None
+    
     # ingredient building variable initialization
     create_loop = False
 
     hop_cr = hscls.Hop()
     yst_cr = hscls.Yeast()
     ferm_cr = hscls.Ferm()
+    wat_cr = hscls.Water()
 
     # prebuilt headers
     hlist_head = 'Hop Select'
@@ -689,6 +691,8 @@ while outer_loop == True:
                     cur_screen = 'ferm_det'
                 elif cur_screen == 'wat_srch':
                     cur_screen = 'wat_det'
+                elif cur_screen == 'misc_srch':
+                    cur_screen = 'misc_det'
                 else:
                     if ('_det' in cur_screen) == False:
                         cur_screen = cur_screen + '_det'
