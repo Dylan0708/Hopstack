@@ -363,6 +363,24 @@ def get_next(current, selection, list_lngth, raw, cur_data):
         else:
             misc.cls()
             go_next = None
+    elif current == 'msc':
+        try:
+            if int(selection) <= (list_lngth - 4) and int(selection) > 0:
+                go_next = [raw[int(selection) - 1][0]]
+            elif int(selection) == list_lngth - 3:
+                go_next = 'ing'
+            elif int(selection) == list_lngth - 2:
+                go_next = 'main'
+            elif int(selection) == list_lngth - 1:
+                go_next = 'msc_add'
+            elif int(selection) == list_lngth:
+                go_next = 'msc_srch'
+            else:
+                misc.cls()
+                go_next = None
+        except ValueError:
+            misc.cls()
+            go_next = None 
 
     return go_next
 
@@ -398,8 +416,13 @@ def get_body(table, param, connection, current = None):
         db_id = 'water_id '
         foot_add = 'Add Water'
         srch_params = ' water_notes LIKE "%{}%" OR water_name LIKE "%{}%"'.format(param, param)
-    elif table == 'msc':
-        table = 'misc'
+    elif table == 'msc' or table == 'msc_det' or table == 'msc_srch':
+        table = 'misc '
+        columns = 'misc_id, misc_name '
+        order = 'misc_name'
+        db_id = 'misc_id '
+        foot_add = 'Add Misc'
+        srch_params = ' misc_notes LIKE "{}" OR misc_name LIKE "{}"'.format(param, param)
 
     # establish db cursor
     curs = connection.cursor(buffered = True)
