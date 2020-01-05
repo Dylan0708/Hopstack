@@ -381,6 +381,18 @@ def get_next(current, selection, list_lngth, raw, cur_data):
         except ValueError:
             misc.cls()
             go_next = None 
+    elif current == 'msc_srch':
+        if int(selection) <= (list_lngth - 3) and int(selection) > 0:
+            go_next = [raw[int(selection) - 1][0]]
+        elif int(selection) == list_lngth - 2:
+            go_next = 'ing'
+        elif int(selection) == list_lngth - 1:
+            go_next = 'main'
+        elif int(selection) == list_lngth:
+            go_next = 'msc'
+        else:
+            misc.cls()
+            go_next = None
 
     return go_next
 
@@ -422,7 +434,7 @@ def get_body(table, param, connection, current = None):
         order = 'misc_name'
         db_id = 'misc_id '
         foot_add = 'Add Misc'
-        srch_params = ' misc_notes LIKE "{}" OR misc_name LIKE "{}"'.format(param, param)
+        srch_params = ' misc_notes LIKE "%{}%" OR misc_name LIKE "%{}%"'.format(param, param)
 
     # establish db cursor
     curs = connection.cursor(buffered = True)
