@@ -41,7 +41,7 @@ def format_details(head, body, prompt):
     for i in body:
         body_list.append(i)
 
-    # delete the title and db id from the body
+    # delete the title and db id from the bod
     del body_list[0:2]
 
     # extract ingredient comment. if none, delete
@@ -838,8 +838,8 @@ while outer_loop == True:
                     cur_screen = 'ferm_det'
                 elif cur_screen == 'wat_srch':
                     cur_screen = 'wat_det'
-                elif cur_screen == 'misc_srch':
-                    cur_screen = 'misc_det'
+                elif cur_screen == 'msc_srch':
+                    cur_screen = 'msc_det'
                 else:
                     if ('_det' in cur_screen) == False:
                         cur_screen = cur_screen + '_det'

@@ -275,6 +275,47 @@ def detail_title(details):
         titled_line.append('Price: $' + str(details[7]) + ' per gal')
         titled_line.append('Inventory Quantity: ' + str(details[8]) + ' gal')
         titled_line.append('')
+    elif line_items == 4: # misc
+        # format each line
+        if details[0] != None:
+            if details[0] == 'V':
+                measure_price = ' per gal'
+                measure_qty = ' gal'
+            elif details[0] == 'v':
+                measure_price = ' per oz'
+                measure_qty = ' oz'
+            elif details[0] == 'W':
+                measure_price = ' per lb'
+                measure_qty = ' lbs'
+            elif details[0] == 'w':
+                measure_price = ' per oz'
+                measure_qty = ' oz'
+            elif details[0] == 'U':
+                measure_price = ' per Unit'
+                measure_qty = ' Units'
+        else:
+            measure_price = ''
+            measure_qty = ''
+
+        if details[1] != None:
+            if details[1] == 'Fl':
+                titled_line.append('Type: Flavour')
+            elif details[1] == 'Wa':
+                titled_line.append('Type: Water Agent')
+            elif details[1] == 'Yn':
+                titled_line.append('Type: Yeast Nutrient')
+            elif details[1] == 'En':
+                titled_line.append('Type: Enzyme')
+            elif details[1] == 'Fi':
+                titled_line.append('Type: Fining')
+            elif details[1] == 'Ot':
+                titled_line.append('Type: Other')
+        else:
+            titled_line.append(None)
+
+        titled_line.append('Price: $' + str(details[2]) + measure_price)
+        titled_line.append('Inventory Quantity: ' + str(details[3]) + measure_qty)
+        titled_line.append('')
 
     # get items to delete
     for i in titled_line:

@@ -393,6 +393,29 @@ def get_next(current, selection, list_lngth, raw, cur_data):
         else:
             misc.cls()
             go_next = None
+    elif current == 'msc_det':
+        if selection == '1':
+            go_next = 'msc'
+        elif selection == '2':
+            go_next = 'msc_update'
+        elif selection == '3':
+            misc.cls()
+            loop = True
+            while loop == True:
+                misc.cls()
+                print("Delete " + raw[1] + "? Y/N")
+                verify = input()
+                if verify.lower() == 'y':
+                    go_next = 'msc_del'
+                    loop = False
+                elif verify.lower() == 'n':
+                    go_next = [raw[0]]
+                    loop = False
+                else:
+                    loop = True
+        else:
+            misc.cls()
+            go_next = None
 
     return go_next
 
