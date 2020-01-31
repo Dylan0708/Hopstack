@@ -725,11 +725,66 @@ class Water:
             return (False, 'data') 
 
 class Misc:
-    def __init__(self, db_id, name, measure, m_type, price, qty, notes):
-        self.db_id = db_id
+    def __init__(self, name = 'NULL', unit = 'NULL', m_type = 'NULL', price = 0, qty = 0, notes = 'NULL'):
         self.name = name
-        self.measure = measure
+        self.unit = unit
         self.m_type = m_type
         self.price = price
         self.qty = qty
         self.notes = notes
+        self.body = [(None, 'Name'), (None, 'Unit (Gallons, Fluid Ounces, Pounds, Dry Ounces, or Units)'), (None, 'Type (Flavour, Water Agent, Yeast Nutrient, Enzyme, Fining, or Other)'), (None, 'Price'), (None, 'Quantity in Inventory'), (None, 'Notes'), (None, 'Save'), (None, 'Exit Without Saving')]
+    # Saves the user provided name formatted for mysql, and a tuple for screen formatting
+    def get_name(self):
+        temp_name = input("Name: ")
+        self.body[0] = (None, ('Name: ' + temp_name))
+        self.name = form.sql_sanitize(temp_name)
+        self.name = form.quote_str(self.name)
+    # Saves the user provided unit formatted for mysql, and a tuple for screen formatting
+    def get_unit(self):
+        self.unit = None
+        while self.unit is None:
+            msc_temp = input("Unit: ")
+            if ('u' in msc_temp.lower()) == True:
+                self.unit = "'U'"
+                munit_display = 'Units'
+            elif ('d' in msc_temp.lower()) == True:
+                self.unit = "'w'"
+                munit_display = 'Dry Ounces'
+            elif ('g' in msc_temp.lower()) == True:
+                self.unit = "'V'"
+                munit_display = 'Gallons'
+            elif ('f' in msc_temp.lower()) == True:
+                self.unit = "'v'"
+                munit_display = 'Fluid Ounces'
+            elif ('p' in msc_temp.lower()) == True:
+                self.unit = "'W'"
+                munit_display = 'Pounds'
+            else:
+                print("Enter valid unit.")
+        self.body[1] = (None, ('Unit: ' + munit_display))
+    # Saves the user provided type formatted for mysql, and a tuple for screen formatting
+    def get_type(self):
+        self.m_type = None
+        while self.m_type is None:
+            msc_temp = input("Type: ")
+            if ('fl' in msc_temp.lower()) == True:
+                self.m_type = "'Fl'"
+                mtype_display = 'Flavour'
+            elif ('w' in msc_temp.lower()) == True:
+                self.m_type = "'Wa'"
+                mtype_display = 'Water Agent'
+            elif ('y' in msc_temp.lower()) == True:
+                self.m_type = "'Yn'"
+                mtype_display = 'Yeast Nutrient'
+            elif ('enz' in msc_temp.lower()) == True:
+                self.m_type = "'En'"
+                mtype_display = 'Enzyme'
+            elif ('fi' in msc_temp.lower()) == True:
+                self.m_type = "'Fi'"
+                mtype_display = 'Fining'
+            elif ('ot' in msc_temp.lower()) == True:
+                self.m_type = "'Ot'"
+                mtype_display = 'Other'
+            else:
+                print("Enter valid misc type.")
+        self.body[2] = (None, ('Type: ' + mtype_display))
