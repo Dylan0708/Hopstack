@@ -92,6 +92,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     yst_cr = hscls.Yeast()
     ferm_cr = hscls.Ferm()
     wat_cr = hscls.Water()
+    msc_cr = hscls.Misc()
 
     # prebuilt headers
     hlist_head = 'Hop Select'
@@ -484,6 +485,63 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
             misc.cls()
             screen = format_list(temp_head, wat_cr.body, add_prompt)
 
+    def m_name():
+        nonlocal create_loop, msc_cr, screen, add_prompt, madd_head
+        create_loop = True
+        msc_cr.get_name()
+        misc.cls()
+        screen = format_list(madd_head, msc_cr.body, add_prompt)
+
+    def m_unit():
+        nonlocal create_loop, msc_cr, screen, add_prompt, madd_head
+        create_loop = True
+        msc_cr.get_unit()
+        misc.cls()
+        screen = format_list(madd_head, msc_cr.body, add_prompt)
+        
+    def m_type():
+        nonlocal create_loop, msc_cr, screen, add_prompt, madd_head
+        create_loop = True
+        msc_cr.get_type()
+        misc.cls()
+        screen = format_list(madd_head, msc_cr.body, add_prompt)
+
+    def m_price():
+        nonlocal create_loop, msc_cr, screen, add_prompt, madd_head
+        create_loop = True
+        msc_cr.get_price()
+        misc.cls()
+        screen = format_list(madd_head, msc_cr.body, add_prompt)
+    
+    def m_qty():
+        nonlocal create_loop, msc_cr, screen, add_prompt, madd_head
+        create_loop = True
+        msc_cr.get_qty()
+        misc.cls()
+        screen = format_list(madd_head, msc_cr.body, add_prompt)
+        
+    def m_notes():
+        nonlocal create_loop, msc_cr, screen, add_prompt, madd_head
+        create_loop = True
+        msc_cr.get_notes()
+        misc.cls()
+        screen = format_list(madd_head, msc_cr.body, add_prompt)
+        
+    def m_save():
+        nonlocal create_loop, msc_cr, screen, hs_db, next_screen, add_prompt
+        success = msc_cr.save(hs_db)
+        if success[0]:
+            create_loop = False
+            next_screen = 'msc'
+        else:
+            create_loop = True
+            if success[1] == 'name':
+                temp_head = 'Name Required'
+            else:
+                temp_head = 'Invalid data. Double check price and quantity.'
+            misc.cls()
+            screen = format_list(temp_head, msc_cr.body, add_prompt)
+
     # Update ingredient switch functions
     def h_up():
         nonlocal next_screen, hs_db, raw_data
@@ -602,6 +660,10 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         nonlocal next_screen, wat_cr, wadd_head, add_prompt
         return [next_screen, wadd_head, wat_cr.body, add_prompt]
 
+    def m_add():
+        nonlocal next_screen, msc_cr, madd_head, add_prompt
+        return [next_screen, madd_head, msc_cr.body, add_prompt]
+
     def ext_func():
         nonlocal next_screen
         return next_screen
@@ -709,7 +771,14 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         'wat_price': w_price,
         'wat_qty': w_qty,
         'wat_notes': w_notes,
-        'wat_save': w_save
+        'wat_save': w_save,
+        'msc_name': m_name,
+        'msc_unit': m_unit,
+        'msc_type': m_type,
+        'msc_price': m_price,
+        'msc_qty': m_qty,
+        'msc_notes': m_notes,
+        'msc_save': m_save
     }
 
     modify_case = {
@@ -730,6 +799,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         'yst_add': y_add,
         'ferm_add': f_add,
         'wat_add': w_add,
+        'msc_add': m_add,
         'exit': ext_func,
         'log': ext_func,
         'hop': hop_menu,

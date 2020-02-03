@@ -733,6 +733,7 @@ class Misc:
         self.qty = qty
         self.notes = notes
         self.body = [(None, 'Name'), (None, 'Unit (Gallons, Fluid Ounces, Pounds, Dry Ounces, or Units)'), (None, 'Type (Flavour, Water Agent, Yeast Nutrient, Enzyme, Fining, or Other)'), (None, 'Price'), (None, 'Quantity in Inventory'), (None, 'Notes'), (None, 'Save'), (None, 'Exit Without Saving')]
+        self.qty_display = None
     # Saves the user provided name formatted for mysql, and a tuple for screen formatting
     def get_name(self):
         temp_name = input("Name: ")
@@ -747,20 +748,27 @@ class Misc:
             if ('u' in msc_temp.lower()) == True:
                 self.unit = "'U'"
                 munit_display = 'Units'
+                self.qty_display = ' Units'
             elif ('d' in msc_temp.lower()) == True:
                 self.unit = "'w'"
                 munit_display = 'Dry Ounces'
+                self.qty_display = ' oz'
             elif ('g' in msc_temp.lower()) == True:
                 self.unit = "'V'"
                 munit_display = 'Gallons'
+                self.qty_display = ' gal'
             elif ('f' in msc_temp.lower()) == True:
                 self.unit = "'v'"
                 munit_display = 'Fluid Ounces'
+                self.qty_display = ' oz'
             elif ('p' in msc_temp.lower()) == True:
                 self.unit = "'W'"
                 munit_display = 'Pounds'
+                self.qty_display = ' lbs'
             else:
                 print("Enter valid unit.")
+        if self.qty != 0:
+            self.body[4] = (None, ('Inventory Quantity: ' + str(self.qty) + self.qty_display))
         self.body[1] = (None, ('Unit: ' + munit_display))
     # Saves the user provided type formatted for mysql, and a tuple for screen formatting
     def get_type(self):
@@ -788,3 +796,60 @@ class Misc:
             else:
                 print("Enter valid misc type.")
         self.body[2] = (None, ('Type: ' + mtype_display))
+    # Saves the user provided price formatted for mysql, and a tuple for screen formatting
+    def get_price(self):
+        self.price = None
+        while self.price == None:
+            msc_temp = input("Price: ")
+            try:
+                self.price = Decimal(msc_temp)
+            except decimal.InvalidOperation:
+                print("Price must be a numeric value.")
+        self.price = round(self.price, 2)
+        msc_temp = str(self.price)
+        self.body[3] = (None, ('Price: $' + msc_temp))
+    # Saves the user provided quantity formatted for mysql, and a tuple for screen formatting
+    def get_qty(self):
+        self.qty = None
+        while self.qty == None:
+            msc_temp = input("Inventory Quantity: ")
+            try:
+                self.qty = Decimal(msc_temp)
+            except decimal.InvalidOperation:
+                print("Quantity must be a numeric value.")
+        self.qty = round(self.qty, 2)
+        msc_temp = str(self.qty)
+        if self.unit == 'NULL':
+            self.body[4] = (None, ('Inventory Quantity: ' + msc_temp))
+        else:
+            self.body[4] = (None, ('Inventory Quantity: ' + msc_temp + self.qty_display))
+    # Saves the user provided notes formatted for mysql, and a tuple for screen formatting
+    def get_notes(self):
+        mnotes_lst = []
+        mnotes_loop = 0
+        self.notes = input("Notes: ")
+        for i in self.notes:
+            mnotes_lst.append(i)
+            mnotes_loop += 1
+            if mnotes_loop == 25:
+                break
+        mnotes_display = ''.join(mnotes_lst)
+        if mnotes_loop == 25:
+            self.body[5] = (None, (mnotes_display + '...'))
+        else:
+            self.body[5] = (None, (mnotes_display))
+        self.notes = form.sql_sanitize(self.notes)
+        self.notes = form.quote_str(self.notes)
+    # Saves the provided (or default) values to the database. Returns True if operation was successful. Returns False if operation was unsuccessful along with error
+    def save(self, db):
+        try:
+            curs = db.cursor()
+            query_str = 'INSERT INTO misc(misc_name, measurement, misc_type, misc_price, misc_qty, misc_notes) VALUES ({}, {}, {}, {}, {}, {})'.format(self.name, self.unit, self.m_type, self.price, self.qty, self.notes)
+            curs.execute(query_str)
+            db.commit()
+            curs.close()
+            return (True, None)
+        except mysql.connector.errors.IntegrityError:
+            return (False, 'name')
+        except mysql.connector.errors.DataError:
+            return (False, 'data')

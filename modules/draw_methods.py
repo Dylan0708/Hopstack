@@ -416,6 +416,26 @@ def get_next(current, selection, list_lngth, raw, cur_data):
         else:
             misc.cls()
             go_next = None
+    elif current == 'msc_add':
+        if selection == '1':
+            go_next = 'msc_name'
+        elif selection == '2':
+            go_next = 'msc_unit'
+        elif selection == '3':
+            go_next = 'msc_type'
+        elif selection == '4':
+            go_next = 'msc_price'
+        elif selection == '5':
+            go_next = 'msc_qty'
+        elif selection == '6':
+            go_next = 'msc_notes'
+        elif selection == '7':
+            go_next = 'msc_save'
+        elif selection == '8':
+            go_next = 'msc'
+        else:
+            misc.cls()
+            go_next = None
 
     return go_next
 
