@@ -591,6 +591,18 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         hs_db.commit()
         db_curs.close()
 
+    def m_up():
+        nonlocal next_screen, hs_db, raw_data
+        misc.cls()
+        add_val = input("Additional Quantity: ")
+        add_val = Decimal(add_val)
+        new_val = add_val + raw_data[5]
+        next_screen = raw_data
+        db_curs = hs_db.cursor()
+        db_curs.execute('UPDATE misc SET misc_qty = {} WHERE misc_id = {}'.format(new_val, next_screen[0]))
+        hs_db.commit()
+        db_curs.close()
+
     # Delete ingredient switch functions
     def h_del():
         nonlocal next_screen, hs_db, raw_data
@@ -621,6 +633,14 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         next_screen = 'wat'
         db_curs = hs_db.cursor()
         db_curs.execute('DELETE FROM water WHERE water_id = {}'.format(raw_data[0]))
+        hs_db.commit()
+        db_curs.close()
+
+    def m_del():
+        nonlocal next_screen, hs_db, raw_data
+        next_screen = 'msc'
+        db_curs = hs_db.cursor()
+        db_curs.execute('DELETE FROM misc WHERE misc_id = {}'.format(raw_data[0]))
         hs_db.commit()
         db_curs.close()
 
@@ -789,7 +809,9 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         'ferm_del': f_del,
         'ferm_update': f_up,
         'wat_del': w_del,
-        'wat_update': w_up
+        'wat_update': w_up,
+        'msc_del': m_del,
+        'msc_update': m_up
     }
 
     menu_case = {
@@ -826,7 +848,9 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         'ferm_srch': 'ferm',
         'wat': 'wat',
         'wat_det': 'wat',
-        'wat_srch': 'wat'
+        'wat_srch': 'wat',
+        'msc_det': 'msc',
+        'msc_srch': 'msc'
     }
 
     # loop until a valid next screen is selected or through a create screen
