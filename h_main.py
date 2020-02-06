@@ -105,6 +105,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     wadd_head = 'Create Water'
     mlist_head = 'Misc Select'
     madd_head = 'Create Misc'
+    iall_head = 'Inventory: ALL'
 
     # prebuilt prompts
     add_prompt = 'Select Detail to Edit: '
@@ -113,6 +114,7 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
     flist_prompt = 'Select Fermentable/Adjunct: '
     wlist_prompt = 'Select Water: '
     mlist_prompt = 'Select Misc: '
+    iall_prompt = 'Select Ingredient: '
 
     # Create ingredient switch functions
     def h_name():
@@ -657,6 +659,36 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
         main_prompt = 'Select Menu: '
         return [next_screen, main_head, main_body, main_prompt]
 
+    def inv_menu():
+        nonlocal next_screen
+        inv_head = 'Inventory Filter'
+        inv_body = [(None, 'All'), (None, 'Hops'), (None, 'Yeast'), (None, 'Fermentables & Adjuncts'), (None, 'Water'), (None, 'Miscellaneous'), (None, 'Main Menu')]
+        inv_prompt = 'Select Filter: '
+        return [next_screen, inv_head, inv_body, inv_prompt]
+
+    def all_inv():
+        nonlocal next_screen, hs_db, iall_head, iall_prompt
+        inv_body = draw.get_body(next_screen, 'all', hs_db)
+        count = 0
+        for i in inv_body:
+            j = list(i)
+            if len(j) == 3:
+                if j[2] == 'f':
+                    j[2] = 'Fermentable/Adjunct'
+                elif j[2] == 'h':
+                    j[2] = 'Hop'
+                elif j[2] == 'm':
+                    j[2] = "Miscellaneous"
+                elif j[2] == 'w':
+                    j[2] = 'Water'
+                elif j[2] == 'y':
+                    j[2] = 'Yeast'
+                else:
+                    j[2] = 'ERROR'
+            inv_body[count] = tuple(j)
+            count += 1
+        return [next_screen, iall_head, inv_body, iall_prompt]
+
     def ing_menu():
         nonlocal next_screen
         ing_head = 'Ingredients'
@@ -816,6 +848,8 @@ def draw_list(screen, raw_data, cur_screen, hs_db):
 
     menu_case = {
         'main': main_menu,
+        'inv': inv_menu,
+        'all_inv': all_inv,
         'ing': ing_menu,
         'hop_add': h_add,
         'yst_add': y_add,
